@@ -1,0 +1,218 @@
+2021-09-16 16:23:24  INFO: HikariPool-1 - Starting...
+2021-09-16 16:23:24  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6bb4dd34
+2021-09-16 16:23:24  INFO: HikariPool-1 - Start completed.
+2021-09-16 16:23:25  INFO: Clearing database change log checksums
+2021-09-16 16:23:26  INFO: Successfully acquired change log lock
+2021-09-16 16:23:26  INFO: Creating database history table with name: traccar.DATABASECHANGELOG
+2021-09-16 16:23:28  INFO: Successfully released change log lock
+2021-09-16 16:23:28  INFO: Successfully acquired change log lock
+2021-09-16 16:23:28  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2021-09-16 16:23:28  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2021-09-16 16:23:29  INFO: Reading from traccar.DATABASECHANGELOG
+2021-09-16 16:23:30  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2021-09-16 16:23:31  INFO: Table tc_attributes created
+2021-09-16 16:23:32  INFO: Table tc_calendars created
+2021-09-16 16:23:34  INFO: Table tc_commands created
+2021-09-16 16:23:35  INFO: Table tc_device_attribute created
+2021-09-16 16:23:36  INFO: Table tc_device_command created
+2021-09-16 16:23:36  INFO: Table tc_device_driver created
+2021-09-16 16:23:37  INFO: Table tc_device_geofence created
+2021-09-16 16:23:38  INFO: Table tc_device_maintenance created
+2021-09-16 16:23:39  INFO: Table tc_device_notification created
+2021-09-16 16:23:40  INFO: Table tc_devices created
+2021-09-16 16:23:41  INFO: Table tc_drivers created
+2021-09-16 16:23:41  INFO: Table tc_events created
+2021-09-16 16:23:42  INFO: Table tc_geofences created
+2021-09-16 16:23:43  INFO: Table tc_group_attribute created
+2021-09-16 16:23:43  INFO: Table tc_group_command created
+2021-09-16 16:23:44  INFO: Table tc_group_driver created
+2021-09-16 16:23:45  INFO: Table tc_group_geofence created
+2021-09-16 16:23:46  INFO: Table tc_group_maintenance created
+2021-09-16 16:23:47  INFO: Table tc_group_notification created
+2021-09-16 16:23:47  INFO: Table tc_groups created
+2021-09-16 16:23:48  INFO: Table tc_maintenances created
+2021-09-16 16:23:49  INFO: Table tc_notifications created
+2021-09-16 16:23:49  INFO: Table tc_positions created
+2021-09-16 16:23:50  INFO: Table tc_servers created
+2021-09-16 16:23:51  INFO: Table tc_statistics created
+2021-09-16 16:23:51  INFO: Table tc_user_attribute created
+2021-09-16 16:23:52  INFO: Table tc_user_calendar created
+2021-09-16 16:23:53  INFO: Table tc_user_command created
+2021-09-16 16:23:54  INFO: Table tc_user_device created
+2021-09-16 16:23:54  INFO: Table tc_user_driver created
+2021-09-16 16:23:55  INFO: Table tc_user_geofence created
+2021-09-16 16:23:56  INFO: Table tc_user_group created
+2021-09-16 16:23:56  INFO: Table tc_user_maintenance created
+2021-09-16 16:23:57  INFO: Table tc_user_notification created
+2021-09-16 16:23:58  INFO: Table tc_user_user created
+2021-09-16 16:23:59  INFO: Table tc_users created
+2021-09-16 16:24:01  INFO: Foreign key constraint added to tc_device_command (commandid)
+2021-09-16 16:24:03  INFO: Foreign key constraint added to tc_device_command (deviceid)
+2021-09-16 16:24:05  INFO: Foreign key constraint added to tc_device_driver (deviceid)
+2021-09-16 16:24:08  INFO: Foreign key constraint added to tc_device_driver (driverid)
+2021-09-16 16:24:10  INFO: Foreign key constraint added to tc_device_geofence (deviceid)
+2021-09-16 16:24:12  INFO: Foreign key constraint added to tc_device_geofence (geofenceid)
+2021-09-16 16:24:15  INFO: Foreign key constraint added to tc_device_maintenance (deviceid)
+2021-09-16 16:24:17  INFO: Foreign key constraint added to tc_device_maintenance (maintenanceid)
+2021-09-16 16:24:19  INFO: Foreign key constraint added to tc_device_notification (deviceid)
+2021-09-16 16:24:21  INFO: Foreign key constraint added to tc_device_notification (notificationid)
+2021-09-16 16:24:23  INFO: Foreign key constraint added to tc_devices (groupid)
+2021-09-16 16:24:25  INFO: Foreign key constraint added to tc_events (deviceid)
+2021-09-16 16:24:27  INFO: Foreign key constraint added to tc_geofences (calendarid)
+2021-09-16 16:24:29  INFO: Foreign key constraint added to tc_group_attribute (attributeid)
+2021-09-16 16:24:31  INFO: Foreign key constraint added to tc_group_attribute (groupid)
+2021-09-16 16:24:33  INFO: Foreign key constraint added to tc_group_command (commandid)
+2021-09-16 16:24:36  INFO: Foreign key constraint added to tc_group_command (groupid)
+2021-09-16 16:24:38  INFO: Foreign key constraint added to tc_group_driver (driverid)
+2021-09-16 16:24:41  INFO: Foreign key constraint added to tc_group_driver (groupid)
+2021-09-16 16:24:43  INFO: Foreign key constraint added to tc_group_geofence (geofenceid)
+2021-09-16 16:24:45  INFO: Foreign key constraint added to tc_group_geofence (groupid)
+2021-09-16 16:24:47  INFO: Foreign key constraint added to tc_group_maintenance (groupid)
+2021-09-16 16:24:49  INFO: Foreign key constraint added to tc_group_maintenance (maintenanceid)
+2021-09-16 16:24:51  INFO: Foreign key constraint added to tc_group_notification (groupid)
+2021-09-16 16:24:54  INFO: Foreign key constraint added to tc_group_notification (notificationid)
+2021-09-16 16:24:56  INFO: Foreign key constraint added to tc_notifications (calendarid)
+2021-09-16 16:24:59  INFO: Foreign key constraint added to tc_positions (deviceid)
+2021-09-16 16:25:01  INFO: Foreign key constraint added to tc_user_attribute (attributeid)
+2021-09-16 16:25:03  INFO: Foreign key constraint added to tc_user_attribute (userid)
+2021-09-16 16:25:05  INFO: Foreign key constraint added to tc_user_calendar (calendarid)
+2021-09-16 16:25:08  INFO: Foreign key constraint added to tc_user_calendar (userid)
+2021-09-16 16:25:10  INFO: Foreign key constraint added to tc_user_command (commandid)
+2021-09-16 16:25:13  INFO: Foreign key constraint added to tc_user_command (userid)
+2021-09-16 16:25:15  INFO: Foreign key constraint added to tc_device_attribute (attributeid)
+2021-09-16 16:25:18  INFO: Foreign key constraint added to tc_device_attribute (deviceid)
+2021-09-16 16:25:21  INFO: Foreign key constraint added to tc_user_device (deviceid)
+2021-09-16 16:25:23  INFO: Foreign key constraint added to tc_user_device (userid)
+2021-09-16 16:25:26  INFO: Foreign key constraint added to tc_user_driver (driverid)
+2021-09-16 16:25:29  INFO: Foreign key constraint added to tc_user_driver (userid)
+2021-09-16 16:25:31  INFO: Foreign key constraint added to tc_user_geofence (geofenceid)
+2021-09-16 16:25:34  INFO: Foreign key constraint added to tc_user_geofence (userid)
+2021-09-16 16:25:36  INFO: Foreign key constraint added to tc_user_group (groupid)
+2021-09-16 16:25:38  INFO: Foreign key constraint added to tc_user_group (userid)
+2021-09-16 16:25:40  INFO: Foreign key constraint added to tc_user_maintenance (maintenanceid)
+2021-09-16 16:25:43  INFO: Foreign key constraint added to tc_user_maintenance (userid)
+2021-09-16 16:25:45  INFO: Foreign key constraint added to tc_user_notification (notificationid)
+2021-09-16 16:25:48  INFO: Foreign key constraint added to tc_user_notification (userid)
+2021-09-16 16:25:51  INFO: Foreign key constraint added to tc_user_user (userid)
+2021-09-16 16:25:51  INFO: New row inserted into tc_servers
+2021-09-16 16:25:51  INFO: New row inserted into tc_users
+2021-09-16 16:25:51  INFO: ChangeSet changelog-4.0-clean::changelog-4.0-clean::author ran successfully in 140946ms
+2021-09-16 16:25:53  INFO: Foreign key constraint added to tc_groups (groupid)
+2021-09-16 16:25:55  INFO: Foreign key constraint added to tc_user_user (manageduserid)
+2021-09-16 16:25:55  INFO: ChangeSet changelog-4.0-clean::changelog-4.0-clean-common::author ran successfully in 4438ms
+2021-09-16 16:25:56  INFO: Marking ChangeSet: changelog-3.3::changelog-3.3::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:56  INFO: Marking ChangeSet: changelog-3.5::changelog-3.5::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:56  INFO: Marking ChangeSet: changelog-3.6::changelog-3.6::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:56  INFO: Marking ChangeSet: changelog-3.7::changelog-3.7::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:57  INFO: Marking ChangeSet: changelog-3.7::changelog-3.7-notmssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:57  INFO: Marking ChangeSet: changelog-3.8::changelog-3.8::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:57  INFO: Marking ChangeSet: changelog-3.9::changelog-3.9::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:57  INFO: Marking ChangeSet: changelog-3.10::changelog-3.10::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:57  INFO: Marking ChangeSet: changelog-3.10::changelog-3.10-notmssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:58  INFO: Marking ChangeSet: changelog-3.10::changelog-3.10-mssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:58  INFO: Marking ChangeSet: changelog-3.10::changelog-3.7-mssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:58  INFO: Marking ChangeSet: changelog-3.11::changelog-3.11::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:58  INFO: Marking ChangeSet: changelog-3.12::changelog-3.12::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:58  INFO: Marking ChangeSet: changelog-3.12::changelog-3.12-notmssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:59  INFO: Marking ChangeSet: changelog-3.12::changelog-3.12-pgsql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:59  INFO: Marking ChangeSet: changelog-3.14::changelog-3.14::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:59  INFO: Marking ChangeSet: changelog-3.15::changelog-3.15::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:25:59  INFO: Marking ChangeSet: changelog-3.16::changelog-3.16::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:00  INFO: Marking ChangeSet: changelog-3.17::changelog-3.3-admin::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:00  INFO: Marking ChangeSet: changelog-3.17::changelog-3.17::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:00  INFO: Marking ChangeSet: changelog-4.0::changelog-4.0-pre::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:00  INFO: Marking ChangeSet: changelog-4.0::changelog-4.0-common::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:01  INFO: Marking ChangeSet: changelog-4.0::changelog-4.0-pg::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:01  INFO: Marking ChangeSet: changelog-4.0::changelog-4.0::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:01  INFO: Marking ChangeSet: changelog-4.0::changelog-4.0-renaming::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : Not precondition failed
+
+2021-09-16 16:26:02  INFO: Marking ChangeSet: changelog-4.1::changelog-4.1-mssql::author ran despite precondition failure due to onFail='MARK_RAN': 
+          ../schema/changelog-master.xml : DBMS Precondition failed: expected mssql, got mysql
+
+2021-09-16 16:26:03  INFO: Index user_device_user_id created
+2021-09-16 16:26:04  INFO: Index position_deviceid_fixtime created
+2021-09-16 16:26:04  INFO: ChangeSet changelog-4.7::changelog-4.7::author ran successfully in 1822ms
+2021-09-16 16:26:05  INFO: Index event_deviceid_servertime created
+2021-09-16 16:26:05  INFO: ChangeSet changelog-4.9::changelog-4.9::author ran successfully in 847ms
+2021-09-16 16:26:05  INFO: Columns protocols(VARCHAR(4096)) added to tc_statistics
+2021-09-16 16:26:05  INFO: ChangeSet changelog-4.10::changelog-4.10::author ran successfully in 527ms
+2021-09-16 16:26:06  INFO: Columns announcement(VARCHAR(4000)) added to tc_servers
+2021-09-16 16:26:06  INFO: ChangeSet changelog-4.11::changelog-4.11::author ran successfully in 636ms
+2021-09-16 16:26:09  INFO: Column tc_events.servertime renamed to eventtime
+2021-09-16 16:26:09  INFO: ChangeSet changelog-4.13::changelog-4.13::author ran successfully in 2318ms
+2021-09-16 16:26:09  INFO: Table tc_orders created
+2021-09-16 16:26:10  INFO: Unique constraint added to tc_orders(uniqueid)
+2021-09-16 16:26:11  INFO: Table tc_user_order created
+2021-09-16 16:26:13  INFO: Foreign key constraint added to tc_user_order (userid)
+2021-09-16 16:26:15  INFO: Foreign key constraint added to tc_user_order (orderid)
+2021-09-16 16:26:16  INFO: Table tc_group_order created
+2021-09-16 16:26:19  INFO: Foreign key constraint added to tc_group_order (groupid)
+2021-09-16 16:26:21  INFO: Foreign key constraint added to tc_group_order (orderid)
+2021-09-16 16:26:22  INFO: Table tc_device_order created
+2021-09-16 16:26:24  INFO: Foreign key constraint added to tc_device_order (deviceid)
+2021-09-16 16:26:26  INFO: Foreign key constraint added to tc_device_order (orderid)
+2021-09-16 16:26:26  INFO: ChangeSet changelog-4.15::changelog-4.15::author ran successfully in 17348ms
+2021-09-16 16:26:26  INFO: Successfully released change log lock
+2021-09-16 16:26:28  INFO: Operating system name: Linux version: 5.11.0-34-generic architecture: amd64
+2021-09-16 16:26:28  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-09-16 16:26:28  INFO: Memory limit heap: 964mb non-heap: 0mb
+2021-09-16 16:26:28  INFO: Character encoding: UTF-8 charset: UTF-8
+2021-09-16 16:26:28  INFO: Version: 4.14
+2021-09-16 16:26:28  INFO: Starting server...
+2021-09-16 16:26:28  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-09-16 16:26:29  INFO: Started o.t.w.@3e52ed5d{/,null,AVAILABLE}
+2021-09-16 16:26:29  INFO: Session workerName=node0
+2021-09-16 16:26:33  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2021-09-16 16:26:33  INFO: Started o.e.j.s.ServletContextHandler@3c3cd13a{/,null,AVAILABLE}
+2021-09-16 16:26:33  INFO: Started ServerConnector@6631cb64{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2021-09-16 16:26:33  INFO: Started Server@37314843{STARTING}[10.0.6,sto=0] @190121ms
+2021-09-16 16:28:31  INFO: user: 0, action: create, object: user, id: 2
