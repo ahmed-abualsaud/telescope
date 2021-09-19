@@ -179,6 +179,8 @@ org/traccar/protocol/EasyTrackProtocolDecoder.java
 org/traccar/protocol/DishaProtocol.java
  org.traccar.protocol.DishaProtocol
  org.traccar.protocol.DishaProtocol$1
+org/traccar/api/SecurityRequestFilter.java
+ org.traccar.api.SecurityRequestFilter
 org/traccar/protocol/AutoFonFrameDecoder.java
  org.traccar.protocol.AutoFonFrameDecoder
 org/traccar/protocol/TotemProtocol.java
@@ -1129,8 +1131,9 @@ org/traccar/model/Order.java
  org.traccar.model.Order
 org/traccar/protocol/WatchProtocolEncoder.java
  org.traccar.protocol.WatchProtocolEncoder
-org/traccar/api/resource/DeviceResource.java
- org.traccar.api.resource.DeviceResource
+org/traccar/protocol/ArknavProtocol.java
+ org.traccar.protocol.ArknavProtocol
+ org.traccar.protocol.ArknavProtocol$1
 org/traccar/geocoder/HereGeocoder.java
  org.traccar.geocoder.HereGeocoder
 org/traccar/protocol/AplicomProtocol.java
@@ -2069,8 +2072,8 @@ org/traccar/protocol/RuptelaProtocolEncoder.java
  org.traccar.protocol.RuptelaProtocolEncoder
 org/traccar/protocol/Pt215ProtocolDecoder.java
  org.traccar.protocol.Pt215ProtocolDecoder
-org/traccar/api/resource/UserResource.java
- org.traccar.api.resource.UserResource
+org/traccar/protocol/Pt502FrameDecoder.java
+ org.traccar.protocol.Pt502FrameDecoder
 org/traccar/protocol/Ivt401Protocol.java
  org.traccar.protocol.Ivt401Protocol
  org.traccar.protocol.Ivt401Protocol$1
@@ -2408,8 +2411,7 @@ org/traccar/protocol/Gl200BinaryProtocolDecoder.java
 org/traccar/protocol/GnxProtocol.java
  org.traccar.protocol.GnxProtocol
  org.traccar.protocol.GnxProtocol$1
-org/traccar/protocol/Pt502FrameDecoder.java
- org.traccar.protocol.Pt502FrameDecoder
-org/traccar/protocol/ArknavProtocol.java
- org.traccar.protocol.ArknavProtocol
- org.traccar.protocol.ArknavProtocol$1
+org/traccar/api/resource/DeviceResource.java
+ org.traccar.api.resource.DeviceResource
+org/traccar/api/resource/UserResource.java
+ org.traccar.api.resource.UserResource

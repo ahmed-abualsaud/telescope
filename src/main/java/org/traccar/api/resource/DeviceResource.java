@@ -30,6 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.PathParam;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -46,8 +47,9 @@ public class DeviceResource extends BaseObjectResource<Device> {
         super(Device.class);
     }
 
+    @Path("{id}")
     @GET
-    public Collection<Device> get(
+    public Collection<Device> get(@PathParam("id") long id,
             @QueryParam("all") boolean all, @QueryParam("userId") long userId,
             @QueryParam("uniqueId") List<String> uniqueIds,
             @QueryParam("id") List<Long> deviceIds) throws SQLException {

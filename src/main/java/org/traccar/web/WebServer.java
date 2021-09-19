@@ -48,6 +48,7 @@ import org.traccar.api.CorsResponseFilter;
 import org.traccar.api.MediaFilter;
 import org.traccar.api.ObjectMapperProvider;
 import org.traccar.api.ResourceErrorHandler;
+import org.traccar.api.SecurityRequestFilter;
 import org.traccar.api.resource.ServerResource;
 import org.traccar.config.Keys;
 
@@ -170,7 +171,8 @@ public class WebServer {
 
         ResourceConfig resourceConfig = new ResourceConfig();
         resourceConfig.registerClasses(
-                JacksonFeature.class, ObjectMapperProvider.class, ResourceErrorHandler.class, CorsResponseFilter.class, DateParameterConverterProvider.class);
+                JacksonFeature.class, ObjectMapperProvider.class, ResourceErrorHandler.class,
+                SecurityRequestFilter.class, CorsResponseFilter.class, DateParameterConverterProvider.class);
         resourceConfig.packages(ServerResource.class.getPackage().getName());
         servletHandler.addServlet(new ServletHolder(new ServletContainer(resourceConfig)), "/api/*");
     }

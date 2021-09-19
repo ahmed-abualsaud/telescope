@@ -20,7 +20,6 @@ import org.traccar.api.BaseObjectResource;
 import org.traccar.database.UsersManager;
 import org.traccar.helper.LogAction;
 import org.traccar.model.User;
-import org.traccar.helper.DataConverter;
 import org.traccar.helper.ServletHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-import java.nio.charset.Charset;
 import java.util.*;
 
 @Path("users")
@@ -77,14 +75,20 @@ public class UserResource extends BaseObjectResource<User> {
         Context.getUsersManager().addItem(entity);
         LogAction.create(getUserId(), entity);
         
-        String credentials = entity.getEmail() + ":" + entity.getPasswordToAdmin();
-        String userToken = DataConverter.printBase64(credentials.getBytes(Charset.forName("UTF-8")));
+        User user = Context.getPermissionsManager().login(entity.getEmail(), entity.getPasswordToAdmin());
         
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("userId", entity.getId());
-        response.put("userToken", userToken);
-        
-        return Response.ok(response).build();
+        if (user != null) {
+            LogAction.login(user.getId());
+
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("userId", user.getId());
+
+            return Response.ok(response).build();
+            
+        } else {
+            LogAction.failedLogin(ServletHelper.retrieveRemoteAddress(request));
+            throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
+        }
     }
 
     @Path("login")
@@ -106,12 +110,8 @@ public class UserResource extends BaseObjectResource<User> {
         if (user != null) {
             LogAction.login(user.getId());
 
-            String credentials = email + ":" + password;
-            String userToken = DataConverter.printBase64(credentials.getBytes(Charset.forName("UTF-8")));
-
             Map<String, Object> response = new LinkedHashMap<>();
             response.put("userId", user.getId());
-            response.put("userToken", userToken);
 
             return Response.ok(response).build();
             
