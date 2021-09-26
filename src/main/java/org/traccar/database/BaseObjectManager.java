@@ -174,5 +174,8 @@ public class BaseObjectManager<T extends BaseModel> {
             readUnlock();
         }
     }
-
+    
+    public boolean exists(String columnName, Object value) throws SQLException {
+        return dataManager.exists(columnName, value, baseClass);
+    }
 }

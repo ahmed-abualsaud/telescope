@@ -15,6 +15,7 @@
  */
 package org.traccar.api.resource;
 
+import org.traccar.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.database.UsersManager;
@@ -23,7 +24,6 @@ import org.traccar.model.User;
 import org.traccar.helper.ServletHelper;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.WebApplicationException;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -37,7 +37,7 @@ import java.sql.SQLException;
 
 import java.util.*;
 
-@Path("users")
+@Path("partner")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource extends BaseObjectResource<User> {
@@ -62,7 +62,7 @@ public class UserResource extends BaseObjectResource<User> {
         } else if (Context.getPermissionsManager().getUserManager(getUserId())) {
             result = usersManager.getManagedItems(getUserId());
         } else {
-            throw new SecurityException("Admin or manager access required");
+            throw new SecurityException("Unauthorized Access");
         }
         return usersManager.getItems(result);
     }
@@ -72,55 +72,75 @@ public class UserResource extends BaseObjectResource<User> {
     @POST
     public Response register(User entity) throws SQLException {
     
-        Context.getUsersManager().addItem(entity);
-        LogAction.create(getUserId(), entity);
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("email", entity.getEmail());
+        request.put("phone", entity.getPhone());
         
-        User user = Context.getPermissionsManager().login(entity.getEmail(), entity.getPasswordToAdmin());
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("email", "unique:user|required");
+        validationString.put("phone", "unique:user|required");
         
-        if (user != null) {
-            LogAction.login(user.getId());
-
-            Map<String, Object> response = new LinkedHashMap<>();
-            response.put("userId", user.getId());
-
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            Context.getUsersManager().addItem(entity);
+            LogAction.create(getUserId(), entity);
+            Map<String, Object> data = new LinkedHashMap<>();
+            data.put("userId", entity.getId());
+            response.put("success", true);
+            response.put("data", data);
             return Response.ok(response).build();
             
         } else {
-            LogAction.failedLogin(ServletHelper.retrieveRemoteAddress(request));
-            throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
     }
 
-    @Path("login")
+    @Path("id")
     @PermitAll
     @POST
     public Response login(User entity) throws SQLException {
-    	
-    	String email = null;
     
-        if(entity.getName() != null && entity.getName().equals("admin")) {
-             email = entity.getName();
-        } else {
-             email = entity.getEmail();
-        }
-
-        String password = entity.getPasswordToAdmin();
-        User user = Context.getPermissionsManager().login(email, password);
-
-        if (user != null) {
-            LogAction.login(user.getId());
-
-            Map<String, Object> response = new LinkedHashMap<>();
-            response.put("userId", user.getId());
-
-            return Response.ok(response).build();
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("email", entity.getEmail());
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("email", "exists:user|required");
+    
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            String email = null;
+            if(entity.getName() != null && entity.getName().equals("admin")) {
+                email = entity.getName();
+            } else {
+                email = entity.getEmail();
+            }
+            Map<String, Object> data = new LinkedHashMap<>();
+            String password = entity.getPasswordToAdmin();
+            User user = Context.getPermissionsManager().login(email, password);
+            if (user != null) {
+                LogAction.login(user.getId());
+                data.put("userId", user.getId());
+                response.put("success", true);
+                response.put("data", data);
+                return Response.ok(response).build();
+            } else {
+                data.put("message", "Invalid Password");
+                response.put("success", false);
+                response.put("error", data);
+                return Response.status(Response.Status.NOT_FOUND).entity(response).build();
+            }
             
         } else {
-            LogAction.failedLogin(ServletHelper.retrieveRemoteAddress(request));
-            throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-
-
     }
 
 }

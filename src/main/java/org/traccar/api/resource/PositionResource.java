@@ -15,10 +15,16 @@
  */
 package org.traccar.api.resource;
 
+import org.traccar.database.DeviceManager;
+
+import org.traccar.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseResource;
 import org.traccar.model.Position;
+import org.traccar.model.Device;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,39 +32,49 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Path("positions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PositionResource extends BaseResource {
 
+    @Path("partner/{partnerId}")
     @GET
-    public Collection<Position> getJson(
-            @QueryParam("deviceId") long deviceId, @QueryParam("id") List<Long> positionIds,
+    public Response getJson(@PathParam("partnerId") long partnerId,
+            @QueryParam("uniqueId") String uniqueId,
             @QueryParam("from") Date from, @QueryParam("to") Date to)
             throws SQLException {
-        if (!positionIds.isEmpty()) {
-            ArrayList<Position> positions = new ArrayList<>();
-            for (Long positionId : positionIds) {
-                Position position = Context.getDataManager().getObject(Position.class, positionId);
-                Context.getPermissionsManager().checkDevice(getUserId(), position.getDeviceId());
-                positions.add(position);
-            }
-            return positions;
-        } else if (deviceId == 0) {
-            return Context.getDeviceManager().getInitialState(getUserId());
-        } else {
-            Context.getPermissionsManager().checkDevice(getUserId(), deviceId);
+            
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("uniqueId", uniqueId);
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("uniqueId", "exists:device|required");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            Collection<Position> positions;
+            DeviceManager deviceManager = Context.getDeviceManager();
+            Device device = deviceManager.getByUniqueId(uniqueId);
+            Context.getPermissionsManager().checkDevice(partnerId, device.getId());
             if (from != null && to != null) {
-                return Context.getDataManager().getPositions(deviceId, from, to);
+                positions = Context.getDataManager().getPositions(device.getId(), from, to);
             } else {
-                return Collections.singleton(Context.getDeviceManager().getLastPosition(deviceId));
+                positions = Collections.singleton(Context.getDeviceManager().getLastPosition(device.getId()));
             }
+            response.put("success", true);
+            response.put("data", positions);
+            return Response.ok(response).build();
+            
+        } else {
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
     }
 

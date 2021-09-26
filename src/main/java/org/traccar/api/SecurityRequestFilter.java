@@ -15,36 +15,27 @@
  */
 package org.traccar.api;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.traccar.Context;
 import org.traccar.Main;
-import org.traccar.api.resource.SessionResource;
 import org.traccar.database.StatisticsManager;
 import org.traccar.helper.DataConverter;
 import org.traccar.model.User;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
+import java.util.*;
+
 public class SecurityRequestFilter implements ContainerRequestFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityRequestFilter.class);
-
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String WWW_AUTHENTICATE = "WWW-Authenticate";
-    public static final String BASIC_REALM = "Basic realm=\"api\"";
-    public static final String X_REQUESTED_WITH = "X-Requested-With";
-    public static final String XML_HTTP_REQUEST = "XMLHttpRequest";
 
     public static String[] decodeBasicAuth(String auth) {
         auth = auth.replaceFirst("[B|b]asic ", "");
@@ -55,70 +46,49 @@ public class SecurityRequestFilter implements ContainerRequestFilter {
         return null;
     }
 
-    @javax.ws.rs.core.Context
-    private HttpServletRequest request;
-
-    @javax.ws.rs.core.Context
-    private ResourceInfo resourceInfo;
-
     @Override
     public void filter(ContainerRequestContext requestContext) {
-    
-    	if (requestContext.getUriInfo().getPath().equals("/users/register") || 
-    	    requestContext.getUriInfo().getPath().equals("/users/login") ) {
-            return;
-        }
 
         if (requestContext.getMethod().equals("OPTIONS")) {
             return;
         }
 
         SecurityContext securityContext = null;
+        String authHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> data = new LinkedHashMap<>();
+        
+        if (authHeader != null) {
+            String[] auth = decodeBasicAuth(authHeader);
 
-        try {
-
-            String authHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
-            if (authHeader != null) {
-
+            if(auth != null && auth[0].equals("qruz") && auth[1].equals("123456789")) {
                 try {
-                    String[] auth = decodeBasicAuth(authHeader);
-                    User user = Context.getPermissionsManager().login(auth[0], auth[1]);
+                    User user = Context.getPermissionsManager().login("admin", "admin");
                     if (user != null) {
                         Main.getInjector().getInstance(StatisticsManager.class).registerRequest(user.getId());
                         securityContext = new UserSecurityContext(new UserPrincipal(user.getId()));
+                        requestContext.setSecurityContext(securityContext);
+                        return;
+                    } else {
+                        data.put("message", "Provided user credentials not found");
                     }
                 } catch (SQLException e) {
-                    throw new WebApplicationException(e);
+                    data.put("message", e.getMessage());
+                    response.put("success", false);
+                    response.put("error", data);
+                    requestContext.abortWith(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).build());
+                    return;
                 }
-
-            } else if (request.getSession() != null) {
-
-                Long userId = (Long) request.getSession().getAttribute(SessionResource.USER_ID_KEY);
-                if (userId != null) {
-                    Context.getPermissionsManager().checkUserEnabled(userId);
-                    Main.getInjector().getInstance(StatisticsManager.class).registerRequest(userId);
-                    securityContext = new UserSecurityContext(new UserPrincipal(userId));
-                }
-
+            } else {
+                data.put("message", "Invalid authentication token");
             }
-
-        } catch (SecurityException e) {
-            LOGGER.warn("Authentication error", e);
-        }
-
-        if (securityContext != null) {
-            requestContext.setSecurityContext(securityContext);
         } else {
-            Method method = resourceInfo.getResourceMethod();
-            if (!method.isAnnotationPresent(PermitAll.class)) {
-                Response.ResponseBuilder responseBuilder = Response.status(Response.Status.UNAUTHORIZED);
-                if (!XML_HTTP_REQUEST.equals(request.getHeader(X_REQUESTED_WITH))) {
-                    responseBuilder.header(WWW_AUTHENTICATE, BASIC_REALM);
-                }
-                throw new WebApplicationException(responseBuilder.build());
-            }
+            data.put("message", "Please set the authentication header");
         }
-
+        response.put("success", false);
+        response.put("error", data);
+        requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(response).build());
+        return;
     }
 
 }

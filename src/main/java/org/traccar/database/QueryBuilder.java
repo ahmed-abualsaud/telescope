@@ -254,6 +254,23 @@ public final class QueryBuilder {
         }
         return this;
     }
+    
+    public QueryBuilder setGeneric(String name, Object value) throws SQLException {
+         for (int i : indexes(name)) {
+            try {
+                if (value == null) {
+                    statement.setNull(i, Types.OTHER);
+                } else {
+                    statement.setObject(i, value);
+                }
+            } catch (SQLException error) {
+                statement.close();
+                connection.close();
+                throw error;
+            }
+        }
+        return this;
+    }
 
     public QueryBuilder setObject(Object object) throws SQLException {
 

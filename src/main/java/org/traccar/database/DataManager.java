@@ -448,5 +448,15 @@ public class DataManager {
                 .setLong("id", entityId)
                 .executeUpdate();
     }
-
+    
+    public boolean exists(String columnName, Object value, Class<? extends BaseModel> clazz) throws SQLException {
+        String query = "SELECT id FROM " + getObjectsTableName(clazz) + " WHERE " + columnName + " = :" + columnName;
+        BaseModel entity = QueryBuilder.create(dataSource, query)
+                .setGeneric(columnName, value)
+                .executeQuerySingle(clazz);
+        if (entity == null) {
+            return false;
+        }
+        return true;
+    }
 }

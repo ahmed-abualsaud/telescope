@@ -15,15 +15,18 @@
  */
 package org.traccar.api.resource;
 
+import org.traccar.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.database.DeviceManager;
 import org.traccar.helper.LogAction;
 import org.traccar.model.Device;
+import org.traccar.model.User;
 import org.traccar.model.DeviceAccumulators;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,10 +36,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.PathParam;
 
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Path("devices")
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,57 +46,91 @@ public class DeviceResource extends BaseObjectResource<Device> {
     public DeviceResource() {
         super(Device.class);
     }
-
-    @Path("{id}")
+    
+    @Path("all")
     @GET
-    public Collection<Device> get(@PathParam("id") long id,
-            @QueryParam("all") boolean all, @QueryParam("userId") long userId,
-            @QueryParam("uniqueId") List<String> uniqueIds,
-            @QueryParam("id") List<Long> deviceIds) throws SQLException {
+    public Response list() {
         DeviceManager deviceManager = Context.getDeviceManager();
-        Set<Long> result;
-        if (all) {
-            if (Context.getPermissionsManager().getUserAdmin(getUserId())) {
-                result = deviceManager.getAllItems();
+        Set<Long> result = deviceManager.getAllItems();
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("success", true);
+        response.put("data", deviceManager.getItems(result));
+        return Response.ok(response).build();
+    }
+
+    @Path("partner/{partnerId}")
+    @GET
+    public Response get(@PathParam("partnerId") long partnerId, 
+    		@QueryParam("uniqueId") List<String> uniqueIds) throws SQLException {
+    		
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("uniqueId", uniqueIds);
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("uniqueId", "exists:device|multiple");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            DeviceManager deviceManager = Context.getDeviceManager();
+            Set<Long> result;
+            if (uniqueIds.isEmpty()) {
+                result = deviceManager.getUserItems(partnerId);
             } else {
-                Context.getPermissionsManager().checkManager(getUserId());
-                result = deviceManager.getManagedItems(getUserId());
+                result = new HashSet<>();
+                for (String uniqueId : uniqueIds) {
+                    Device device = deviceManager.getByUniqueId(uniqueId);
+                    Context.getPermissionsManager().checkDevice(partnerId, device.getId());
+                    result.add(device.getId());
+                }
             }
-        } else if (uniqueIds.isEmpty() && deviceIds.isEmpty()) {
-            if (userId == 0) {
-                userId = getUserId();
-            }
-            Context.getPermissionsManager().checkUser(getUserId(), userId);
-            if (Context.getPermissionsManager().getUserAdmin(getUserId())) {
-                result = deviceManager.getAllUserItems(userId);
-            } else {
-                result = deviceManager.getUserItems(userId);
-            }
+            response.put("success", true);
+            response.put("data", deviceManager.getItems(result));
+            return Response.ok(response).build();
+            
         } else {
-            result = new HashSet<>();
-            for (String uniqueId : uniqueIds) {
-                Device device = deviceManager.getByUniqueId(uniqueId);
-                Context.getPermissionsManager().checkDevice(getUserId(), device.getId());
-                result.add(device.getId());
-            }
-            for (Long deviceId : deviceIds) {
-                Context.getPermissionsManager().checkDevice(getUserId(), deviceId);
-                result.add(deviceId);
-            }
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        return deviceManager.getItems(result);
     }
 
-    @Path("{id}/accumulators")
-    @PUT
-    public Response updateAccumulators(DeviceAccumulators entity) throws SQLException {
-        if (!Context.getPermissionsManager().getUserAdmin(getUserId())) {
-            Context.getPermissionsManager().checkManager(getUserId());
-            Context.getPermissionsManager().checkPermission(Device.class, getUserId(), entity.getDeviceId());
+    @Path("partner/{partnerId}")
+    @POST
+    public Response add(Device entity, @PathParam("partnerId") long partnerId) throws SQLException {
+    
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("name", entity.getName());
+        request.put("uniqueId", entity.getUniqueId());
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("name", "unique:device|required");
+        validationString.put("uniqueId", "unique:device|required");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            Context.getPermissionsManager().checkDeviceLimit(partnerId);
+            Context.getDeviceManager().addItem(entity);
+            LogAction.create(partnerId, entity);
+            Context.getDataManager().linkObject(User.class, partnerId, Device.class, entity.getId(), true);
+            LogAction.link(partnerId, User.class, partnerId, Device.class, entity.getId());
+            Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
+            Context.getPermissionsManager().refreshAllExtendedPermissions();
+            response.put("success", true);
+            response.put("data", entity);
+            return Response.ok(response).build();
+            
+        } else {
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        Context.getDeviceManager().resetDeviceAccumulators(entity);
-        LogAction.resetDeviceAccumulators(getUserId(), entity.getDeviceId());
-        return Response.noContent().build();
     }
-
 }
