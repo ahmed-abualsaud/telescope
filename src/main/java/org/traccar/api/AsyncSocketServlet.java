@@ -30,11 +30,11 @@ public class AsyncSocketServlet extends JettyWebSocketServlet {
         factory.setCreator((req, resp) -> {
         
             String userId = req.getParameterMap().get("userId").get(0);
+            String apiKey = req.getParameterMap().get("api_key").get(0);
 
-            if (userId != null) {
+            if (userId != null && apiKey == "cXJ1ejoxMjM0NTY3ODk=") {
             	return new AsyncSocket(Long.parseLong(userId));
             }
-            
             return null;
         });
     }

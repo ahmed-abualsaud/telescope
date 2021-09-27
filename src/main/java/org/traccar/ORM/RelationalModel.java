@@ -2,51 +2,45 @@
 
 package org.traccar.ORM;
 
-import java.lang.reflect.ParameterizedType;
+import javax.ws.rs.WebApplicationException;
 import java.beans.Introspector;
 import java.sql.SQLException;
-import org.traccar.model.BaseModel;
 import org.traccar.database.QueryBuilder;
 import org.traccar.Context;
 import java.util.*;
 
-public final class RelationalModel<T extends BaseModel> {
+public class RelationalModel<T> {
+
     protected String query;
-    public Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    protected String table = getObjectsTableName(clazz);
+    protected Class<T> clazz;
+    protected String table;
     protected Map<String, Object> queryParams = new LinkedHashMap<>();
     
     public RelationalModel() {}
+    public RelationalModel(Class<T> clazz) {
+        this.clazz = clazz;
+        this.table = getObjectsTableName(clazz);
+        this.query = "";
+    }
     
-    private static String getObjectsTableName(Class<?> baseModel) {
+    private String getObjectsTableName(Class<?> baseModel) {
         String result = "tc_" + Introspector.decapitalize(baseModel.getSimpleName());
         if (!result.endsWith("s")) {result += "s";}
         return result;
     }
     
-    public static RelationalModel select(String... columns) {
-        RelationalModel rm = new RelationalModel();
-        rm.query = "SELECT ";
-        for(String column : columns){rm.query += column + " ";}
-       rm.query += "FROM " + rm.table;
-       return rm;
-    }
-    
-    public static RelationalModel allWhere(String column, Object value) {
-        RelationalModel rm = new RelationalModel();
-        rm.query = "SELECT * FROM " + rm.table + " WHERE " + column + " = :" + column;
-        rm.queryParams.put(column, value);
-        return rm;
-    }
-    
-    public static RelationalModel allWhere(String column, String operator, Object value) {
-        RelationalModel rm = new RelationalModel();
-        rm.query = "SELECT * FROM " + rm.table + " WHERE " + column + " " + operator + " :" + column;
-        rm.queryParams.put(column, value);
-        return rm;
+    public RelationalModel select(String... columns) {
+        query = "SELECT ";
+        for(String column : columns){query += column + ", ";}
+        query = query.substring(0, query.length() - 2);
+        query += " FROM " + table;
+        return this;
     }
     
     public RelationalModel where(String column, Object value) {
+        if (!query.contains("SELECT")) {
+            query = "SELECT * FROM " + table;
+        }
         if (query.contains("WHERE")) {
             query += " AND " + column + " = :" + column;
         } else {
@@ -57,6 +51,9 @@ public final class RelationalModel<T extends BaseModel> {
     }
     
     public RelationalModel where(String column, String operator, Object value) {
+        if (!query.contains("SELECT")) {
+            query = "SELECT * FROM " + table;
+        }
         if (query.contains("WHERE")) {
             query += " AND " + column + " " + operator + " :" + column;
         } else {
@@ -66,11 +63,23 @@ public final class RelationalModel<T extends BaseModel> {
         return this;
     }
     
-    public Collection<T> get() throws SQLException {
-        QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
-        for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
-            qb = qb.setGeneric(entry.getKey(), entry.getValue());
-        }
-        return qb.executeQuery(clazz);
+    public Collection<T> get() {
+        try {
+            QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
+            for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+                qb = qb.setGeneric(entry.getKey(), entry.getValue());
+            }
+            return qb.executeQuery(clazz);
+        } catch (SQLException e) {throw new WebApplicationException(e);}
+    }
+    
+    public T first() {
+        try {
+            QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
+            for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+                qb = qb.setGeneric(entry.getKey(), entry.getValue());
+            }
+            return qb.executeQuerySingle(clazz);
+        } catch (SQLException e) {throw new WebApplicationException(e);}
     }
 }

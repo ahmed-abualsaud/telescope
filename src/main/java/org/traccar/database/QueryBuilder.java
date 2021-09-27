@@ -311,15 +311,6 @@ public final class QueryBuilder {
         void process(T object, ResultSet resultSet) throws SQLException;
     }
 
-    public <T> T executeQuerySingle(Class<T> clazz) throws SQLException {
-        Collection<T> result = executeQuery(clazz);
-        if (!result.isEmpty()) {
-            return result.iterator().next();
-        } else {
-            return null;
-        }
-    }
-
     private <T> void addProcessors(
             List<ResultSetProcessor<T>> processors,
             final Class<?> parameterType, final Method method, final String name) {
@@ -396,6 +387,15 @@ public final class QueryBuilder {
             });
         }
     }
+    
+    public <T> T executeQuerySingle(Class<T> clazz) throws SQLException {
+        Collection<T> result = executeQuery(clazz);
+        if (!result.isEmpty()) {
+            return result.iterator().next();
+        } else {
+            return null;
+        }
+    }    
 
     public <T> Collection<T> executeQuery(Class<T> clazz) throws SQLException {
         List<T> result = new LinkedList<>();

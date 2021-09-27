@@ -1,0 +1,27 @@
+2021-09-27 17:31:47  INFO: HikariPool-1 - Starting...
+2021-09-27 17:31:48  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6bb4dd34
+2021-09-27 17:31:48  INFO: HikariPool-1 - Start completed.
+2021-09-27 17:31:48  INFO: Clearing database change log checksums
+2021-09-27 17:31:49  INFO: Successfully acquired change log lock
+2021-09-27 17:31:50  INFO: Successfully released change log lock
+2021-09-27 17:31:50  INFO: Successfully acquired change log lock
+2021-09-27 17:31:50  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2021-09-27 17:31:50  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2021-09-27 17:31:51  INFO: Reading from telescope.DATABASECHANGELOG
+2021-09-27 17:31:57  INFO: Reading from telescope.DATABASECHANGELOG
+2021-09-27 17:31:57  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2021-09-27 17:31:57  INFO: Successfully released change log lock
+2021-09-27 17:31:59  INFO: Operating system name: Linux version: 5.11.0-36-generic architecture: amd64
+2021-09-27 17:31:59  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-09-27 17:31:59  INFO: Memory limit heap: 964mb non-heap: 0mb
+2021-09-27 17:31:59  INFO: Character encoding: UTF-8 charset: UTF-8
+2021-09-27 17:31:59  INFO: Version: 4.14
+2021-09-27 17:31:59  INFO: Starting server...
+2021-09-27 17:31:59  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-09-27 17:31:59  INFO: Started o.t.w.@e26a3df{/,null,AVAILABLE}
+2021-09-27 17:31:59  INFO: Session workerName=node0
+2021-09-27 17:32:00  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2021-09-27 17:32:00  INFO: Started o.e.j.s.ServletContextHandler@a1cb94{/,null,AVAILABLE}
+2021-09-27 17:32:00  INFO: Started ServerConnector@6c806c8b{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2021-09-27 17:32:00  INFO: Started Server@7bd38fed{STARTING}[10.0.6,sto=0] @13759ms
+2021-09-27 17:32:09  INFO: user: 3, action: login

@@ -35,7 +35,7 @@ import java.util.*;
 
 public class SecurityRequestFilter implements ContainerRequestFilter {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String API_KEY = "api_key";
 
     public static String[] decodeBasicAuth(String auth) {
         auth = auth.replaceFirst("[B|b]asic ", "");
@@ -54,14 +54,12 @@ public class SecurityRequestFilter implements ContainerRequestFilter {
         }
 
         SecurityContext securityContext = null;
-        String authHeader = requestContext.getHeaderString(AUTHORIZATION_HEADER);
+        String apiKey = requestContext.getUriInfo().getQueryParameters().getFirst(API_KEY);
         Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> data = new LinkedHashMap<>();
         
-        if (authHeader != null) {
-            String[] auth = decodeBasicAuth(authHeader);
-
-            if(auth != null && auth[0].equals("qruz") && auth[1].equals("123456789")) {
+        if (apiKey != null) {
+            if(apiKey.equals("cXJ1ejoxMjM0NTY3ODk=")) {
                 try {
                     User user = Context.getPermissionsManager().login("admin", "admin");
                     if (user != null) {
@@ -83,7 +81,7 @@ public class SecurityRequestFilter implements ContainerRequestFilter {
                 data.put("message", "Invalid authentication token");
             }
         } else {
-            data.put("message", "Please set the authentication header");
+            data.put("message", "Please set the API key");
         }
         response.put("success", false);
         response.put("error", data);
