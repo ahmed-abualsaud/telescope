@@ -2,7 +2,7 @@ package org.traccar.validator;
 
 import javax.ws.rs.WebApplicationException;
 import java.sql.SQLException;
-import org.traccar.ORM.RelationalModel;
+import org.traccar.ORM.Query;
 import org.traccar.Context;
 import org.traccar.model.Device;
 import org.traccar.model.User;
@@ -33,15 +33,15 @@ public final class Command {
         }
     }
     
-    public static RelationalModel getOrm(String className) throws ClassNotFoundException {
+    public static Query getQuery(String className) throws ClassNotFoundException {
         
         switch (className) {
             case "device":
-                return new RelationalModel(Device.class);
+                return new Query(Device.class);
             case "user":
-                return new RelationalModel(User.class);
+                return new Query(User.class);
             case "position":
-                return new RelationalModel(Position.class);
+                return new Query(Position.class);
             default:
                 throw new ClassNotFoundException();
         }
@@ -54,7 +54,7 @@ public final class Command {
 
     public static <T extends BaseModel> boolean exists(String columnName, Object value, String className) {
         try {
-            Object result = getOrm(className).select("id").where(columnName, value).first();
+            Object result = getQuery(className).select("id").where(columnName, value).first();
             if (result == null) {return false;}
             else {return true;}
         } catch (ClassNotFoundException e) {

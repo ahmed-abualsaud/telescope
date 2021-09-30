@@ -28,6 +28,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -104,12 +105,10 @@ public class DeviceResource extends BaseObjectResource<Device> {
     
         Map<String, Object> request = new LinkedHashMap<>();
         request.put("partnerId", partnerId);
-        request.put("name", entity.getName());
         request.put("uniqueId", entity.getUniqueId());
         
         Map<String, String> validationString = new LinkedHashMap<>();
         validationString.put("partnerId", "exists:user.id");
-        validationString.put("name", "unique:device|required");
         validationString.put("uniqueId", "unique:device|required");
         
         Map<String, Object> response = new LinkedHashMap<>();
@@ -125,6 +124,82 @@ public class DeviceResource extends BaseObjectResource<Device> {
             Context.getPermissionsManager().refreshAllExtendedPermissions();
             response.put("success", true);
             response.put("data", entity);
+            return Response.ok(response).build();
+            
+        } else {
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
+    }
+    
+    @Path("partner/{partnerId}")
+    @PUT
+    public Response update(Device entity, @PathParam("partnerId") long partnerId) throws SQLException {
+    
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("uniqueId", entity.getUniqueId());
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("uniqueId", "exists:device|required");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            Context.getPermissionsManager().checkDeviceReadonly(partnerId);
+            DeviceManager deviceManager = Context.getDeviceManager();
+            long id = deviceManager.getByUniqueId(entity.getUniqueId()).getId();
+            entity.setId(id);
+            Context.getPermissionsManager().checkDevice(partnerId, entity.getId());
+            Context.getDeviceManager().updateItem(entity);
+            LogAction.edit(partnerId, entity);
+            Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
+            Context.getPermissionsManager().refreshAllExtendedPermissions();
+            response.put("success", true);
+            response.put("data", entity);
+            return Response.ok(response).build();
+            
+        } else {
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
+    }
+    
+    @Path("partner/{partnerId}")
+    @DELETE
+    public Response remove(@PathParam("partnerId") long partnerId, 
+    		@QueryParam("uniqueId") List<String> uniqueIds) throws SQLException {
+    		
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("uniqueId", uniqueIds);
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("uniqueId", "exists:device|multiple|required");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            Context.getPermissionsManager().checkReadonly(partnerId);
+            Context.getPermissionsManager().checkDeviceReadonly(partnerId);
+            DeviceManager deviceManager = Context.getDeviceManager();
+            long id;
+            for (String uniqueId : uniqueIds) {
+                id = deviceManager.getByUniqueId(uniqueId).getId();
+                Context.getPermissionsManager().checkDevice(partnerId, id);
+                deviceManager.removeItem(id);
+                LogAction.remove(partnerId, Device.class, id);
+            }
+            Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
+            Context.getPermissionsManager().refreshAllExtendedPermissions();
+            response.put("success", true);
+            response.put("data", "Devices Deleted Successfully");
             return Response.ok(response).build();
             
         } else {
