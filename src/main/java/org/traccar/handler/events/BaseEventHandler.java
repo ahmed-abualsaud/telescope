@@ -29,6 +29,7 @@ public abstract class BaseEventHandler extends BaseDataHandler {
         Map<Event, Position> events = analyzePosition(position);
         if (events != null && Context.getNotificationManager() != null) {
             Context.getNotificationManager().updateEvents(events);
+            Context.getConnectionManager().sendEvents(position.getDeviceId(), events);
         }
         return position;
     }

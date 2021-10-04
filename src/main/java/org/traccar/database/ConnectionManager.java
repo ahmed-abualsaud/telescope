@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.Map.Entry;
 
 public class ConnectionManager {
 
@@ -106,6 +107,7 @@ public class ConnectionManager {
             }
             events.put(new Event(eventType, deviceId), null);
             Context.getNotificationManager().updateEvents(events);
+            sendEvents(deviceId, events);
         }
 
         Timeout timeout = timeouts.remove(deviceId);
@@ -130,8 +132,15 @@ public class ConnectionManager {
         } catch (SQLException error) {
             LOGGER.warn("Update device status error", error);
         }
-
         updateDevice(device);
+    }
+    
+    public void sendEvents(long deviceId, Map<Event, Position> events) {
+        for (long userId : Context.getPermissionsManager().getDeviceUsers(deviceId)) {
+            for (Entry<Event, Position> event : events.entrySet()) {
+                updateEvent(userId, event.getKey());
+            }
+        }
     }
 
     public Map<Event, Position> updateDeviceState(long deviceId) {
