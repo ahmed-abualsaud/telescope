@@ -22,15 +22,19 @@ import org.traccar.database.UsersManager;
 import org.traccar.helper.LogAction;
 import org.traccar.model.User;
 import org.traccar.helper.ServletHelper;
+import org.traccar.database.UsersManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -73,11 +77,13 @@ public class UserResource extends BaseObjectResource<User> {
     public Response register(User entity) throws SQLException {
     
         Map<String, Object> request = new LinkedHashMap<>();
+        request.put("name", entity.getName());
         request.put("email", entity.getEmail());
         request.put("phone", entity.getPhone());
         
         Map<String, String> validationString = new LinkedHashMap<>();
-        validationString.put("email", "unique:user|required");
+        validationString.put("name", "required");
+        validationString.put("email", "unique:user");
         validationString.put("phone", "unique:user|required");
         
         Map<String, Object> response = new LinkedHashMap<>();
@@ -142,5 +148,55 @@ public class UserResource extends BaseObjectResource<User> {
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
     }
-
+    
+    @Path("{partnerId}")
+    @PUT
+    public Response update(User entity, @PathParam("partnerId") long partnerId) throws SQLException {
+    
+        Map<String, Object> request = new LinkedHashMap<>();
+        request.put("partnerId", partnerId);
+        request.put("email", entity.getEmail());
+        request.put("phone", entity.getPhone());
+        
+        Map<String, String> validationString = new LinkedHashMap<>();
+        validationString.put("partnerId", "exists:user.id");
+        validationString.put("email", "unique:user");
+        validationString.put("phone", "unique:user");
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Validator validator = Validator.validate(request, validationString);
+        if (validator.validated()) {
+        
+            entity.setId(partnerId);
+            Context.getPermissionsManager().checkReadonly(partnerId);
+            Context.getUsersManager().updateItem(entity);
+            LogAction.edit(partnerId, entity);
+            response.put("success", true);
+            response.put("data", entity);
+            return Response.ok(response).build();
+            
+        } else {
+            response.put("success", false);
+            response.put("error", validator.getErrors());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
+    }
+    
+    @Path("{partnerId}")
+    @DELETE
+    public Response remove(@PathParam("partnerId") long partnerId) throws SQLException {
+    		
+        Context.getPermissionsManager().checkReadonly(partnerId);
+        Context.getPermissionsManager().checkDeviceReadonly(partnerId);
+        UsersManager userManager = Context.getUsersManager();
+        userManager.removeItem(partnerId);
+        LogAction.remove(partnerId, User.class, partnerId);
+        userManager.refreshUserItems();
+        Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
+        Context.getPermissionsManager().refreshAllUsersPermissions();
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("success", true);
+        response.put("data", "User Deleted Successfully");
+        return Response.ok(response).build();
+    }
 }

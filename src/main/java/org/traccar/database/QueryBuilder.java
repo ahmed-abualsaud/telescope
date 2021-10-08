@@ -300,22 +300,23 @@ public final class QueryBuilder {
                     } else if (method.getReturnType().equals(byte[].class)) {
                         setBlob(name, (byte[]) method.invoke(object));
                     } else {
-                        ObjectMapper mapper = Context.getObjectMapper();
-                        setString(name, mapper.writeValueAsString(method.invoke(object)));
-                        
-                        //if (Introspector.decapitalize(name).equals("attributes")) {
-                        //    Method getIdMethod;
-                        //    try {getIdMethod = object.getClass().getMethod("getId");}
-                        //    catch (NoSuchMethodException e) {throw new WebApplicationException(e);}
-                        //    ExtendedModel entity = Context.getManager(object.getClass().asSubclass(ExtendedModel.class))
-                        //    .getById((long) getIdMethod.invoke(object));
-                        //    Map<String, Object> newAttributes = (Map<String, Object>) method.invoke(object);
-                        //    Map<String, Object> oldAttributes = entity.getAttributes();
-                        //    oldAttributes.putAll(newAttributes);
-                        //    setString(name, mapper.writeValueAsString(oldAttributes));
-                        //} else {
-                        //    setString(name, mapper.writeValueAsString(method.invoke(object)));
-                        //}
+                        ObjectMapper mapper = Context.getObjectMapper();                        
+                        if (Introspector.decapitalize(name).equals("attributes")) {
+                            Method getIdMethod;
+                            try {getIdMethod = object.getClass().getMethod("getId");}
+                            catch (NoSuchMethodException e) {throw new WebApplicationException(e);}
+                            BaseObjectManager baseManager = Context.getManager(object.getClass().asSubclass(ExtendedModel.class));
+                            baseManager.refreshItems();
+                            ExtendedModel entity = (ExtendedModel) baseManager.getById((long) getIdMethod.invoke(object));
+                            Map<String, Object> newAttributes = (Map<String, Object>) method.invoke(object);
+                            if (entity != null) {
+                                Map<String, Object> oldAttributes = entity.getAttributes();
+                                oldAttributes.putAll(newAttributes);
+                                setString(name, mapper.writeValueAsString(oldAttributes));
+                            } else {setString(name, mapper.writeValueAsString(newAttributes));} 
+                        } else {
+                           setString(name, mapper.writeValueAsString(method.invoke(object)));
+                        }
                     }
                 } catch (IllegalAccessException | InvocationTargetException | JsonProcessingException error) {
                     LOGGER.warn("Get property error", error);

@@ -10,8 +10,8 @@ public final class Validator {
     
     private static Map<String, String> errorMessages = new HashMap<String, String>() {{
         put("exists", "Entry does not exists");
-        put("unique", "Entry must be unique and can not be dublicated or null");
-        put("required", "Entry is required and can not be null");
+        put("unique", "Entry must be unique");
+        put("required", "Entry is required");
     }};
     
     private Validator(boolean status, List<String> errors) {

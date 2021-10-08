@@ -55,6 +55,7 @@ public final class Command {
     public static <T extends BaseModel> boolean exists(String columnName, Object value, String className) {
         try {
             Object result = getQuery(className).select("id").where(columnName, value).first();
+            if (value == null) {return true;}
             if (result == null) {return false;}
             else {return true;}
         } catch (ClassNotFoundException e) {
@@ -63,7 +64,7 @@ public final class Command {
     }
     
     public static boolean unique(String columnName, Object value, String className) {
-        if (value == null) {return false;}
+        if (value == null) {return true;}
         return !exists(columnName, value, className);
     }
 }

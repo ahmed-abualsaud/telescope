@@ -118,7 +118,7 @@ public abstract class BaseObjectResource<T extends BaseModel> extends BaseResour
         return Response.ok(entity).build();
     }
 
-    @Path("{id}")
+    @Path("put/{id}")
     @PUT
     public Response update(T entity) throws SQLException {
         Context.getPermissionsManager().checkReadonly(getUserId());

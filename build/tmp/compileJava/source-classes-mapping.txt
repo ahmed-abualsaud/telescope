@@ -12,15 +12,15 @@ org/traccar/protocol/LaipacProtocol.java
  org.traccar.protocol.LaipacProtocol$1
 org/traccar/protocol/DwayProtocolDecoder.java
  org.traccar.protocol.DwayProtocolDecoder
-org/traccar/protocol/GnxProtocol.java
- org.traccar.protocol.GnxProtocol
- org.traccar.protocol.GnxProtocol$1
+org/traccar/BaseProtocolDecoder.java
+ org.traccar.BaseProtocolDecoder
 org/traccar/protocol/RuptelaProtocolDecoder.java
  org.traccar.protocol.RuptelaProtocolDecoder
 org/traccar/model/DeviceAccumulators.java
  org.traccar.model.DeviceAccumulators
-org/traccar/protocol/Gl200BinaryProtocolDecoder.java
- org.traccar.protocol.Gl200BinaryProtocolDecoder
+org/traccar/Context.java
+ org.traccar.Context
+ org.traccar.Context$ObjectMapperContextResolver
 org/traccar/protocol/DolphinProtocol.java
  org.traccar.protocol.DolphinProtocol
  org.traccar.protocol.DolphinProtocol$1
@@ -67,9 +67,8 @@ org/traccar/protocol/OmnicommFrameDecoder.java
 org/traccar/protocol/Gs100Protocol.java
  org.traccar.protocol.Gs100Protocol
  org.traccar.protocol.Gs100Protocol$1
-org/traccar/validator/Validator.java
- org.traccar.validator.Validator
- org.traccar.validator.Validator$1
+org/traccar/MainEventHandler.java
+ org.traccar.MainEventHandler
 org/traccar/protocol/MilesmateProtocol.java
  org.traccar.protocol.MilesmateProtocol
  org.traccar.protocol.MilesmateProtocol$1
@@ -134,8 +133,8 @@ org/traccar/protocol/T55Protocol.java
  org.traccar.protocol.T55Protocol
  org.traccar.protocol.T55Protocol$1
  org.traccar.protocol.T55Protocol$2
-org/traccar/handler/events/DriverEventHandler.java
- org.traccar.handler.events.DriverEventHandler
+org/traccar/handler/events/FuelDropEventHandler.java
+ org.traccar.handler.events.FuelDropEventHandler
 org/traccar/protocol/EsealProtocolDecoder.java
  org.traccar.protocol.EsealProtocolDecoder
 org/traccar/geofence/GeofencePolyline.java
@@ -154,8 +153,8 @@ org/traccar/protocol/MictrackProtocol.java
  org.traccar.protocol.MictrackProtocol$2
 org/traccar/protocol/TaipPrefixEncoder.java
  org.traccar.protocol.TaipPrefixEncoder
-org/traccar/handler/events/BehaviorEventHandler.java
- org.traccar.handler.events.BehaviorEventHandler
+org/traccar/handler/events/IgnitionEventHandler.java
+ org.traccar.handler.events.IgnitionEventHandler
 org/traccar/protocol/WialonProtocol.java
  org.traccar.protocol.WialonProtocol
  org.traccar.protocol.WialonProtocol$1
@@ -200,15 +199,14 @@ org/traccar/protocol/Tr20ProtocolDecoder.java
 org/traccar/protocol/TelemaxProtocol.java
  org.traccar.protocol.TelemaxProtocol
  org.traccar.protocol.TelemaxProtocol$1
-org/traccar/handler/events/GeofenceEventHandler.java
- org.traccar.handler.events.GeofenceEventHandler
+org/traccar/handler/events/MotionEventHandler.java
+ org.traccar.handler.events.MotionEventHandler
 org/traccar/protocol/DingtekProtocolDecoder.java
  org.traccar.protocol.DingtekProtocolDecoder
 org/traccar/protocol/FoxProtocolDecoder.java
  org.traccar.protocol.FoxProtocolDecoder
-org/traccar/StringProtocolEncoder.java
- org.traccar.StringProtocolEncoder
- org.traccar.StringProtocolEncoder$ValueFormatter
+org/traccar/schedule/TaskWebSocketKeepalive.java
+ org.traccar.schedule.TaskWebSocketKeepalive
 org/traccar/protocol/HuabaoProtocolDecoder.java
  org.traccar.protocol.HuabaoProtocolDecoder
 org/traccar/protocol/SmokeyProtocolDecoder.java
@@ -216,8 +214,8 @@ org/traccar/protocol/SmokeyProtocolDecoder.java
 org/traccar/protocol/YwtProtocol.java
  org.traccar.protocol.YwtProtocol
  org.traccar.protocol.YwtProtocol$1
-org/traccar/protocol/AtrackFrameDecoder.java
- org.traccar.protocol.AtrackFrameDecoder
+org/traccar/handler/events/DriverEventHandler.java
+ org.traccar.handler.events.DriverEventHandler
 org/traccar/protocol/AnytrekProtocol.java
  org.traccar.protocol.AnytrekProtocol
  org.traccar.protocol.AnytrekProtocol$1
@@ -392,8 +390,8 @@ org/traccar/protocol/AtrackProtocolEncoder.java
  org.traccar.protocol.AtrackProtocolEncoder
 org/traccar/protocol/AquilaProtocolDecoder.java
  org.traccar.protocol.AquilaProtocolDecoder
-org/traccar/BaseProtocol.java
- org.traccar.BaseProtocol
+org/traccar/handler/events/AlertEventHandler.java
+ org.traccar.handler.events.AlertEventHandler
 org/traccar/protocol/LacakProtocol.java
  org.traccar.protocol.LacakProtocol
  org.traccar.protocol.LacakProtocol$1
@@ -695,8 +693,8 @@ org/traccar/protocol/SmokeyProtocol.java
  org.traccar.protocol.SmokeyProtocol$1
 org/traccar/protocol/SolarPoweredProtocolDecoder.java
  org.traccar.protocol.SolarPoweredProtocolDecoder
-org/traccar/protocol/ArnaviProtocolDecoder.java
- org.traccar.protocol.ArnaviProtocolDecoder
+org/traccar/database/CommandsManager.java
+ org.traccar.database.CommandsManager
 org/traccar/protocol/ProgressProtocolDecoder.java
  org.traccar.protocol.ProgressProtocolDecoder
 org/traccar/protocol/DolphinProtocolDecoder.java
@@ -728,8 +726,9 @@ org/traccar/protocol/GlobalSatProtocol.java
 org/traccar/protocol/SkypatrolProtocol.java
  org.traccar.protocol.SkypatrolProtocol
  org.traccar.protocol.SkypatrolProtocol$1
-org/traccar/helper/DateBuilder.java
- org.traccar.helper.DateBuilder
+org/traccar/database/ConnectionManager.java
+ org.traccar.database.ConnectionManager
+ org.traccar.database.ConnectionManager$UpdateListener
 org/traccar/BasePipelineFactory.java
  org.traccar.BasePipelineFactory
 org/traccar/protocol/TrvProtocolDecoder.java
@@ -945,9 +944,8 @@ org/traccar/protocol/PathAwayProtocolDecoder.java
  org.traccar.protocol.PathAwayProtocolDecoder
 org/traccar/protocol/SigfoxProtocolDecoder.java
  org.traccar.protocol.SigfoxProtocolDecoder
-org/traccar/protocol/ArknavProtocol.java
- org.traccar.protocol.ArknavProtocol
- org.traccar.protocol.ArknavProtocol$1
+org/traccar/api/AsyncSocket.java
+ org.traccar.api.AsyncSocket
 org/traccar/protocol/CastelProtocol.java
  org.traccar.protocol.CastelProtocol
  org.traccar.protocol.CastelProtocol$1
@@ -1555,8 +1553,8 @@ org/traccar/web/WebServer.java
  org.traccar.web.WebServer
  org.traccar.web.WebServer$1
  org.traccar.web.WebServer$2
-org/traccar/protocol/Pt502FrameDecoder.java
- org.traccar.protocol.Pt502FrameDecoder
+org/traccar/database/DeviceManager.java
+ org.traccar.database.DeviceManager
 org/traccar/protocol/Gl200TextProtocolDecoder.java
  org.traccar.protocol.Gl200TextProtocolDecoder
 org/traccar/protocol/Mta6Protocol.java
@@ -1851,8 +1849,8 @@ org/traccar/protocol/CguardProtocol.java
 org/traccar/protocol/KenjiProtocol.java
  org.traccar.protocol.KenjiProtocol
  org.traccar.protocol.KenjiProtocol$1
-org/traccar/handler/events/OverspeedEventHandler.java
- org.traccar.handler.events.OverspeedEventHandler
+org/traccar/handler/events/CommandResultEventHandler.java
+ org.traccar.handler.events.CommandResultEventHandler
 org/traccar/handler/FilterHandler.java
  org.traccar.handler.FilterHandler
 org/traccar/geolocation/UniversalGeolocationProvider.java
@@ -1928,8 +1926,8 @@ org/traccar/protocol/GpsGateProtocol.java
  org.traccar.protocol.GpsGateProtocol$1
 org/traccar/protocol/WatchProtocolDecoder.java
  org.traccar.protocol.WatchProtocolDecoder
-org/traccar/protocol/MegastekProtocolDecoder.java
- org.traccar.protocol.MegastekProtocolDecoder
+org/traccar/handler/events/GeofenceEventHandler.java
+ org.traccar.handler.events.GeofenceEventHandler
 org/traccar/protocol/GalileoFrameDecoder.java
  org.traccar.protocol.GalileoFrameDecoder
 org/traccar/protocol/TeltonikaProtocol.java
@@ -1982,9 +1980,8 @@ org/traccar/protocol/OsmAndProtocolDecoder.java
  org.traccar.protocol.OsmAndProtocolDecoder
 org/traccar/protocol/TelicFrameDecoder.java
  org.traccar.protocol.TelicFrameDecoder
-org/traccar/protocol/SuntechProtocol.java
- org.traccar.protocol.SuntechProtocol
- org.traccar.protocol.SuntechProtocol$1
+org/traccar/notificators/NotificatorWeb.java
+ org.traccar.notificators.NotificatorWeb
 org/traccar/protocol/ItsProtocolDecoder.java
  org.traccar.protocol.ItsProtocolDecoder
 org/traccar/database/UsersManager.java
@@ -2009,8 +2006,8 @@ org/traccar/api/resource/PositionResource.java
  org.traccar.api.resource.PositionResource
 org/traccar/protocol/T800xProtocolEncoder.java
  org.traccar.protocol.T800xProtocolEncoder
-org/traccar/handler/events/IgnitionEventHandler.java
- org.traccar.handler.events.IgnitionEventHandler
+org/traccar/MainModule.java
+ org.traccar.MainModule
 org/traccar/protocol/WondexProtocol.java
  org.traccar.protocol.WondexProtocol
  org.traccar.protocol.WondexProtocol$1
@@ -2064,8 +2061,8 @@ org/traccar/validator/ValidationStringExecuter.java
  org.traccar.validator.ValidationStringExecuter$1
 org/traccar/protocol/PacificTrackProtocolDecoder.java
  org.traccar.protocol.PacificTrackProtocolDecoder
-org/traccar/handler/events/AlertEventHandler.java
- org.traccar.handler.events.AlertEventHandler
+org/traccar/handler/events/BaseEventHandler.java
+ org.traccar.handler.events.BaseEventHandler
 org/traccar/protocol/UlbotechProtocolDecoder.java
  org.traccar.protocol.UlbotechProtocolDecoder
 org/traccar/protocol/RaveonProtocolDecoder.java
@@ -2202,8 +2199,8 @@ org/traccar/protocol/Pt60ProtocolDecoder.java
 org/traccar/protocol/PretraceProtocol.java
  org.traccar.protocol.PretraceProtocol
  org.traccar.protocol.PretraceProtocol$1
-org/traccar/handler/events/CommandResultEventHandler.java
- org.traccar.handler.events.CommandResultEventHandler
+org/traccar/handler/events/MaintenanceEventHandler.java
+ org.traccar.handler.events.MaintenanceEventHandler
 org/traccar/protocol/FreedomProtocolDecoder.java
  org.traccar.protocol.FreedomProtocolDecoder
 org/traccar/protocol/JpKorjarProtocolDecoder.java
@@ -2389,8 +2386,8 @@ org/traccar/protocol/VnetProtocolDecoder.java
 org/traccar/protocol/EasyTrackProtocol.java
  org.traccar.protocol.EasyTrackProtocol
  org.traccar.protocol.EasyTrackProtocol$1
-org/traccar/handler/events/FuelDropEventHandler.java
- org.traccar.handler.events.FuelDropEventHandler
+org/traccar/handler/events/BehaviorEventHandler.java
+ org.traccar.handler.events.BehaviorEventHandler
 org/traccar/protocol/PluginProtocolDecoder.java
  org.traccar.protocol.PluginProtocolDecoder
 org/traccar/protocol/TrakMateProtocolDecoder.java
@@ -2405,31 +2402,34 @@ org/traccar/protocol/FifotrackProtocolDecoder.java
 org/traccar/geofence/GeofenceGeometry.java
  org.traccar.geofence.GeofenceGeometry
  org.traccar.geofence.GeofenceGeometry$Coordinate
-org/traccar/handler/events/MotionEventHandler.java
- org.traccar.handler.events.MotionEventHandler
-org/traccar/handler/events/MaintenanceEventHandler.java
- org.traccar.handler.events.MaintenanceEventHandler
-org/traccar/MainModule.java
- org.traccar.MainModule
-org/traccar/api/AsyncSocket.java
- org.traccar.api.AsyncSocket
-org/traccar/database/DeviceManager.java
- org.traccar.database.DeviceManager
-org/traccar/BaseProtocolDecoder.java
- org.traccar.BaseProtocolDecoder
-org/traccar/Context.java
- org.traccar.Context
- org.traccar.Context$ObjectMapperContextResolver
-org/traccar/notificators/NotificatorWeb.java
- org.traccar.notificators.NotificatorWeb
-org/traccar/handler/events/BaseEventHandler.java
- org.traccar.handler.events.BaseEventHandler
-org/traccar/schedule/TaskWebSocketKeepalive.java
- org.traccar.schedule.TaskWebSocketKeepalive
-org/traccar/database/CommandsManager.java
- org.traccar.database.CommandsManager
-org/traccar/MainEventHandler.java
- org.traccar.MainEventHandler
-org/traccar/database/ConnectionManager.java
- org.traccar.database.ConnectionManager
- org.traccar.database.ConnectionManager$UpdateListener
+org/traccar/handler/events/OverspeedEventHandler.java
+ org.traccar.handler.events.OverspeedEventHandler
+org/traccar/protocol/AtrackFrameDecoder.java
+ org.traccar.protocol.AtrackFrameDecoder
+org/traccar/BaseProtocol.java
+ org.traccar.BaseProtocol
+org/traccar/protocol/MegastekProtocolDecoder.java
+ org.traccar.protocol.MegastekProtocolDecoder
+org/traccar/helper/DateBuilder.java
+ org.traccar.helper.DateBuilder
+org/traccar/validator/Validator.java
+ org.traccar.validator.Validator
+ org.traccar.validator.Validator$1
+org/traccar/protocol/ArnaviProtocolDecoder.java
+ org.traccar.protocol.ArnaviProtocolDecoder
+org/traccar/StringProtocolEncoder.java
+ org.traccar.StringProtocolEncoder
+ org.traccar.StringProtocolEncoder$ValueFormatter
+org/traccar/protocol/SuntechProtocol.java
+ org.traccar.protocol.SuntechProtocol
+ org.traccar.protocol.SuntechProtocol$1
+org/traccar/protocol/Gl200BinaryProtocolDecoder.java
+ org.traccar.protocol.Gl200BinaryProtocolDecoder
+org/traccar/protocol/GnxProtocol.java
+ org.traccar.protocol.GnxProtocol
+ org.traccar.protocol.GnxProtocol$1
+org/traccar/protocol/Pt502FrameDecoder.java
+ org.traccar.protocol.Pt502FrameDecoder
+org/traccar/protocol/ArknavProtocol.java
+ org.traccar.protocol.ArknavProtocol
+ org.traccar.protocol.ArknavProtocol$1
