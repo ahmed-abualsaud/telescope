@@ -555,8 +555,9 @@ org/traccar/protocol/Ardi01Protocol.java
  org.traccar.protocol.Ardi01Protocol$1
 org/traccar/protocol/GranitProtocolSmsEncoder.java
  org.traccar.protocol.GranitProtocolSmsEncoder
-org/traccar/database/DataManager.java
- org.traccar.database.DataManager
+org/traccar/protocol/GnxProtocol.java
+ org.traccar.protocol.GnxProtocol
+ org.traccar.protocol.GnxProtocol$1
 org/traccar/protocol/HuaShengFrameDecoder.java
  org.traccar.protocol.HuaShengFrameDecoder
 org/traccar/sms/SnsSmsClient.java
@@ -921,8 +922,9 @@ org/traccar/protocol/HuaShengProtocol.java
  org.traccar.protocol.HuaShengProtocol$1
 org/traccar/protocol/TeltonikaFrameDecoder.java
  org.traccar.protocol.TeltonikaFrameDecoder
-org/traccar/ORM/Query.java
- org.traccar.ORM.Query
+org/traccar/protocol/ArknavProtocol.java
+ org.traccar.protocol.ArknavProtocol
+ org.traccar.protocol.ArknavProtocol$1
 org/traccar/protocol/RetranslatorProtocolDecoder.java
  org.traccar.protocol.RetranslatorProtocolDecoder
 org/traccar/protocol/Gps056ProtocolDecoder.java
@@ -2226,9 +2228,8 @@ org/traccar/protocol/NoranProtocol.java
 org/traccar/TrackerServer.java
  org.traccar.TrackerServer
  org.traccar.TrackerServer$1
-org/traccar/database/QueryBuilder.java
- org.traccar.database.QueryBuilder
- org.traccar.database.QueryBuilder$ResultSetProcessor
+org/traccar/protocol/Pt502FrameDecoder.java
+ org.traccar.protocol.Pt502FrameDecoder
 org/traccar/models/Devices.java
  org.traccar.models.Devices
 org/traccar/GlobalTimer.java
@@ -2425,11 +2426,10 @@ org/traccar/protocol/SuntechProtocol.java
  org.traccar.protocol.SuntechProtocol$1
 org/traccar/protocol/Gl200BinaryProtocolDecoder.java
  org.traccar.protocol.Gl200BinaryProtocolDecoder
-org/traccar/protocol/GnxProtocol.java
- org.traccar.protocol.GnxProtocol
- org.traccar.protocol.GnxProtocol$1
-org/traccar/protocol/Pt502FrameDecoder.java
- org.traccar.protocol.Pt502FrameDecoder
-org/traccar/protocol/ArknavProtocol.java
- org.traccar.protocol.ArknavProtocol
- org.traccar.protocol.ArknavProtocol$1
+org/traccar/ORM/Query.java
+ org.traccar.ORM.Query
+org/traccar/database/QueryBuilder.java
+ org.traccar.database.QueryBuilder
+ org.traccar.database.QueryBuilder$ResultSetProcessor
+org/traccar/database/DataManager.java
+ org.traccar.database.DataManager
