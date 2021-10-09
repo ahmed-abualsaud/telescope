@@ -20,8 +20,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.Context;
+import org.traccar.model.Device;
+import org.traccar.model.Position;
 import org.traccar.model.Permission;
 import org.traccar.model.ExtendedModel;
+
 
 import javax.ws.rs.WebApplicationException;
 import java.beans.Introspector;
@@ -302,18 +305,21 @@ public final class QueryBuilder {
                     } else {
                         ObjectMapper mapper = Context.getObjectMapper();                        
                         if (Introspector.decapitalize(name).equals("attributes")) {
-                            Method getIdMethod;
-                            try {getIdMethod = object.getClass().getMethod("getId");}
-                            catch (NoSuchMethodException e) {throw new WebApplicationException(e);}
-                            BaseObjectManager baseManager = Context.getManager(object.getClass().asSubclass(ExtendedModel.class));
-                            baseManager.refreshItems();
-                            ExtendedModel entity = (ExtendedModel) baseManager.getById((long) getIdMethod.invoke(object));
-                            Map<String, Object> newAttributes = (Map<String, Object>) method.invoke(object);
-                            if (entity != null) {
-                                Map<String, Object> oldAttributes = entity.getAttributes();
-                                oldAttributes.putAll(newAttributes);
-                                setString(name, mapper.writeValueAsString(oldAttributes));
-                            } else {setString(name, mapper.writeValueAsString(newAttributes));} 
+                            Class<?> clazz = object.getClass().asSubclass(ExtendedModel.class);
+                            if (clazz.equals(Device.class)) {
+                                Method getIdMethod;
+                                try {getIdMethod = object.getClass().getMethod("getId");}
+                                catch (NoSuchMethodException e) {throw new WebApplicationException(e);}
+                                DeviceManager deviceManager = Context.getDeviceManager();
+                                deviceManager.refreshItems();
+                                Device entity = deviceManager.getById((long) getIdMethod.invoke(object));
+                                Map<String, Object> newAttributes = (Map<String, Object>) method.invoke(object);
+                                if (entity != null) {
+                                    Map<String, Object> oldAttributes = entity.getAttributes();
+                                    oldAttributes.putAll(newAttributes);
+                                    setString(name, mapper.writeValueAsString(oldAttributes));
+                                } else {setString(name, mapper.writeValueAsString(newAttributes));}
+                            }          
                         } else {
                            setString(name, mapper.writeValueAsString(method.invoke(object)));
                         }
