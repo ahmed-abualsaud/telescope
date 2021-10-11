@@ -298,6 +298,13 @@ public final class Keys {
     public static final ConfigKey<String> DATABASE_PASSWORD = new ConfigKey<>(
             "database.password",
             Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Database name. Default database name for mysql database is telescope.
+     */
+    public static final ConfigKey<String> DATABASE_NAME = new ConfigKey<>(
+            "database.name",
+            Collections.singletonList(KeyType.GLOBAL));
 
     /**
      * Path to Liquibase master changelog file.

@@ -28,6 +28,7 @@ public class ScheduleManager {
 
         new TaskDeviceInactivityCheck().schedule(executor);
         new TaskWebSocketKeepalive().schedule(executor);
+        new TaskTakeDatabaseBackup().schedule(executor);
 
     }
 

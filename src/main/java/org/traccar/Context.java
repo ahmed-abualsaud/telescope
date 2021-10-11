@@ -22,6 +22,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.eclipse.jetty.util.URIUtil;
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
+import org.traccar.database.QueryBuilder;
 import org.traccar.database.AttributesManager;
 import org.traccar.database.BaseObjectManager;
 import org.traccar.database.CalendarManager;
@@ -56,6 +57,8 @@ import org.traccar.model.Maintenance;
 import org.traccar.model.Notification;
 import org.traccar.model.Order;
 import org.traccar.model.User;
+import org.traccar.model.Event;
+import org.traccar.model.Position;
 import org.traccar.notification.EventForwarder;
 import org.traccar.notification.NotificatorManager;
 import org.traccar.reports.model.TripsConfig;
@@ -72,10 +75,24 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
 
+import java.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.security.CodeSource;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+
 public final class Context {
 
     private Context() {
     }
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(Context.class);
 
     private static Config config;
 
@@ -412,5 +429,48 @@ public final class Context {
         }
         return null;
     }
+    
+    public static void takeDatabaseBackup() {
+        try {
+            CodeSource codeSource = Context.class.getProtectionDomain().getCodeSource();
+            File jarFile = new File(codeSource.getLocation().toURI().getPath());
+            String jarDir = jarFile.getParentFile().getPath();
+        
+            String dbName = getConfig().getString(Keys.DATABASE_NAME);
+            String dbUser = getConfig().getString(Keys.DATABASE_USER);
+            String dbPass = getConfig().getString(Keys.DATABASE_PASSWORD);
+        
+            String folderPath = jarDir + "/backup";
+            File f1 = new File(folderPath);
+            if (!f1.exists()) {f1.mkdir();}
+        
+            LocalDateTime lt = LocalDateTime.now();
+            String savePath = jarDir + "/backup/" + "backup_" + lt + ".sql";
+            String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " " + dbName + " -r " + savePath;
 
+            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
+        
+            if (processComplete == 0) {
+                LOGGER.info("Database backup completed successfully");
+            } else {
+                LOGGER.info("Backup Failure with process return : " + Integer.toString(processComplete));
+                InputStream error = runtimeProcess.getErrorStream();
+                BufferedReader bufferReader = new BufferedReader(new InputStreamReader(error));
+                String line;
+                if ((line = bufferReader.readLine()) != null) {LOGGER.info(line);}
+            }
+            try {
+                String tableName = DataManager.getObjectsTableName(Position.class);
+                QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + tableName).executeUpdate();
+                tableName = DataManager.getObjectsTableName(Event.class);
+                QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + tableName).executeUpdate();
+                LOGGER.info("Database refined successfully");
+            } catch (SQLException e) {LOGGER.error("Can not drop the database: " + dbName, e);}
+            
+        } catch (URISyntaxException | IOException | InterruptedException ex) {
+            LOGGER.error("Error when taking database backup" + ex.getMessage(), ex);
+        }
+    }
+    
 }
