@@ -922,8 +922,9 @@ org/traccar/protocol/HuaShengProtocol.java
  org.traccar.protocol.HuaShengProtocol$1
 org/traccar/protocol/TeltonikaFrameDecoder.java
  org.traccar.protocol.TeltonikaFrameDecoder
-org/traccar/schedule/ScheduleManager.java
- org.traccar.schedule.ScheduleManager
+org/traccar/sms/SnsSmsClient.java
+ org.traccar.sms.SnsSmsClient
+ org.traccar.sms.SnsSmsClient$1
 org/traccar/protocol/RetranslatorProtocolDecoder.java
  org.traccar.protocol.RetranslatorProtocolDecoder
 org/traccar/protocol/Gps056ProtocolDecoder.java
@@ -2237,8 +2238,8 @@ org/traccar/database/ConnectionManager.java
 org/traccar/sms/HttpSmsClient.java
  org.traccar.sms.HttpSmsClient
  org.traccar.sms.HttpSmsClient$1
-org/traccar/schedule/TaskTakeDatabaseBackup.java
- org.traccar.schedule.TaskTakeDatabaseBackup
+org/traccar/api/ObjectMapperProvider.java
+ org.traccar.api.ObjectMapperProvider
 org/traccar/BasePipelineFactory.java
  org.traccar.BasePipelineFactory
 org/traccar/api/resource/PasswordResource.java
@@ -2430,8 +2431,7 @@ org/traccar/notificators/NotificatorFirebase.java
  org.traccar.notificators.NotificatorFirebase$1
  org.traccar.notificators.NotificatorFirebase$Message
  org.traccar.notificators.NotificatorFirebase$Notification
-org/traccar/sms/SnsSmsClient.java
- org.traccar.sms.SnsSmsClient
- org.traccar.sms.SnsSmsClient$1
-org/traccar/api/ObjectMapperProvider.java
- org.traccar.api.ObjectMapperProvider
+org/traccar/schedule/TaskTakeDatabaseBackup.java
+ org.traccar.schedule.TaskTakeDatabaseBackup
+org/traccar/schedule/ScheduleManager.java
+ org.traccar.schedule.ScheduleManager
