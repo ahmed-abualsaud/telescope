@@ -42,6 +42,16 @@ public class Device extends GroupedModel {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
+    
+    private boolean engine;
+
+    public boolean getEngine() {
+        return engine;
+    }
+
+    public void setEngine(boolean engine) {
+        this.engine = engine;
+    }
 
     public static final String STATUS_UNKNOWN = "unknown";
     public static final String STATUS_ONLINE = "online";

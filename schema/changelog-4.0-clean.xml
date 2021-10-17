@@ -133,6 +133,7 @@
       <column name="positionid" type="INT" />
       <column name="groupid" type="INT" />
       <column name="attributes" type="VARCHAR(4000)" />
+      <column name="engine" type="BOOLEAN" defaultValueBoolean="false" />
       <column name="phone" type="VARCHAR(128)" />
       <column name="model" type="VARCHAR(128)" />
       <column name="contact" type="VARCHAR(512)" />

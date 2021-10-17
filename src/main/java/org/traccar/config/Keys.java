@@ -386,6 +386,34 @@ public final class Keys {
     public static final ConfigKey<Boolean> DATABASE_SAVE_EMPTY = new ConfigKey<>(
             "database.saveEmpty",
             Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Azure Storage Account Name.
+     */
+    public static final ConfigKey<String> AZURE_STORAGE_NAME = new ConfigKey<>(
+            "azure.storageName",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+     /**
+     * Azure Storage Account Key.
+     */
+    public static final ConfigKey<String> AZURE_STORAGE_KEY = new ConfigKey<>(
+            "azure.storageKey",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Azure Storage Container Name, It is also called a "file share".
+     */
+    public static final ConfigKey<String> AZURE_STORAGE_CONTAINER = new ConfigKey<>(
+            "azure.storageContainer",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Azure Storage URL.
+     */
+    public static final ConfigKey<String> AZURE_STORAGE_URL = new ConfigKey<>(
+            "azure.storageURL",
+            Collections.singletonList(KeyType.GLOBAL));
 
     /**
      * Device limit for self registered users. Default value is -1, which indicates no limit.

@@ -86,13 +86,14 @@ import java.io.InputStreamReader;
 import java.security.CodeSource;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import org.traccar.service.storage.AzureStorage;
 
 public final class Context {
 
     private Context() {
     }
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(Context.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(Context.class);
 
     private static Config config;
 
@@ -444,32 +445,50 @@ public final class Context {
             File f1 = new File(folderPath);
             if (!f1.exists()) {f1.mkdir();}
         
-            LocalDateTime lt = LocalDateTime.now();
-            String savePath = jarDir + "/backup/" + "backup_" + lt + ".sql";
+            String fileName = "backup_" + LocalDateTime.now() + ".sql";
+            String savePath = jarDir + "/backup/" + fileName;
             String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " " + dbName + " -r " + savePath;
 
+            executeCommand(executeCmd);
+            refineDatabase();
+            AzureStorage.uploadFile(savePath, dbName + "/" + fileName);
+            executeCommand("rm " + savePath);
+            LOGGER.info("Database backup completed successfully");
+            
+        } catch (URISyntaxException e) {
+            LOGGER.error("Error when taking database backup" + e.getMessage(), e);
+        }
+        //AzureStorage.listAllFiles();
+    }
+    
+    private static void executeCommand(String executeCmd) {
+        try {
             Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
             int processComplete = runtimeProcess.waitFor();
         
             if (processComplete == 0) {
-                LOGGER.info("Database backup completed successfully");
+                LOGGER.info("Command: " + executeCmd + " executed successfully");
             } else {
-                LOGGER.info("Backup Failure with process return : " + Integer.toString(processComplete));
+                LOGGER.info("Command: " + executeCmd + "failed with process return : " + Integer.toString(processComplete));
                 InputStream error = runtimeProcess.getErrorStream();
                 BufferedReader bufferReader = new BufferedReader(new InputStreamReader(error));
                 String line;
-                if ((line = bufferReader.readLine()) != null) {LOGGER.info(line);}
+                if ((line = bufferReader.readLine()) != null) {LOGGER.info("Failure output: " + line);}
             }
-            try {
-                String tableName = DataManager.getObjectsTableName(Position.class);
-                QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + tableName).executeUpdate();
-                tableName = DataManager.getObjectsTableName(Event.class);
-                QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + tableName).executeUpdate();
-                LOGGER.info("Database refined successfully");
-            } catch (SQLException e) {LOGGER.error("Can not drop the database: " + dbName, e);}
-            
-        } catch (URISyntaxException | IOException | InterruptedException ex) {
-            LOGGER.error("Error when taking database backup" + ex.getMessage(), ex);
+        } catch (IOException | InterruptedException e) {
+            LOGGER.error("Error when executing command: " + executeCmd + " Error: " + e.getMessage(), e);
+        }  
+    }
+    
+    private static void refineDatabase() {
+        String positionTable = DataManager.getObjectsTableName(Position.class);
+        String eventTable = DataManager.getObjectsTableName(Event.class);
+        try {
+            QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + positionTable).executeUpdate();
+            QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + eventTable).executeUpdate();
+            LOGGER.info("Context.refineDatabase: Database refined successfully");
+        } catch (SQLException e) {
+            LOGGER.error("Context.refineDatabase: Can not truncate table: " + positionTable + " or table: " + eventTable, e);
         }
     }
     

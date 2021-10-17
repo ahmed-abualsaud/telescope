@@ -154,7 +154,7 @@ public class DeviceResource extends BaseObjectResource<Device> {
             long id = deviceManager.getByUniqueId(entity.getUniqueId()).getId();
             entity.setId(id);
             Context.getPermissionsManager().checkDevice(partnerId, entity.getId());
-            Context.getDeviceManager().updateItem(entity);
+            deviceManager.updateItem(entity);
             LogAction.edit(partnerId, entity);
             Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
             Context.getPermissionsManager().refreshAllExtendedPermissions();
