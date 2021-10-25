@@ -86,7 +86,10 @@ import java.io.InputStreamReader;
 import java.security.CodeSource;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import org.traccar.service.storage.AzureStorage;
+import java.util.Date;
+import java.time.temporal.ChronoUnit;
 
 public final class Context {
 
@@ -447,7 +450,7 @@ public final class Context {
         
             String fileName = "backup_" + LocalDateTime.now() + ".sql";
             String savePath = jarDir + "/backup/" + fileName;
-            String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " " + dbName + " -r " + savePath;
+            String executeCmd = "mysqldump -h 188.166.165.165 -u" + dbUser + " -p" + dbPass + " " + dbName + " -r " + savePath;
 
             executeCommand(executeCmd);
             refineDatabase();
@@ -458,7 +461,7 @@ public final class Context {
         } catch (URISyntaxException e) {
             LOGGER.error("Error when taking database backup" + e.getMessage(), e);
         }
-        //AzureStorage.listAllFiles();
+        //AzureStorage.listFiles("backups");
     }
     
     private static void executeCommand(String executeCmd) {
@@ -483,12 +486,16 @@ public final class Context {
     private static void refineDatabase() {
         String positionTable = DataManager.getObjectsTableName(Position.class);
         String eventTable = DataManager.getObjectsTableName(Event.class);
+        long millisec = new Date().toInstant().minus(30, ChronoUnit.DAYS).toEpochMilli();
+        Timestamp sinceMonths = new Timestamp(millisec);
         try {
-            QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + positionTable).executeUpdate();
-            QueryBuilder.create(getDataManager().getDataSource(), "TRUNCATE TABLE " + eventTable).executeUpdate();
+            QueryBuilder.create(getDataManager().getDataSource(), "DELETE FROM " + positionTable +
+            " WHERE servertime < '" + sinceMonths + "'").executeUpdate();
+            QueryBuilder.create(getDataManager().getDataSource(), "DELETE FROM " + eventTable +
+            " WHERE eventtime < '" + sinceMonths + "' OR eventtime IS NULL").executeUpdate();
             LOGGER.info("Context.refineDatabase: Database refined successfully");
         } catch (SQLException e) {
-            LOGGER.error("Context.refineDatabase: Can not truncate table: " + positionTable + " or table: " + eventTable, e);
+            LOGGER.error("Can not refine database: " + positionTable + " or table: " + eventTable, e);
         }
     }
     
