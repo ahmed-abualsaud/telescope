@@ -37,9 +37,6 @@ public class Query {
     }
     
     public Query where(String column, Object value) {
-        if (!query.contains("SELECT")) {
-            query = "SELECT * FROM " + table;
-        }
         if (query.contains("WHERE")) {
             query += " AND " + column + " = :" + column;
         } else {
@@ -50,9 +47,6 @@ public class Query {
     }
     
     public Query where(String column, String operator, Object value) {
-        if (!query.contains("SELECT")) {
-            query = "SELECT * FROM " + table;
-        }
         if (query.contains("WHERE")) {
             query += " AND " + column + " " + operator + " :" + column;
         } else {
@@ -64,6 +58,9 @@ public class Query {
     
     public <T> Collection<T> get() {
         try {
+            if (!query.contains("SELECT")) {
+                query = "SELECT * FROM " + table + query;
+            }
             QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
             for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
                 qb = qb.setGeneric(entry.getKey(), entry.getValue());
@@ -74,11 +71,38 @@ public class Query {
     
     public <T> T first() {
         try {
+            if (!query.contains("SELECT")) {
+                query = "SELECT * FROM " + table + query;
+            }
             QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
             for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
                 qb = qb.setGeneric(entry.getKey(), entry.getValue());
             }
             return qb.executeQuerySingle((Class<T>) clazz);
+        } catch (SQLException e) {throw new WebApplicationException(e);}
+    }
+    
+    public <T> Collection<T> delete() {
+        try {
+            query = "DELETE FROM " + table + query;
+            QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
+            for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+                qb = qb.setGeneric(entry.getKey(), entry.getValue());
+            }
+            return qb.executeQuery((Class<T>) clazz);
+        } catch (SQLException e) {throw new WebApplicationException(e);}
+    }
+    
+    public <T> Collection<T> update() {
+        try {
+            if (!query.contains("SELECT")) {
+                query = "SELECT * FROM " + table + query;
+            }
+            QueryBuilder qb = QueryBuilder.create(Context.getDataManager().getDataSource(), query);
+            for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+                qb = qb.setGeneric(entry.getKey(), entry.getValue());
+            }
+            return qb.executeQuery((Class<T>) clazz);
         } catch (SQLException e) {throw new WebApplicationException(e);}
     }
 }

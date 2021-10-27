@@ -18,7 +18,7 @@
     <!-- 188.166.165.165 -->
     
     
-    <entry key='config.default'>/root/telescope/target/default.xml</entry>
+    <entry key='config.default'>/home/sicoman/telescope/target/default.xml</entry>
     <entry key='event.behavior.accelerationThreshold'>1</entry>
 
     <!-- Database Connection Parameters -->
@@ -27,7 +27,7 @@
     <entry key='database.user'>root</entry>
     <entry key='database.password'>rootroot</entry>
     <entry key='database.name'>telescope</entry>
-    <entry key='database.url'>jdbc:mysql://188.166.165.165:3306/telescope?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
+    <entry key='database.url'>jdbc:mysql://localhost:3306/telescope?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;allowPublicKeyRetrieval=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
 
     <!-- Azure Storage Credentials -->
 
