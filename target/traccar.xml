@@ -27,7 +27,7 @@
     <entry key='database.user'>root</entry>
     <entry key='database.password'>rootroot</entry>
     <entry key='database.name'>telescope</entry>
-    <entry key='database.url'>jdbc:mysql://188.166.165.165:3306/telescope?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;allowPublicKeyRetrieval=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
+    <entry key='database.url'>jdbc:mysql://188.166.165.165:3306/telescope?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
 
     <!-- Azure Storage Credentials -->
 
@@ -46,3 +46,5 @@ FROM information_schema.tables
 GROUP BY table_schema;
 
 -->
+HikariPool-1 - Exception during pool initialization. - null,  message from server: "Host '138.68.109.198' is blocked because of many connection errors; unblock with 'mysqladmin flush-hosts
+
