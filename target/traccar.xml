@@ -46,5 +46,3 @@ FROM information_schema.tables
 GROUP BY table_schema;
 
 -->
-HikariPool-1 - Exception during pool initialization. - null,  message from server: "Host '138.68.109.198' is blocked because of many connection errors; unblock with 'mysqladmin flush-hosts
-
