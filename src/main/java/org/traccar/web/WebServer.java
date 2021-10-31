@@ -44,6 +44,7 @@ import org.traccar.Context;
 import org.traccar.api.DateParameterConverterProvider;
 import org.traccar.config.Config;
 import org.traccar.api.AsyncSocketServlet;
+import org.traccar.api.TripEventSocketServlet;
 import org.traccar.api.CorsResponseFilter;
 import org.traccar.api.MediaFilter;
 import org.traccar.api.ObjectMapperProvider;
@@ -157,6 +158,7 @@ public class WebServer {
 
     private void initApi(Config config, ServletContextHandler servletHandler) {
         servletHandler.addServlet(new ServletHolder(new AsyncSocketServlet()), "/api/socket");
+        servletHandler.addServlet(new ServletHolder(new TripEventSocketServlet()), "/trip/event");
         JettyWebSocketServletContainerInitializer.configure(servletHandler, null);
 
         String mediaPath = config.getString(Keys.MEDIA_PATH);

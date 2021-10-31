@@ -18,7 +18,7 @@
     <entry key='geocoder.type'>google</entry>
 
     <entry key='logger.level'>info</entry>
-    <entry key='logger.file'>/root/telescope/target/logs/tracker-server.log</entry>
+    <entry key='logger.file'>/home/sicoman/telescope/target/logs/tracker-server.log</entry>
     <entry key='logger.rotate'>true</entry>
 
     <entry key='filter.enable'>true</entry>
@@ -38,7 +38,7 @@
 
     <entry key='database.ignoreUnknown'>true</entry>
     <entry key='database.generateQueries'>true</entry>
-    <entry key='database.changelog'>/root/telescope/schema/changelog-master.xml</entry>
+    <entry key='database.changelog'>/home/sicoman/telescope/schema/changelog-master.xml</entry>
  
     <entry key='database.loginUser'>
         SELECT * FROM tc_users
@@ -295,5 +295,5 @@
     <entry key='flexiblereport.port'>5227</entry>
     <entry key='thinkpower.port'>5228</entry>
     <entry key='stb.port'>5229</entry>
-
+    
 </properties>

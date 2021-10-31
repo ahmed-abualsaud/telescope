@@ -141,7 +141,8 @@ public abstract class BasePipelineFactory extends ChannelInitializer<Channel> {
                 IgnitionEventHandler.class,
                 MaintenanceEventHandler.class,
                 DriverEventHandler.class);
-
+                
+        //pipeline.addLast(new TripEventHandler());
         pipeline.addLast(new MainEventHandler());
     }
 

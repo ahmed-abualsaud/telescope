@@ -51,6 +51,7 @@ public class ConnectionManager {
 
     private final Map<Long, ActiveDevice> activeDevices = new ConcurrentHashMap<>();
     private final Map<Long, Set<UpdateListener>> listeners = new ConcurrentHashMap<>();
+    private final Map<String, Set<TripEventListener>> tripEventListeners = new ConcurrentHashMap<>();
     private final Map<Long, Timeout> timeouts = new ConcurrentHashMap<>();
 
     public ConnectionManager() {
@@ -200,12 +201,24 @@ public class ConnectionManager {
             }
         }
     }
+    
+    public synchronized void updateDriverLocation(String logId, String message) {
+        if (tripEventListeners.containsKey(logId)) {
+            for (TripEventListener listener : tripEventListeners.get(logId)) {
+                listener.onUpdateDriverLocation(message);
+            }
+        }
+    }
 
     public interface UpdateListener {
         void onKeepalive();
         void onUpdateDevice(Device device);
         void onUpdatePosition(Position position);
         void onUpdateEvent(Event event);
+    }
+    
+    public interface TripEventListener {
+        void onUpdateDriverLocation(String message);
     }
 
     public synchronized void addListener(long userId, UpdateListener listener) {
@@ -220,6 +233,20 @@ public class ConnectionManager {
             listeners.put(userId, new HashSet<>());
         }
         listeners.get(userId).remove(listener);
+    }
+    
+    public synchronized void addListener(String logId, TripEventListener listener) {
+        if (!tripEventListeners.containsKey(logId)) {
+            tripEventListeners.put(logId, new HashSet<>());
+        }
+        tripEventListeners.get(logId).add(listener);
+    }
+
+    public synchronized void removeListener(String logId, TripEventListener listener) {
+        if (!tripEventListeners.containsKey(logId)) {
+            tripEventListeners.put(logId, new HashSet<>());
+        }
+        tripEventListeners.get(logId).remove(listener);
     }
 
 }

@@ -18,23 +18,17 @@ package org.traccar.handler.events;
 
 import java.util.Collections;
 import java.util.Map;
-import java.sql.SQLException;
 
 import io.netty.channel.ChannelHandler;
 import org.traccar.database.IdentityManager;
-import org.traccar.Context;
 import org.traccar.model.Device;
 import org.traccar.model.Event;
 import org.traccar.model.Position;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @ChannelHandler.Sharable
 public class IgnitionEventHandler extends BaseEventHandler {
 
     private final IdentityManager identityManager;
-    private static Logger LOGGER = LoggerFactory.getLogger(IgnitionEventHandler.class);
 
     public IgnitionEventHandler(IdentityManager identityManager) {
         this.identityManager = identityManager;
@@ -58,20 +52,11 @@ public class IgnitionEventHandler extends BaseEventHandler {
 
                 if (ignition && !oldIgnition) {
                     result = Collections.singletonMap(new Event(Event.TYPE_IGNITION_ON, position), position);
-                    device.setEngine(true);
                 } else if (!ignition && oldIgnition) {
                     result = Collections.singletonMap(new Event(Event.TYPE_IGNITION_OFF, position), position);
-                    device.setEngine(false);
-                }
-                try {
-                    Context.getDeviceManager().updateItem(device);
-                    LOGGER.info("Engine status updated successfully");
-                } catch (SQLException e) {
-                    LOGGER.error("Can not update engine status", e);
                 }
             }
         }
         return result;
     }
-
 }

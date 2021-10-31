@@ -728,6 +728,7 @@ org/traccar/protocol/SkypatrolProtocol.java
  org.traccar.protocol.SkypatrolProtocol$1
 org/traccar/database/ConnectionManager.java
  org.traccar.database.ConnectionManager
+ org.traccar.database.ConnectionManager$TripEventListener
  org.traccar.database.ConnectionManager$UpdateListener
 org/traccar/BasePipelineFactory.java
  org.traccar.BasePipelineFactory
@@ -820,10 +821,10 @@ org/traccar/protocol/NiotProtocolDecoder.java
 org/traccar/protocol/SpotProtocol.java
  org.traccar.protocol.SpotProtocol
  org.traccar.protocol.SpotProtocol$1
-org/traccar/api/UserSecurityContext.java
- org.traccar.api.UserSecurityContext
 org/traccar/model/Message.java
  org.traccar.model.Message
+org/traccar/api/UserSecurityContext.java
+ org.traccar.api.UserSecurityContext
 org/traccar/protocol/StbProtocol.java
  org.traccar.protocol.StbProtocol
  org.traccar.protocol.StbProtocol$1
@@ -836,6 +837,8 @@ org/traccar/protocol/AustinNbProtocol.java
  org.traccar.protocol.AustinNbProtocol$1
 org/traccar/protocol/EelinkProtocolDecoder.java
  org.traccar.protocol.EelinkProtocolDecoder
+org/traccar/api/TripEventSocketServlet.java
+ org.traccar.api.TripEventSocketServlet
 org/traccar/protocol/NavigilFrameDecoder.java
  org.traccar.protocol.NavigilFrameDecoder
 org/traccar/protocol/MxtFrameDecoder.java
@@ -1786,6 +1789,8 @@ org/traccar/protocol/V680Protocol.java
 org/traccar/protocol/IdplProtocol.java
  org.traccar.protocol.IdplProtocol
  org.traccar.protocol.IdplProtocol$1
+org/traccar/api/TripEventSocket.java
+ org.traccar.api.TripEventSocket
 org/traccar/protocol/RadarProtocol.java
  org.traccar.protocol.RadarProtocol
  org.traccar.protocol.RadarProtocol$1

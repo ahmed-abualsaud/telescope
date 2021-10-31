@@ -20,7 +20,6 @@ import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
 import org.traccar.Context;
 import org.traccar.config.Keys;
 import java.time.Duration;
-import java.sql.SQLException;
 
 public class AsyncSocketServlet extends JettyWebSocketServlet {
 
@@ -29,12 +28,23 @@ public class AsyncSocketServlet extends JettyWebSocketServlet {
         factory.setIdleTimeout(Duration.ofMillis(Context.getConfig().getLong(Keys.WEB_TIMEOUT)));
         factory.setCreator((req, resp) -> {
         
-            String userId = req.getParameterMap().get("userId").get(0);
-            String apiKey = req.getParameterMap().get("token").get(0);
-
-            if (userId != null && apiKey.equals("cXJ1ejoxMjM0NTY3ODk=")) {
-            	return new AsyncSocket(Long.parseLong(userId));
+            if (!req.getParameterMap().containsKey("token")) {
+                return null;
             }
+        
+            String apiKey = req.getParameterMap().get("token").get(0);
+            
+            if (!apiKey.equals("cXJ1ejoxMjM0NTY3ODk=")) {
+                return null;
+            }
+            
+            if (req.getParameterMap().containsKey("userId")) {
+                String userId = req.getParameterMap().get("userId").get(0);
+                if (userId != null) {
+                    return new AsyncSocket(Long.parseLong(userId));
+                }
+            }
+            
             return null;
         });
     }
