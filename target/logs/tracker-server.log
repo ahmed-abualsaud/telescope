@@ -1,0 +1,29 @@
+2021-12-02 16:56:21  INFO: HikariPool-1 - Starting...
+2021-12-02 16:56:23  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@18f8cd79
+2021-12-02 16:56:23  INFO: HikariPool-1 - Start completed.
+2021-12-02 16:56:24  INFO: Clearing database change log checksums
+2021-12-02 16:56:24  INFO: Successfully acquired change log lock
+2021-12-02 16:56:25  INFO: Successfully released change log lock
+2021-12-02 16:56:25  INFO: Successfully acquired change log lock
+2021-12-02 16:56:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2021-12-02 16:56:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2021-12-02 16:56:28  INFO: Reading from telescope.DATABASECHANGELOG
+2021-12-02 16:56:33  INFO: Reading from telescope.DATABASECHANGELOG
+2021-12-02 16:56:33  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2021-12-02 16:56:33  INFO: Successfully released change log lock
+2021-12-02 16:56:35  INFO: HikariPool-2 - Starting...
+2021-12-02 16:56:35  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5529ff44
+2021-12-02 16:56:35  INFO: HikariPool-2 - Start completed.
+2021-12-02 16:56:39  INFO: Operating system name: Linux version: 5.11.0-41-generic architecture: amd64
+2021-12-02 16:56:39  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-12-02 16:56:39  INFO: Memory limit heap: 962mb non-heap: 0mb
+2021-12-02 16:56:39  INFO: Character encoding: UTF-8 charset: UTF-8
+2021-12-02 16:56:39  INFO: Version: 4.14
+2021-12-02 16:56:39  INFO: Starting server...
+2021-12-02 16:56:40  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.11+9-Ubuntu-0ubuntu2.20.04
+2021-12-02 16:56:42  INFO: Started o.t.w.@751d7425{/,null,AVAILABLE}
+2021-12-02 16:56:42  INFO: Session workerName=node0
+2021-12-02 16:56:42  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2021-12-02 16:56:43  INFO: Started o.e.j.s.ServletContextHandler@ca2be53{/,null,AVAILABLE}
+2021-12-02 16:56:43  INFO: Started ServerConnector@3b95d13c{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2021-12-02 16:56:43  INFO: Started Server@5657967b{STARTING}[10.0.6,sto=0] @25332ms

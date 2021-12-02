@@ -30,6 +30,8 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Timer;
 
+import org.traccar.qruzcab.QruzCab;
+
 public final class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -118,6 +120,7 @@ public final class Main {
     public static void run(String configFile) {
         try {
             Context.init(configFile);
+            QruzCab.init(configFile);
             injector = Guice.createInjector(new MainModule());
             logSystemInfo();
             LOGGER.info("Version: " + Main.class.getPackage().getImplementationVersion());

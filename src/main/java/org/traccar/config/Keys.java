@@ -270,6 +270,41 @@ public final class Keys {
     public static final ConfigKey<String> DATABASE_DRIVER_FILE = new ConfigKey<>(
             "database.driverFile",
             Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Database driver Java class. For H2 use 'org.h2.Driver'. MySQL driver class name is 'com.mysql.jdbc.Driver'.
+     */
+    public static final ConfigKey<String> QRUZCAB_DATABASE_DRIVER = new ConfigKey<>(
+            "qruzcab.database.driver",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Qruz Cab database connection URL. By default Qruz Cab uses MYSQL database.
+     */
+    public static final ConfigKey<String> QRUZCAB_DATABASE_URL = new ConfigKey<>(
+            "qruzcab.database.url",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Qruz Cab database user name. Default administrator user for MYSQL database is 'root'.
+     */
+    public static final ConfigKey<String> QRUZCAB_DATABASE_USER = new ConfigKey<>(
+            "qruzcab.database.user",
+            Collections.singletonList(KeyType.GLOBAL));
+
+    /**
+     * Qruz Cab database user password. Default password for MYSQL admin (sa) user is 'rootroot'.
+     */
+    public static final ConfigKey<String> QRUZCAB_DATABASE_PASSWORD = new ConfigKey<>(
+            "qruzcab.database.password",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Qruz Cab database name. Default database name for mysql database is telescope.
+     */
+    public static final ConfigKey<String> QRUZCAB_DATABASE_NAME = new ConfigKey<>(
+            "qruzcab.database.name",
+            Collections.singletonList(KeyType.GLOBAL));
 
     /**
      * Database driver Java class. For H2 use 'org.h2.Driver'. MySQL driver class name is 'com.mysql.jdbc.Driver'.
@@ -284,7 +319,7 @@ public final class Keys {
     public static final ConfigKey<String> DATABASE_URL = new ConfigKey<>(
             "database.url",
             Collections.singletonList(KeyType.GLOBAL));
-
+            
     /**
      * Database user name. Default administrator user for H2 database is 'sa'.
      */

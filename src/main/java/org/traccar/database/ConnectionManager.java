@@ -248,5 +248,4 @@ public class ConnectionManager {
         }
         tripEventListeners.get(logId).remove(listener);
     }
-
 }

@@ -774,6 +774,8 @@ org/traccar/protocol/GranitProtocolDecoder.java
  org.traccar.protocol.GranitProtocolDecoder
 org/traccar/protocol/Pt3000ProtocolDecoder.java
  org.traccar.protocol.Pt3000ProtocolDecoder
+org/traccar/protocol/Pt502FrameDecoder.java
+ org.traccar.protocol.Pt502FrameDecoder
 org/traccar/api/resource/ReportResource.java
  org.traccar.api.resource.ReportResource
  org.traccar.api.resource.ReportResource$ReportExecutor
@@ -1138,6 +1140,9 @@ org/traccar/protocol/Tr900ProtocolDecoder.java
  org.traccar.protocol.Tr900ProtocolDecoder
 org/traccar/model/Order.java
  org.traccar.model.Order
+org/traccar/protocol/GnxProtocol.java
+ org.traccar.protocol.GnxProtocol
+ org.traccar.protocol.GnxProtocol$1
 org/traccar/protocol/WatchProtocolEncoder.java
  org.traccar.protocol.WatchProtocolEncoder
 org/traccar/api/resource/DeviceResource.java
@@ -1297,6 +1302,8 @@ org/traccar/protocol/BlueProtocolDecoder.java
  org.traccar.protocol.BlueProtocolDecoder
 org/traccar/model/Server.java
  org.traccar.model.Server
+org/traccar/protocol/Gl200BinaryProtocolDecoder.java
+ org.traccar.protocol.Gl200BinaryProtocolDecoder
 org/traccar/sms/SmsManager.java
  org.traccar.sms.SmsManager
 org/traccar/protocol/LaipacProtocolDecoder.java
@@ -1497,6 +1504,8 @@ org/traccar/protocol/MotorProtocolDecoder.java
 org/traccar/protocol/IotmProtocol.java
  org.traccar.protocol.IotmProtocol
  org.traccar.protocol.IotmProtocol$1
+org/traccar/qruzcab/database/DataManager.java
+ org.traccar.qruzcab.database.DataManager
 org/traccar/protocol/PretraceProtocolEncoder.java
  org.traccar.protocol.PretraceProtocolEncoder
 org/traccar/protocol/SmartSoleProtocol.java
@@ -1552,10 +1561,9 @@ org/traccar/reports/Stops.java
 org/traccar/protocol/TytanProtocol.java
  org.traccar.protocol.TytanProtocol
  org.traccar.protocol.TytanProtocol$1
-org/traccar/web/WebServer.java
- org.traccar.web.WebServer
- org.traccar.web.WebServer$1
- org.traccar.web.WebServer$2
+org/traccar/protocol/SuntechProtocol.java
+ org.traccar.protocol.SuntechProtocol
+ org.traccar.protocol.SuntechProtocol$1
 org/traccar/database/DeviceManager.java
  org.traccar.database.DeviceManager
 org/traccar/protocol/Gl200TextProtocolDecoder.java
@@ -2152,6 +2160,9 @@ org/traccar/database/BaseObjectManager.java
  org.traccar.database.BaseObjectManager
 org/traccar/protocol/EasyTrackProtocolEncoder.java
  org.traccar.protocol.EasyTrackProtocolEncoder
+org/traccar/protocol/ArknavProtocol.java
+ org.traccar.protocol.ArknavProtocol
+ org.traccar.protocol.ArknavProtocol$1
 org/traccar/protocol/T800xProtocol.java
  org.traccar.protocol.T800xProtocol
  org.traccar.protocol.T800xProtocol$1
@@ -2165,6 +2176,8 @@ org/traccar/protocol/SupermateProtocolDecoder.java
  org.traccar.protocol.SupermateProtocolDecoder
 org/traccar/reports/model/SummaryReport.java
  org.traccar.reports.model.SummaryReport
+org/traccar/qruzcab/database/QueryBuilder.java
+ org.traccar.qruzcab.database.QueryBuilder
 org/traccar/geocoder/BanGeocoder.java
  org.traccar.geocoder.BanGeocoder
 org/traccar/protocol/GlobalSatProtocolDecoder.java
@@ -2423,16 +2436,17 @@ org/traccar/protocol/ArnaviProtocolDecoder.java
 org/traccar/StringProtocolEncoder.java
  org.traccar.StringProtocolEncoder
  org.traccar.StringProtocolEncoder$ValueFormatter
-org/traccar/protocol/SuntechProtocol.java
- org.traccar.protocol.SuntechProtocol
- org.traccar.protocol.SuntechProtocol$1
-org/traccar/protocol/Gl200BinaryProtocolDecoder.java
- org.traccar.protocol.Gl200BinaryProtocolDecoder
-org/traccar/protocol/GnxProtocol.java
- org.traccar.protocol.GnxProtocol
- org.traccar.protocol.GnxProtocol$1
-org/traccar/protocol/Pt502FrameDecoder.java
- org.traccar.protocol.Pt502FrameDecoder
-org/traccar/protocol/ArknavProtocol.java
- org.traccar.protocol.ArknavProtocol
- org.traccar.protocol.ArknavProtocol$1
+org/traccar/web/WebServer.java
+ org.traccar.web.WebServer
+ org.traccar.web.WebServer$1
+ org.traccar.web.WebServer$2
+org/traccar/qruzcab/websocket/QruzCabSocketManager.java
+ org.traccar.qruzcab.websocket.QruzCabSocketManager
+ org.traccar.qruzcab.websocket.QruzCabSocketManager$QruzCabSocketListener
+org/traccar/qruzcab/QruzCab.java
+ org.traccar.qruzcab.QruzCab
+org/traccar/qruzcab/websocket/QruzCabSocketServlet.java
+ org.traccar.qruzcab.websocket.QruzCabSocketServlet
+org/traccar/qruzcab/websocket/QruzCabSocket.java
+ org.traccar.qruzcab.websocket.QruzCabSocket
+ org.traccar.qruzcab.websocket.QruzCabSocket$1
