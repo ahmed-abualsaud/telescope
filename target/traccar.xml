@@ -15,7 +15,8 @@
 
     -->
     
-    <!-- 188.166.165.165 -->
+    <!-- 188.166.165.165 mysql -->
+    <!-- 138.68.109.198 telescope -->
     
     
     <entry key='config.default'>/home/sicoman/telescope/target/default.xml</entry>
