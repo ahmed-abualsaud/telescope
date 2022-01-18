@@ -1,21 +1,6 @@
-/*
- * Copyright 2015 - 2017 Anton Tananaev (anton@traccar.org)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.traccar.api.resource;
 
-import org.traccar.validator.Validator;
+import org.traccar.api.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.database.UsersManager;
@@ -38,165 +23,175 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
-
+import org.traccar.api.auth.JWT;
+import org.traccar.api.auth.Auth;
+import org.traccar.api.auth.AuthResource;
+import org.traccar.database.DB;
+import org.traccar.helper.Hashing;
+import org.traccar.helper.MailUtil;
 import java.util.*;
 
-@Path("partner")
+@Path("user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserResource extends BaseObjectResource<User> {
-
-    @javax.ws.rs.core.Context
-    private HttpServletRequest request;
-
-    public UserResource() {
-        super(User.class);
-    }
-
-    @GET
-    public Collection<User> get(@QueryParam("userId") long userId) throws SQLException {
-        UsersManager usersManager = Context.getUsersManager();
-        Set<Long> result;
-        if (Context.getPermissionsManager().getUserAdmin(getUserId())) {
-            if (userId != 0) {
-                result = usersManager.getUserItems(userId);
-            } else {
-                result = usersManager.getAllItems();
-            }
-        } else if (Context.getPermissionsManager().getUserManager(getUserId())) {
-            result = usersManager.getManagedItems(getUserId());
-        } else {
-            throw new SecurityException("Unauthorized Access");
-        }
-        return usersManager.getItems(result);
-    }
+public class UserResource extends AuthResource {
 
     @Path("register")
     @PermitAll
     @POST
-    public Response register(User entity) throws SQLException {
-    
-        Map<String, Object> request = new LinkedHashMap<>();
-        request.put("name", entity.getName());
-        request.put("email", entity.getEmail());
-        request.put("phone", entity.getPhone());
+    public Response register(Map<String, Object> request) throws SQLException {
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> validationValues = new LinkedHashMap<>();
+        Map<String, String> validationString = new LinkedHashMap<>();    
+
+        validationValues.put("name", request.get("name"));
+        validationValues.put("email", request.get("email"));
+        validationValues.put("phone", request.get("phone"));
         
-        Map<String, String> validationString = new LinkedHashMap<>();
         validationString.put("name", "required");
-        validationString.put("email", "unique:user");
+        validationString.put("email", "unique:user|required");
         validationString.put("phone", "unique:user|required");
         
-        Map<String, Object> response = new LinkedHashMap<>();
-        Validator validator = Validator.validate(request, validationString);
+        Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
         
-            Context.getUsersManager().addItem(entity);
-            LogAction.create(getUserId(), entity);
+            String token = JWT.encodeJWT(request.get("phone").toString(), request.get("email").toString(), "user", -1);
+            request.put("token", token);
+            String password;
+            
+            if (request.containsKey("password") && request.get("password") != null) {
+                password = request.get("password").toString();
+            } else {password = request.get("phone").toString();}
+            
+            Hashing.HashingResult hashingResult = Hashing.createHash(password);
+            request.put("password", hashingResult.getHash());
+            request.put("salt", hashingResult.getSalt());
+            Map<String, Object> user = DB.table("tc_users").create(request);
+            
             Map<String, Object> data = new LinkedHashMap<>();
-            data.put("userId", entity.getId());
+            data.put("access_token", token);
+            data.put("user", user);
             response.put("success", true);
             response.put("data", data);
-            return Response.ok(response).build();
+            return response(OK).entity(response).build();
             
         } else {
             response.put("success", false);
             response.put("error", validator.getErrors());
-            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+            return response(BAD_REQUEST).entity(response).build();
         }
     }
 
-    @Path("id")
+    @Path("login")
     @PermitAll
     @POST
-    public Response login(User entity) throws SQLException {
-    
-        Map<String, Object> request = new LinkedHashMap<>();
-        request.put("email", entity.getEmail());
-        
-        Map<String, String> validationString = new LinkedHashMap<>();
-        validationString.put("email", "exists:user|required");
+    public Response login(Map<String, Object> request) throws SQLException {
     
         Map<String, Object> response = new LinkedHashMap<>();
-        Validator validator = Validator.validate(request, validationString);
+        Map<String, Object> validationValues = new LinkedHashMap<>();
+        Map<String, String> validationString = new LinkedHashMap<>();
+        String emailOrPhone = request.get("emailOrPhone").toString();
+        
+        if (MailUtil.isValidEmailAddress(emailOrPhone)) {
+            validationValues.put("email", emailOrPhone);
+            validationString.put("email", "exists:user");
+        } else {
+            validationValues.put("phone", emailOrPhone);
+            validationString.put("phone", "exists:user");
+        }
+        
+        Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
         
-            String email = null;
-            if(entity.getName() != null && entity.getName().equals("admin")) {
-                email = entity.getName();
-            } else {
-                email = entity.getEmail();
-            }
             Map<String, Object> data = new LinkedHashMap<>();
-            String password = entity.getPasswordToAdmin();
-            User user = Context.getPermissionsManager().login(email, password);
-            if (user != null) {
-                LogAction.login(user.getId());
-                data.put("userId", user.getId());
-                response.put("success", true);
-                response.put("data", data);
-                return Response.ok(response).build();
-            } else {
-                data.put("message", "Invalid Password");
+            validationValues.put("password", request.get("password"));
+            Map<String, Object> user = Auth.attempt(validationValues);
+            
+            if (user == null) {
+                data.put("message", "Invalid Email or Password");
                 response.put("success", false);
                 response.put("error", data);
-                return Response.status(Response.Status.NOT_FOUND).entity(response).build();
+                return response(BAD_REQUEST).entity(response).build();
             }
+            
+            if (user.get("disabled").toString() == "true") {
+                data.put("message", "Account is disabled");
+                response.put("success", false);
+                response.put("error", data);
+                return response(BAD_REQUEST).entity(response).build();
+            }
+            
+            data.put("access_token", user.remove("token"));
+            data.put("user", user);
+            response.put("success", true);
+            response.put("data", data);
+            return response(OK).entity(response).build();
             
         } else {
             response.put("success", false);
             response.put("error", validator.getErrors());
-            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+            return response(BAD_REQUEST).entity(response).build();
         }
     }
     
-    @Path("{partnerId}")
-    @PUT
-    public Response update(User entity, @PathParam("partnerId") long partnerId) throws SQLException {
+    @GET
+    public Response get() throws SQLException {
     
-        Map<String, Object> request = new LinkedHashMap<>();
-        request.put("partnerId", partnerId);
-        request.put("email", entity.getEmail());
-        request.put("phone", entity.getPhone());
-        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> user = DB.table("tc_users").where("id", auth().getUserId()).first();
+        response.put("success", true);
+        response.put("date", user);
+        return response(OK).entity(response).build();
+    }
+    
+    @PUT
+    public Response update(Map<String, Object> request) throws SQLException {
+    
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> validationValues = new LinkedHashMap<>();
         Map<String, String> validationString = new LinkedHashMap<>();
-        validationString.put("partnerId", "exists:user.id");
+        
+        validationValues.put("email", request.get("email"));
+        validationValues.put("phone", request.get("phone"));
+        
         validationString.put("email", "unique:user");
         validationString.put("phone", "unique:user");
         
-        Map<String, Object> response = new LinkedHashMap<>();
-        Validator validator = Validator.validate(request, validationString);
+        Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
         
-            entity.setId(partnerId);
-            Context.getPermissionsManager().checkReadonly(partnerId);
-            Context.getUsersManager().updateItem(entity);
-            LogAction.edit(partnerId, entity);
+            List<Map<String, Object>> user = DB.table("tc_users").where("id", auth().getUserId()).update(request);
             response.put("success", true);
-            response.put("data", entity);
-            return Response.ok(response).build();
+            response.put("data", user);
+            return response(OK).entity(response).build();
             
         } else {
             response.put("success", false);
             response.put("error", validator.getErrors());
-            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+            return response(BAD_REQUEST).entity(response).build();
         }
     }
     
-    @Path("{partnerId}")
     @DELETE
-    public Response remove(@PathParam("partnerId") long partnerId) throws SQLException {
+    public Response destroy() throws SQLException {
     		
-        Context.getPermissionsManager().checkReadonly(partnerId);
-        Context.getPermissionsManager().checkDeviceReadonly(partnerId);
-        UsersManager userManager = Context.getUsersManager();
-        userManager.removeItem(partnerId);
-        LogAction.remove(partnerId, User.class, partnerId);
-        userManager.refreshUserItems();
-        Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
-        Context.getPermissionsManager().refreshAllUsersPermissions();
         Map<String, Object> response = new LinkedHashMap<>();
-        response.put("success", true);
-        response.put("data", "User Deleted Successfully");
-        return Response.ok(response).build();
+        response.put("success", DB.table("tc_users").where("id", auth().getUserId()).delete());
+        return response(OK).entity(response).build();
     }
+    
+    @Path("test")
+    @PermitAll
+    @GET
+    public Response test(
+        @QueryParam("name") String name,
+        @QueryParam("uniqueid") String uniqueid,
+        @QueryParam("partnerid") long partnerid
+    ) {
+        //return Response.ok(DB.table("tc_devices").whereIn("name", new Object[] {"tk03_11","tk03_12"}).delete()).build();
+        return response(OK).entity("hi").build();
+        //name=tk03_10&uniqueid=tk03_1023456789&
+    }
+    
 }

@@ -16,19 +16,22 @@ public class QueryBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QueryBuilder.class);
     private final Map<String, List<Integer>> indexMap = new HashMap<>();
-    private Map<String, Object> queryParams = new HashMap<>();
     
-    private final DataSource dataSource;
+    private String query;
+    private String whereString;
     private final String tableName;
+    private final DataSource dataSource;
+    private Map<String, Object> queryParams;
+    
     private Connection connection;
     private PreparedStatement statement;
     
-    private String query = null;
-    private String whereString = "";
-    
     public QueryBuilder(String tableName, DataSource dataSource) {
+        this.query = "";
+        this.whereString = "";
         this.tableName = tableName;
         this.dataSource = dataSource;
+        this.queryParams = new HashMap<>();
     }
     
     public QueryBuilder where(String column, Object value) {

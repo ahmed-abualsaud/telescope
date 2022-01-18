@@ -15,7 +15,7 @@
  */
 package org.traccar.api.resource;
 
-import org.traccar.validator.Validator;
+import org.traccar.api.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseObjectResource;
 import org.traccar.database.DeviceManager;
@@ -47,7 +47,7 @@ public class DeviceResource extends BaseObjectResource<Device> {
     public DeviceResource() {
         super(Device.class);
     }
-    
+    /*
     @Path("all")
     @GET
     public Response list() {
@@ -207,5 +207,5 @@ public class DeviceResource extends BaseObjectResource<Device> {
             response.put("error", validator.getErrors());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-    }
+    }*/
 }

@@ -17,7 +17,7 @@ package org.traccar.api.resource;
 
 import org.traccar.database.DeviceManager;
 
-import org.traccar.validator.Validator;
+import org.traccar.api.validator.Validator;
 import org.traccar.Context;
 import org.traccar.api.BaseResource;
 import org.traccar.model.Position;
@@ -38,7 +38,7 @@ import java.util.*;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PositionResource extends BaseResource {
-
+/*
     @Path("partner/{partnerId}")
     @GET
     public Response getJson(@PathParam("partnerId") long partnerId,
@@ -77,5 +77,5 @@ public class PositionResource extends BaseResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
     }
-
+*/
 }

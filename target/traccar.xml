@@ -49,10 +49,18 @@
     <entry key='azure.storageKey'>eUrtEplqMsFjlY0H/X43fo1YL9OONpx68QQ+NJZI9LeOx/x1hdOn6+5s5XjTAKrm4VD+VyajsL9PSwITTjC5dg==</entry>
     <entry key='azure.storageContainer'>uploads</entry>
     <entry key='azure.storageURL'>https://qruz.blob.core.windows.net/uploads</entry>
+    
+    
+    <!-- JWT Secret Key =================================================================================================================== -->
 
+    <entry key='jwt.secret.key'>oeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI-ZQ19k_o9MI0y3eZN2lp9jow55FfXMiINEdt1XR85VipRLSOkT6kSpzs2x-jbLDiz9iFVzkd81YKxMgPA7VfZeQUm4n-mOmnWMaVX30zGFU4L3oPBctYKkl4dYfqYWqRNfrgPJVi5DGFjywgxx0ASEiJHtV72paI3fDR2XwlSkyhhmY-ICjCRmsJN4fX1pdoL8a18-aQrvyu4j0Os6dVPYIoPvvY0SAZtWYKHfM15g7A3HD4cVREf9cUsprCRK93w</entry>
+    
+    
+    
 </properties>
 
 <!--
+<entry key='jwt.secret.key'>oeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI-ZQ19k_o9MI0y3eZN2lp9jow55FfXMiINEdt1XR85VipRLSOkT6kSpzs2x-jbLDiz9iFVzkd81YKxMgPA7VfZeQUm4n-mOmnWMaVX30zGFU4L3oPBctYKkl4dYfqYWqRNfrgPJVi5DGFjywgxx0ASEiJHtV72paI3fDR2XwlSkyhhmY-ICjCRmsJN4fX1pdoL8a18-aQrvyu4j0Os6dVPYIoPvvY0SAZtWYKHfM15g7A3HD4cVREf9cUsprCRK93w</entry>
 
 SELECT table_schema "Databases",
         ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "DB Size in MB" 

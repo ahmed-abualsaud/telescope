@@ -129,6 +129,9 @@
       <column name="uniqueid" type="VARCHAR(128)">
         <constraints nullable="false" unique="true" />
       </column>
+      <column name="partnerid" type="INT">
+        <constraints nullable="false" />
+      </column>
       <column name="lastupdate" type="timestamp" />
       <column name="positionid" type="INT" />
       <column name="groupid" type="INT" />
@@ -505,7 +508,7 @@
       <column name="email" type="VARCHAR(128)">
         <constraints nullable="true" unique="true" />
       </column>
-      <column name="hashedpassword" type="VARCHAR(128)" />
+      <column name="password" type="VARCHAR(128)" />
       <column name="salt" type="VARCHAR(128)" />
       <column name="readonly" type="BOOLEAN" defaultValueBoolean="false">
         <constraints nullable="false" />
@@ -529,7 +532,7 @@
       <column name="disabled" type="BOOLEAN" defaultValueBoolean="false" />
       <column name="expirationtime" type="timestamp" />
       <column name="devicelimit" type="INT" defaultValueNumeric="-1" />
-      <column name="token" type="VARCHAR(128)" />
+      <column name="token" type="VARCHAR(256)" />
       <column name="userlimit" type="INT" defaultValueNumeric="0" />
       <column name="devicereadonly" type="BOOLEAN" defaultValueBoolean="false" />
       <column name="phone" type="VARCHAR(128)" />

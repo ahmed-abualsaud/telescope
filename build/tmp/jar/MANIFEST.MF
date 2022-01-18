@@ -15,48 +15,49 @@ Class-Path: lib/ical4j-3.0.29.jar lib/jxls-poi-1.0.16.jar lib/poi-ooxml-
  ket-core-server-10.0.6.jar lib/jetty-server-10.0.6.jar lib/jetty-jndi-1
  0.0.6.jar lib/jetty-proxy-10.0.6.jar lib/jersey-container-servlet-2.34.
  jar lib/jersey-media-json-jackson-2.34.jar lib/jersey-hk2-2.34.jar lib/
- jmespath-java-1.12.47.jar lib/jackson-dataformat-cbor-2.12.3.jar lib/ja
- ckson-datatype-jsr353-2.12.3.jar lib/jackson-module-jaxb-annotations-2.
- 12.3.jar lib/jackson-jaxrs-base-2.12.3.jar lib/jackson-databind-2.12.3.
- jar lib/azure-storage-8.4.0.jar lib/jackson-core-2.12.3.jar lib/jackson
- -annotations-2.12.3.jar lib/jackson-jaxrs-json-provider-2.12.3.jar lib/
- liquibase-core-4.4.3.jar lib/javax.mail-1.6.2.jar lib/jxls-2.4.7.jar li
- b/velocity-tools-2.0.jar lib/velocity-1.7.jar lib/commons-collections4-
- 4.4.jar lib/spatial4j-0.8.jar lib/jts-core-1.18.1.jar lib/jna-platform-
- 5.8.0.jar lib/jnr-posix-3.1.7.jar lib/protobuf-java-3.17.3.jar lib/jaxb
- -api-2.3.1.jar lib/jaxb-impl-3.0.2.jar lib/jaxb-core-3.0.2.jar lib/acti
- vation-1.1.1.jar lib/azure-keyvault-core-1.0.0.jar lib/guava-30.1-jre.j
- ar lib/checker-qual-3.5.0.jar lib/jetty-client-10.0.6.jar lib/websocket
- -jetty-common-10.0.6.jar lib/websocket-core-common-10.0.6.jar lib/jetty
- -http-10.0.6.jar lib/jetty-alpn-client-10.0.6.jar lib/jetty-io-10.0.6.j
- ar lib/jetty-xml-10.0.6.jar lib/jetty-util-10.0.6.jar lib/jcl-over-slf4
- j-1.7.12.jar lib/slf4j-api-2.0.0-alpha4.jar lib/javax.inject-1.jar lib/
- aopalliance-1.0.jar lib/jetty-servlet-api-4.0.6.jar lib/websocket-jetty
- -api-10.0.6.jar lib/jersey-container-servlet-core-2.34.jar lib/jersey-s
- erver-2.34.jar lib/jersey-client-2.34.jar lib/jersey-common-2.34.jar li
- b/jersey-entity-filtering-2.34.jar lib/jakarta.ws.rs-api-2.1.6.jar lib/
- hk2-locator-2.6.1.jar lib/javassist-3.25.0-GA.jar lib/javax.json-api-1.
- 1.4.jar lib/commons-jexl-2.1.1.jar lib/struts-taglib-1.3.8.jar lib/stru
- ts-tiles-1.3.8.jar lib/struts-core-1.3.8.jar lib/commons-chain-1.1.jar 
- lib/commons-validator-1.3.1.jar lib/commons-digester-1.8.jar lib/common
- s-beanutils-1.9.2.jar lib/logback-core-1.1.3.jar lib/commons-collection
- s-3.2.1.jar lib/commons-lang-2.4.jar lib/commons-logging-1.2.jar lib/do
- m4j-1.1.jar lib/oro-2.0.8.jar lib/sslext-1.2-0.jar lib/cache-api-1.1.1.
- jar lib/threeten-extra-1.5.0.jar lib/groovy-dateutil-3.0.7.jar lib/groo
- vy-3.0.7.jar lib/commons-lang3-3.8.1.jar lib/jna-5.8.0.jar lib/jnr-ffi-
- 2.2.4.jar lib/jnr-constants-0.10.2.jar lib/javax.activation-api-1.2.0.j
- ar lib/jakarta.xml.bind-api-3.0.1.jar lib/jakarta.activation-2.0.1.jar 
- lib/failureaccess-1.0.1.jar lib/listenablefuture-9999.0-empty-to-avoid-
- conflict-with-guava.jar lib/jsr305-3.0.2.jar lib/error_prone_annotation
- s-2.3.4.jar lib/j2objc-annotations-1.3.jar lib/jakarta.annotation-api-1
- .3.5.jar lib/asm-commons-9.1.jar lib/asm-util-9.1.jar lib/asm-analysis-
- 9.1.jar lib/asm-tree-9.1.jar lib/asm-9.1.jar lib/hk2-api-2.6.1.jar lib/
- hk2-utils-2.6.1.jar lib/jakarta.inject-2.6.1.jar lib/osgi-resource-loca
- tor-1.0.3.jar lib/jakarta.validation-api-2.0.2.jar lib/jakarta.activati
- on-api-1.2.1.jar lib/aopalliance-repackaged-2.6.1.jar lib/poi-ooxml-sch
- emas-4.0.0.jar lib/commons-compress-1.18.jar lib/curvesapi-1.04.jar lib
- /antlr-2.7.2.jar lib/jffi-1.3.3.jar lib/jffi-1.3.3-native.jar lib/jnr-a
- 64asm-1.0.0.jar lib/jnr-x86asm-1.0.2.jar lib/ion-java-1.0.2.jar lib/jod
- a-time-2.8.1.jar lib/jakarta.transaction-api-1.3.2.jar lib/xmlbeans-3.0
- .1.jar lib/httpcore-4.4.13.jar
+ jjwt-jackson-0.11.2.jar lib/jmespath-java-1.12.47.jar lib/jackson-dataf
+ ormat-cbor-2.12.3.jar lib/jackson-datatype-jsr353-2.12.3.jar lib/jackso
+ n-module-jaxb-annotations-2.12.3.jar lib/jackson-jaxrs-base-2.12.3.jar 
+ lib/jackson-databind-2.12.3.jar lib/azure-storage-8.4.0.jar lib/jackson
+ -core-2.12.3.jar lib/jackson-annotations-2.12.3.jar lib/jackson-jaxrs-j
+ son-provider-2.12.3.jar lib/liquibase-core-4.4.3.jar lib/javax.mail-1.6
+ .2.jar lib/jxls-2.4.7.jar lib/velocity-tools-2.0.jar lib/velocity-1.7.j
+ ar lib/commons-collections4-4.4.jar lib/spatial4j-0.8.jar lib/jts-core-
+ 1.18.1.jar lib/jna-platform-5.8.0.jar lib/jnr-posix-3.1.7.jar lib/proto
+ buf-java-3.17.3.jar lib/jaxb-api-2.3.1.jar lib/jaxb-impl-3.0.2.jar lib/
+ jaxb-core-3.0.2.jar lib/activation-1.1.1.jar lib/jjwt-impl-0.11.2.jar l
+ ib/jjwt-api-0.11.2.jar lib/azure-keyvault-core-1.0.0.jar lib/guava-30.1
+ -jre.jar lib/checker-qual-3.5.0.jar lib/jetty-client-10.0.6.jar lib/web
+ socket-jetty-common-10.0.6.jar lib/websocket-core-common-10.0.6.jar lib
+ /jetty-http-10.0.6.jar lib/jetty-alpn-client-10.0.6.jar lib/jetty-io-10
+ .0.6.jar lib/jetty-xml-10.0.6.jar lib/jetty-util-10.0.6.jar lib/jcl-ove
+ r-slf4j-1.7.12.jar lib/slf4j-api-2.0.0-alpha4.jar lib/javax.inject-1.ja
+ r lib/aopalliance-1.0.jar lib/jetty-servlet-api-4.0.6.jar lib/websocket
+ -jetty-api-10.0.6.jar lib/jersey-container-servlet-core-2.34.jar lib/je
+ rsey-server-2.34.jar lib/jersey-client-2.34.jar lib/jersey-common-2.34.
+ jar lib/jersey-entity-filtering-2.34.jar lib/jakarta.ws.rs-api-2.1.6.ja
+ r lib/hk2-locator-2.6.1.jar lib/javassist-3.25.0-GA.jar lib/javax.json-
+ api-1.1.4.jar lib/commons-jexl-2.1.1.jar lib/struts-taglib-1.3.8.jar li
+ b/struts-tiles-1.3.8.jar lib/struts-core-1.3.8.jar lib/commons-chain-1.
+ 1.jar lib/commons-validator-1.3.1.jar lib/commons-digester-1.8.jar lib/
+ commons-beanutils-1.9.2.jar lib/logback-core-1.1.3.jar lib/commons-coll
+ ections-3.2.1.jar lib/commons-lang-2.4.jar lib/commons-logging-1.2.jar 
+ lib/dom4j-1.1.jar lib/oro-2.0.8.jar lib/sslext-1.2-0.jar lib/cache-api-
+ 1.1.1.jar lib/threeten-extra-1.5.0.jar lib/groovy-dateutil-3.0.7.jar li
+ b/groovy-3.0.7.jar lib/commons-lang3-3.8.1.jar lib/jna-5.8.0.jar lib/jn
+ r-ffi-2.2.4.jar lib/jnr-constants-0.10.2.jar lib/javax.activation-api-1
+ .2.0.jar lib/jakarta.xml.bind-api-3.0.1.jar lib/jakarta.activation-2.0.
+ 1.jar lib/failureaccess-1.0.1.jar lib/listenablefuture-9999.0-empty-to-
+ avoid-conflict-with-guava.jar lib/jsr305-3.0.2.jar lib/error_prone_anno
+ tations-2.3.4.jar lib/j2objc-annotations-1.3.jar lib/jakarta.annotation
+ -api-1.3.5.jar lib/asm-commons-9.1.jar lib/asm-util-9.1.jar lib/asm-ana
+ lysis-9.1.jar lib/asm-tree-9.1.jar lib/asm-9.1.jar lib/hk2-api-2.6.1.ja
+ r lib/hk2-utils-2.6.1.jar lib/jakarta.inject-2.6.1.jar lib/osgi-resourc
+ e-locator-1.0.3.jar lib/jakarta.validation-api-2.0.2.jar lib/jakarta.ac
+ tivation-api-1.2.1.jar lib/aopalliance-repackaged-2.6.1.jar lib/poi-oox
+ ml-schemas-4.0.0.jar lib/commons-compress-1.18.jar lib/curvesapi-1.04.j
+ ar lib/antlr-2.7.2.jar lib/jffi-1.3.3.jar lib/jffi-1.3.3-native.jar lib
+ /jnr-a64asm-1.0.0.jar lib/jnr-x86asm-1.0.2.jar lib/ion-java-1.0.2.jar l
+ ib/joda-time-2.8.1.jar lib/jakarta.transaction-api-1.3.2.jar lib/xmlbea
+ ns-3.0.1.jar lib/httpcore-4.4.13.jar
 

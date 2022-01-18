@@ -1334,4 +1334,10 @@ public final class Keys {
             Collections.singletonList(KeyType.GLOBAL),
             "time,position,speed,course,accuracy,result");
 
+    /**
+     * JWT secret key.
+     */
+    public static final ConfigKey<String> JWT_SECRET_KEY = new ConfigKey<>(
+            "jwt.secret.key",
+            Collections.singletonList(KeyType.GLOBAL));
 }
