@@ -78,7 +78,7 @@ public class Eloquent {
     
     //==========================================================================
 
-    public Map<String, Object> find(long id) {
+    public Map<String, Object> find(Object id) {
         if (!query.contains("SELECT")) {
             query = "SELECT * FROM " + tableName;
         }
@@ -100,7 +100,7 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(true);
         return executeQueryAndGetResults();
     }
     
@@ -110,7 +110,7 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(true);
         return executeQueryAndGetResult(all);
     }
     
@@ -120,7 +120,7 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(true);
         return executeQueryAndGetResult(false);
     }
     
@@ -136,44 +136,55 @@ public class Eloquent {
         values = values.substring(0, values.length() - 2);
         query += ") " + values + ");";
         
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(true);
         return executeUpdateAndGetResult();
     }
     
     public List<Map<String, Object>> update(Map<String, Object> data) {
-        query = "UPDATE " + tableName + " SET ";
+        String updated = "";
+        try {
+            query = "SHOW COLUMNS FROM " + tableName + " LIKE 'updated_at';";
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(query);
+            if (statement.executeQuery().next()){updated = "updated_at=CURRENT_TIMESTAMP, ";}
+        } catch (SQLException e) {
+            LOGGER.error("Check update error: ", e);
+            closeConnection(false);
+        }
+        query = "UPDATE " + tableName + " SET " + updated;
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             query += entry.getKey() + "= ? " + ", ";
             queryParams.add(entry.getValue());
         }
         query = query.substring(0, query.length() - 2);
-        query += " " + scope + ";";
+        query += " " + scope;
         
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(false);
         return executeUpdateAndGetResults();
     }
     
     public boolean delete() {
         query = "DELETE FROM " + tableName + " " + scope + ";";
-        
-        prepareQueryAndAssignParams();
+        prepareQueryAndAssignParams(true);
         return executeUpdate();
     }
     
     //==========================================================================
     
-    private void prepareQueryAndAssignParams() {
+    private String prepareQueryAndAssignParams(boolean assign) {
         try {
-            connection = dataSource.getConnection();
+            if (assign) {connection = dataSource.getConnection();}
             statement = connection.prepareStatement(query.trim(), Statement.RETURN_GENERATED_KEYS);
             queryParams.addAll(scopeParams);
             for (int i = 0; i < queryParams.size(); i++) {
                 setGeneric(i + 1, queryParams.get(i));
             }
             LOGGER.info(statement.toString());
+            return statement.toString();
         } catch (SQLException e) {
             LOGGER.error("Telescope database connection error: ", e);
             closeConnection(true);
+            return null;
         }
     }
     
@@ -203,11 +214,11 @@ public class Eloquent {
     
     private List<Map<String, Object>> executeQueryAndGetResults() {
         List<Map<String, Object>> rows = new LinkedList<>();
-        Map<String, Object> row;
         try {
             ResultSet resultSet = statement.executeQuery();
             ResultSetMetaData resultMetaData = resultSet.getMetaData();
             if(!resultSet.next()) {return null;}
+            Map<String, Object> row;
             String column;
             do {
                 row = new LinkedHashMap<>();
@@ -253,9 +264,9 @@ public class Eloquent {
     
     private List<Map<String, Object>> executeUpdateAndGetResults() {
         List<Map<String, Object>> rows = new LinkedList<>();
-        Map<String, Object> row;
         try {
             if(statement.executeUpdate() == 0) {return null;}
+            Map<String, Object> row;
             query = "SELECT * FROM " + tableName + " " + scope + ";";
             statement = connection.prepareStatement(query);
             for (int i = 0; i < scopeParams.size(); i++) {

@@ -156,14 +156,14 @@ public class DeviceManager extends BaseObjectManager<Device> implements Identity
     @Override
     public Set<Long> getAllItems() {
         Set<Long> result = super.getAllItems();
-        if (result.isEmpty()) {
+        /*if (result.isEmpty()) {
             try {
                 updateDeviceCache(true);
             } catch (SQLException e) {
                 LOGGER.warn("Update device cache error", e);
             }
             result = super.getAllItems();
-        }
+        }*/
         return result;
     }
 

@@ -1,10 +1,9 @@
 package org.traccar.api.middleware;
 
 import org.traccar.Main;
-import org.traccar.database.StatisticsManager;
-import org.traccar.api.auth.UserPrincipal;
-import org.traccar.api.auth.Auth;
 import org.traccar.api.auth.JWT;
+import org.traccar.api.auth.Auth;
+import org.traccar.api.auth.UserPrincipal;
 import org.traccar.api.routes.Guard;
 
 import javax.ws.rs.container.ContainerRequestContext;
@@ -12,7 +11,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import java.util.*;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import io.jsonwebtoken.Claims;
 
 public class Authenticate implements ContainerRequestFilter {
@@ -47,7 +47,7 @@ public class Authenticate implements ContainerRequestFilter {
             return;
         }
         
-        Map<String, Object> user = JWT.decodeJWT(auth[1]);
+        Map<String, Object> user = JWT.decode(auth[1]);
         if (user == null) {
             data.put("message", "Invalid Token");
             response.put("success", false);
@@ -57,14 +57,13 @@ public class Authenticate implements ContainerRequestFilter {
         }
         
         if (!guard.isGranted(user.get("guard").toString(), request.getMethod(), path)) {
-            data.put("message", "Permission Denied");
+            data.put("message", "Unauthorized Access");
             response.put("success", false);
             response.put("error", data);
             request.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(response).build());
             return;
         }
         
-        Main.getInjector().getInstance(StatisticsManager.class).registerRequest(Long.parseLong(user.get("id").toString()));
         SecurityContext securityContext = new Auth(new UserPrincipal(user));
         request.setSecurityContext(securityContext);
     }

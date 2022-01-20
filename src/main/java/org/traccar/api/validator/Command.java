@@ -30,26 +30,22 @@ public final class Command {
         return true;
     }
 
-    public static boolean exists(String columnName, Object value, String className) {
+    public static boolean exists(String columnName, Object value, String table) {
         if (value == null) {return true;}
-        List<Map<String, Object>> result = DB.table(getTable(className)).select("id").where(columnName, value).get();
+        List<Map<String, Object>> result = DB.table(table).select("id").where(columnName, value).get();
         if (result == null) {return false;}
         return true;
     }
     
-    private static boolean unique(String columnName, Object value, String className) {
+    private static boolean unique(String columnName, Object value, String table) {
         if (value == null) {return true;}
-        List<Map<String, Object>> result = DB.table(getTable(className)).select("id").where(columnName, value).get();
+        List<Map<String, Object>> result = DB.table(table).select("id").where(columnName, value).get();
         if (result == null) {return true;}
         /*if(result.size() == 1 &&
-           (className == "user") && 
+           (table == "user") && 
            Long.parseLong(result.get(0).get("id").toString()) == userId) {
             return true;
         }*/
         return false;
-    }
-    
-    private static String getTable(String table) {
-        return "tc_" + table + "s";
     }
 }

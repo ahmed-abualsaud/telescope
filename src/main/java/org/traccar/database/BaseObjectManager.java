@@ -60,7 +60,7 @@ public class BaseObjectManager<T extends BaseModel> {
     }
 
     protected final void writeUnlock() {
-        lock.writeLock().unlock();
+        //lock.writeLock().unlock();
     }
 
     protected final DataManager getDataManager() {
@@ -157,19 +157,19 @@ public class BaseObjectManager<T extends BaseModel> {
 
     public final Collection<T> getItems(Set<Long> itemIds) {
         Collection<T> result = new LinkedList<>();
-        for (long itemId : itemIds) {
+        /*for (long itemId : itemIds) {
             T item = getById(itemId);
             if (item != null) {
                 result.add(item);
             }
-        }
+        }*/
         return result;
     }
 
     public Set<Long> getAllItems() {
         try {
             readLock();
-            return items.keySet();
+            return null;//items.keySet();
         } finally {
             readUnlock();
         }

@@ -35,22 +35,21 @@ public class Auth implements SecurityContext {
         return "Bearer";
     }
     
-    public static Map<String, Object> attempt(Map<String, Object> credentials) {
+    public static Map<String, Object> attempt(Map<String, Object> credentials, String table) {
         Map<String, Object> user = null;
         if (credentials.containsKey("email") && credentials.get("email") != null) {
-            user = DB.table("tc_users").where("email", credentials.get("email")).first(true);
+            user = DB.table(table).where("email", credentials.get("email")).first(true);
         }
         if (credentials.containsKey("phone") && credentials.get("phone") != null) {
-            user = DB.table("tc_users").where("phone", credentials.get("phone")).first(true);
+            user = DB.table(table).where("phone", credentials.get("phone")).first(true);
         }
         if (credentials.containsKey("password") && credentials.get("password") != null && user != null) {
             boolean validPassword = Hashing.validatePassword(credentials.get("password").toString(), 
                     user.get("password").toString(), user.get("salt").toString());
             if (!validPassword) {user = null;}
-            else {
-                user.remove("password");
-                user.remove("salt");
-            }
+            if (user.containsKey("disabled") && user.get("disabled").toString().equals("true")) {return null;}
+            user.remove("password");
+            user.remove("salt");
         }
         return user;
     }

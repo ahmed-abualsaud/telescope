@@ -2,23 +2,58 @@ package org.traccar.api.auth;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.traccar.Context;
+import org.traccar.database.DB;
+import org.traccar.config.Keys;
+
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+
 import java.security.Key;
 import java.util.Map;
 import java.util.Date;
-import org.traccar.database.DB;
-import org.traccar.config.Keys;
-import org.traccar.Context;
-import io.jsonwebtoken.*;
+import java.util.HashMap;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JWT.class);
     private static String SECRET_KEY = Context.getConfig().getString(Keys.JWT_SECRET_KEY);
-
-    public static String encodeJWT(String id, String issuer, String subject, long ttlMillis) {
+    
+    public static String encode(String id, String issuer) {
+        return getToken(id , issuer, null, -1);
+    }
+    
+    public static String encode(String id, String issuer, String subject) {
+        return getToken(id , issuer, subject, -1);
+    }
+    
+    public static String encode(String id, String issuer, String subject, long ttlMillis) {
+        return getToken(id , issuer, subject, ttlMillis);
+    }
+    
+    public static Map<String, Object> decode(String token) {
+    
+        Claims claims = getClaims(token);
+        if (claims == null) {return null;}
+        String table = claims.getSubject();
+        if (table == null) {table = getTable(claims.getIssuer());}
+        Map<String, Object> user = DB.table(table).find(claims.getId());
+        if (user != null) {
+            if (user.containsKey("disabled") && user.get("disabled").toString().equals("true")) {return null;}
+            user.put("guard", claims.getIssuer());
+            return user;
+        }
+        return null;
+    }
+    
+    private static String getToken(String id, String issuer, String subject, long ttlMillis) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         long nowMillis = System.currentTimeMillis();
@@ -38,20 +73,14 @@ public class JWT {
             Date exp = new Date(expMillis);
             builder.setExpiration(exp);
         }
-        return builder.compact();
-    }
-    
-    public static Map<String, Object> decodeJWT(String token) {
-    
-        Claims claims = getClaims(token);
-        if (claims == null) {return null;}
-        Map<String, Object> user = DB.table(getTable(claims.getSubject()))
-                .where("token", token).first();
-        if (user != null) {
-            user.put("guard", claims.getSubject());
-            return user;
+        
+        String token = builder.compact();
+        if (subject == null) {
+            updateDriver(id, getTable(issuer), token);
+        } else {
+            updateDriver(id, subject, token);
         }
-        return null;
+        return token;
     }
     
     private static Claims getClaims(String jwt) {
@@ -66,7 +95,13 @@ public class JWT {
         return claims;
     }
     
-    private static String getTable(String guard) {
-        return "tc_" + guard + "s";
+    private static void updateDriver(String id, String table, String token) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("token",  token);
+        DB.table(table).where("id", id).update(data);
+    }
+    
+    private static String getTable(String issuer) {
+        return issuer + "s";
     }
 }

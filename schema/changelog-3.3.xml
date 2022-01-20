@@ -24,37 +24,10 @@
       <column name="email" type="VARCHAR(128)">
         <constraints nullable="false" />
       </column>
-      <column name="hashedpassword" type="VARCHAR(128)">
+      <column name="password" type="VARCHAR(128)">
         <constraints nullable="false" />
       </column>
       <column name="salt" type="VARCHAR(128)">
-        <constraints nullable="false" />
-      </column>
-      <column name="readonly" type="BOOLEAN" defaultValueBoolean="false">
-        <constraints nullable="false" />
-      </column>
-      <column name="administrator" type="BOOLEAN" defaultValueBoolean="false">
-        <constraints nullable="false" />
-      </column>
-      <column name="map" type="VARCHAR(128)" defaultValue="osm">
-        <constraints nullable="false" />
-      </column>
-      <column name="language" type="VARCHAR(128)" defaultValue="en">
-        <constraints nullable="false" />
-      </column>
-      <column name="distanceunit" type="VARCHAR(128)" defaultValue="km">
-        <constraints nullable="false" />
-      </column>
-      <column name="speedunit" type="VARCHAR(128)" defaultValue="kmh">
-        <constraints nullable="false" />
-      </column>
-      <column name="latitude" type="DOUBLE" defaultValueNumeric="0">
-        <constraints nullable="false" />
-      </column>
-      <column name="longitude" type="DOUBLE" defaultValueNumeric="0">
-        <constraints nullable="false" />
-      </column>
-      <column name="zoom" type="INT" defaultValueNumeric="0">
         <constraints nullable="false" />
       </column>
     </createTable>

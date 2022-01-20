@@ -43,10 +43,10 @@ public class GroupsManager extends BaseObjectManager<Group> implements Managable
     @Override
     public Set<Long> getAllItems() {
         Set<Long> result = super.getAllItems();
-        if (result.isEmpty()) {
+        /*if (result.isEmpty()) {
             refreshItems();
             result = super.getAllItems();
-        }
+        }*/
         return result;
     }
 

@@ -64,7 +64,7 @@ public class DriversManager extends ExtendedObjectManager<Driver> {
     @Override
     protected void addNewItem(Driver driver) {
         super.addNewItem(driver);
-        addByUniqueId(driver);
+        //addByUniqueId(driver);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class DriversManager extends ExtendedObjectManager<Driver> {
         if (!driver.getUniqueId().equals(cachedDriver.getUniqueId())) {
             removeByUniqueId(cachedDriver.getUniqueId());
             cachedDriver.setUniqueId(driver.getUniqueId());
-            addByUniqueId(cachedDriver);
+            //addByUniqueId(cachedDriver);
         }
         cachedDriver.setAttributes(driver.getAttributes());
     }
