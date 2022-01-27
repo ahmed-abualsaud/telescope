@@ -48,7 +48,7 @@ public class GeofenceManager extends ExtendedObjectManager<Geofence> {
     }
 
     public void recalculateDevicesGeofences() {
-        for (Device device : Context.getDeviceManager().getAllDevices()) {
+       /* for (Device device : Context.getDeviceManager().getAllDevices()) {
             List<Long> deviceGeofenceIds = device.getGeofenceIds();
             if (deviceGeofenceIds == null) {
                 deviceGeofenceIds = new ArrayList<>();
@@ -60,7 +60,7 @@ public class GeofenceManager extends ExtendedObjectManager<Geofence> {
                 deviceGeofenceIds.addAll(getCurrentDeviceGeofences(lastPosition));
             }
             device.setGeofenceIds(deviceGeofenceIds);
-        }
+        }*/
     }
 
 }

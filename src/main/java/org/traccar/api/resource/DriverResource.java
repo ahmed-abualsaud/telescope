@@ -10,7 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.SQLException;
 
 import org.traccar.api.auth.JWT;
 import org.traccar.api.auth.Auth;
@@ -31,23 +30,23 @@ public class DriverResource extends AuthResource {
 
     @Path("register")
     @POST
-    public Response register(Map<String, Object> request) throws SQLException {
+    public Response register(Map<String, Object> request) {
         Map<String, Object> response = new LinkedHashMap<>();
         if (request == null) {
             response.put("success", false);
-            Map<String, String> message = new LinkedHashMap<>();
-            message.put("message", "Please set input data");
-            response.put("error", message);
+            response.put("errors", new String[] {"Please set input data."});
             return response(BAD_REQUEST).entity(response).build();
         }
         
         Map<String, Object> validationValues = new LinkedHashMap<>();
         Map<String, String> validationString = new LinkedHashMap<>();    
 
+        validationValues.put("user_id", request.get("user_id"));        
         validationValues.put("name", request.get("name"));
         validationValues.put("email", request.get("email"));
         validationValues.put("phone", request.get("phone"));
         
+        validationString.put("user_id", "exists:users.id|required");        
         validationString.put("name", "required");
         validationString.put("email", "unique:drivers|required");
         validationString.put("phone", "unique:drivers|required");
@@ -73,23 +72,20 @@ public class DriverResource extends AuthResource {
             response.put("success", true);
             response.put("data", data);
             return response(OK).entity(response).build();
-            
         } else {
             response.put("success", false);
-            response.put("error", validator.getErrors());
+            response.put("errors", validator.getErrors());
             return response(BAD_REQUEST).entity(response).build();
         }
     }
     
     @Path("login")
     @POST
-    public Response login(Map<String, Object> request) throws SQLException {
+    public Response login(Map<String, Object> request) {
         Map<String, Object> response = new LinkedHashMap<>();
         if (request == null) {
             response.put("success", false);
-            Map<String, String> message = new LinkedHashMap<>();
-            message.put("message", "Please set input data");
-            response.put("error", message);
+            response.put("errors", new String[] {"Please set input data."});
             return response(BAD_REQUEST).entity(response).build();
         }
         
@@ -107,33 +103,28 @@ public class DriverResource extends AuthResource {
         
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
-        
-            Map<String, Object> data = new LinkedHashMap<>();
             validationValues.put("password", request.get("password"));
             Map<String, Object> driver = Auth.attempt(validationValues, "drivers");
-            
             if (driver == null) {
-                data.put("message", "Invalid Email or Password");
                 response.put("success", false);
-                response.put("error", data);
+                response.put("errors", new String[] {"Invalid Email or Password"});
                 return response(BAD_REQUEST).entity(response).build();
             }
-            
+            Map<String, Object> data = new LinkedHashMap<>();
             data.put("access_token", driver.remove("token"));
             data.put("driver", driver);
             response.put("success", true);
             response.put("data", data);
             return response(OK).entity(response).build();
-            
         } else {
             response.put("success", false);
-            response.put("error", validator.getErrors());
+            response.put("errors", validator.getErrors());
             return response(BAD_REQUEST).entity(response).build();
         }
     }
     
     @GET
-    public Response get() throws SQLException {
+    public Response get() {
         Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> driver = DB.table("drivers").where("id", auth().getUserId()).first();
         response.put("success", true);
@@ -142,22 +133,18 @@ public class DriverResource extends AuthResource {
     }
     
     @PUT
-    public Response update(Map<String, Object> request) throws SQLException {
+    public Response update(Map<String, Object> request) {
         Map<String, Object> response = new LinkedHashMap<>();
         if (request == null) {
             response.put("success", false);
-            Map<String, String> message = new LinkedHashMap<>();
-            message.put("message", "Please set input data");
-            response.put("error", message);
+            response.put("errors", new String[] {"Please set input data."});
             return response(BAD_REQUEST).entity(response).build();
         }
         
         Map<String, Object> validationValues = new LinkedHashMap<>();
         Map<String, String> validationString = new LinkedHashMap<>();
-        
         validationValues.put("email", request.get("email"));
         validationValues.put("phone", request.get("phone"));
-        
         validationString.put("email", "unique:drivers");
         validationString.put("phone", "unique:drivers");
         
@@ -166,18 +153,18 @@ public class DriverResource extends AuthResource {
         
             List<Map<String, Object>> driver = DB.table("drivers").where("id", auth().getUserId()).update(request);
             response.put("success", true);
-            response.put("data", driver);
+            response.put("data", driver.get(0));
             return response(OK).entity(response).build();
             
         } else {
             response.put("success", false);
-            response.put("error", validator.getErrors());
+            response.put("errors", validator.getErrors());
             return response(BAD_REQUEST).entity(response).build();
         }
     }
     
     @DELETE
-    public Response destroy() throws SQLException {
+    public Response destroy() {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("success", DB.table("drivers").where("id", auth().getUserId()).delete());
         return response(OK).entity(response).build();

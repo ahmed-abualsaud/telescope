@@ -52,14 +52,15 @@ public class MainEventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        Context.getEventManager().handle("test", "device.update.state", msg.toString());
         if (msg instanceof Position) {
 
             Position position = (Position) msg;
-            try {
+            /*try {
                 Context.getDeviceManager().updateLatestPosition(position);
             } catch (SQLException error) {
                 LOGGER.warn("Failed to update device", error);
-            }
+            }*/
 
             String uniqueId = Context.getIdentityManager().getById(position.getDeviceId()).getUniqueId();
 

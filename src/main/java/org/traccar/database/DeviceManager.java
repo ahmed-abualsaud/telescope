@@ -318,7 +318,7 @@ public class DeviceManager extends BaseObjectManager<Device> implements Identity
     }
 
     private void refreshLastPositions() {
-        if (getDataManager() != null) {
+        /*if (getDataManager() != null) {
             try {
                 for (Position position : getDataManager().getLatestPositions()) {
                     positions.put(position.getDeviceId(), position);
@@ -326,7 +326,7 @@ public class DeviceManager extends BaseObjectManager<Device> implements Identity
             } catch (SQLException error) {
                 LOGGER.warn("Load latest positions error", error);
             }
-        }
+        }*/
     }
 
     public boolean isLatestPosition(Position position) {

@@ -81,7 +81,7 @@ public class BaseObjectManager<T extends BaseModel> {
     }
 
     public void refreshItems() {
-        if (dataManager != null) {
+        /*if (dataManager != null) {
             try {
                 writeLock();
                 Collection<T> databaseItems = dataManager.getObjects(baseClass);
@@ -107,7 +107,7 @@ public class BaseObjectManager<T extends BaseModel> {
             } finally {
                 writeUnlock();
             }
-        }
+        }*/
     }
 
     protected void addNewItem(T item) {

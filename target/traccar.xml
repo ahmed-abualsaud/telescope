@@ -20,6 +20,8 @@
     
     
     <entry key='config.default'>/home/sicoman/telescope/target/default.xml</entry>
+    <entry key='app.directory'>/home/sicoman</entry>
+    
     <entry key='event.behavior.accelerationThreshold'>1</entry>
     
     <entry key='processing.copyAttributes.enable'>true</entry>

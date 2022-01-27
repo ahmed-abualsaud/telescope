@@ -75,7 +75,7 @@ public abstract class SimpleObjectManager<T extends BaseModel> extends BaseObjec
     }
 
     public final void refreshUserItems() {
-        if (getDataManager() != null) {
+        /*if (getDataManager() != null) {
             try {
                 writeLock();
                 userItems = new ConcurrentHashMap<>();
@@ -88,7 +88,7 @@ public abstract class SimpleObjectManager<T extends BaseModel> extends BaseObjec
             } finally {
                 writeUnlock();
             }
-        }
+        }*/
     }
 
     @Override

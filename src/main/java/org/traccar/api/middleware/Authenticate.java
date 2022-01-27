@@ -4,7 +4,7 @@ import org.traccar.Main;
 import org.traccar.api.auth.JWT;
 import org.traccar.api.auth.Auth;
 import org.traccar.api.auth.UserPrincipal;
-import org.traccar.api.routes.Guard;
+import org.traccar.api.route.Guard;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;

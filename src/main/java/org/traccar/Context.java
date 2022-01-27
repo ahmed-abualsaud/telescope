@@ -67,6 +67,8 @@ import org.traccar.sms.HttpSmsClient;
 import org.traccar.sms.SmsManager;
 import org.traccar.sms.SnsSmsClient;
 import org.traccar.web.WebServer;
+import org.traccar.websocket.WebsocketManager;
+import org.traccar.api.event.EventManager;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -162,6 +164,18 @@ public final class Context {
 
     public static ConnectionManager getConnectionManager() {
         return connectionManager;
+    }
+    
+    private static EventManager eventManager;
+    
+    public static EventManager getEventManager() {
+        return eventManager;
+    }
+    
+    private static WebsocketManager websocketManager;
+    
+    public static WebsocketManager getWebsocketManager() {
+        return websocketManager;
     }
 
     private static PermissionsManager permissionsManager;
@@ -342,6 +356,10 @@ public final class Context {
         permissionsManager = new PermissionsManager(dataManager, usersManager);
 
         connectionManager = new ConnectionManager();
+        
+        eventManager = new EventManager();
+        
+        websocketManager = new WebsocketManager();
 
         tripsConfig = initTripsConfig();
 

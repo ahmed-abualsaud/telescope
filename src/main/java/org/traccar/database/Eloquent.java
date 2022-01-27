@@ -1,9 +1,12 @@
 package org.traccar.database;
 
+import org.traccar.Main;
+import org.traccar.api.modelconf.ModelConf;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.sql.DataSource;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Connection;
@@ -12,17 +15,20 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.Properties;
 import java.util.LinkedHashMap;
 
 public class Eloquent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Eloquent.class);
     private final Map<String, List<Integer>> indexMap = new HashMap<>();
+    private final Map<String, Properties> modelConf = Main.getInjector().getInstance(ModelConf.class).getModelConf();
+    private Properties properties = null;
     
     private String query;
     private String scope;
@@ -30,8 +36,6 @@ public class Eloquent {
     private List<Object> queryParams;
     private List<Object> scopeParams;
     private final DataSource dataSource;
-    
-    private Connection connection;
     private PreparedStatement statement;
     
     public Eloquent(String tableName, DataSource dataSource) {
@@ -41,6 +45,11 @@ public class Eloquent {
         this.dataSource = dataSource;
         this.queryParams = new ArrayList<>();
         this.scopeParams = new ArrayList<>();
+        for (Map.Entry<String, Properties> entry : modelConf.entrySet()) {
+            if (entry.getKey().equals(tableName.substring(0, tableName.length() - 1).toLowerCase())) {
+                this.properties = entry.getValue();
+            }
+        }
     }
     
     public Eloquent where(String column, Object value) {
@@ -83,15 +92,15 @@ public class Eloquent {
             query = "SELECT * FROM " + tableName;
         }
         query += " WHERE id=" + id + ";";
-        try {
-            connection = dataSource.getConnection();
+        
+        Map<String, Object> ret = new LinkedHashMap<>();
+        try{try (Connection connection = dataSource.getConnection()) {
             statement = connection.prepareStatement(query);
             LOGGER.info(statement.toString());
-        } catch (SQLException e) {
-            LOGGER.error("Telescope database connection error: ", e);
-            closeConnection(true);
-        }
-        return executeQueryAndGetResult(false);
+            ret = executeQueryAndGetResult(false);
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public List<Map<String, Object>> get() {
@@ -100,8 +109,13 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams(true);
-        return executeQueryAndGetResults();
+        List<Map<String, Object>> ret = new LinkedList<>();
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeQueryAndGetResults();
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public Map<String, Object> first(boolean all) {
@@ -110,8 +124,13 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams(true);
-        return executeQueryAndGetResult(all);
+        Map<String, Object> ret = new LinkedHashMap<>();
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeQueryAndGetResult(all);
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public Map<String, Object> first() {
@@ -120,8 +139,13 @@ public class Eloquent {
         }
         query += " " + scope + ";";
         
-        prepareQueryAndAssignParams(true);
-        return executeQueryAndGetResult(false);
+        Map<String, Object> ret = new LinkedHashMap<>();
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeQueryAndGetResult(false);
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public Map<String, Object> create(Map<String, Object> data) {
@@ -136,20 +160,22 @@ public class Eloquent {
         values = values.substring(0, values.length() - 2);
         query += ") " + values + ");";
         
-        prepareQueryAndAssignParams(true);
-        return executeUpdateAndGetResult();
+        Map<String, Object> ret = new LinkedHashMap<>();
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeUpdateAndGetResult();
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public List<Map<String, Object>> update(Map<String, Object> data) {
         String updated = "";
-        try {
-            query = "SHOW COLUMNS FROM " + tableName + " LIKE 'updated_at';";
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(query);
-            if (statement.executeQuery().next()){updated = "updated_at=CURRENT_TIMESTAMP, ";}
-        } catch (SQLException e) {
-            LOGGER.error("Check update error: ", e);
-            closeConnection(false);
+        for (Map.Entry<String, Properties> entry : modelConf.entrySet()) {
+            if (entry.getKey().equals(tableName.substring(0, tableName.length() - 1).toLowerCase()) &&
+                entry.getValue().getProperty("timestamps") != null && 
+                entry.getValue().getProperty("timestamps").equals("true")
+            ) {updated = "updated_at=CURRENT_TIMESTAMP, ";}
         }
         query = "UPDATE " + tableName + " SET " + updated;
         for (Map.Entry<String, Object> entry : data.entrySet()) {
@@ -159,32 +185,39 @@ public class Eloquent {
         query = query.substring(0, query.length() - 2);
         query += " " + scope;
         
-        prepareQueryAndAssignParams(false);
-        return executeUpdateAndGetResults();
+        List<Map<String, Object>> ret = new LinkedList<>();
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeUpdateAndGetResults(connection);
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     public boolean delete() {
         query = "DELETE FROM " + tableName + " " + scope + ";";
-        prepareQueryAndAssignParams(true);
-        return executeUpdate();
+        boolean ret = false;
+        try{try (Connection connection = dataSource.getConnection()) {
+            prepareQueryAndAssignParams(connection);
+            ret = executeUpdate();
+            closeStatement();
+        }} catch (SQLException e) {}
+        return ret;
     }
     
     //==========================================================================
     
-    private String prepareQueryAndAssignParams(boolean assign) {
+    private void prepareQueryAndAssignParams(Connection connection) {
         try {
-            if (assign) {connection = dataSource.getConnection();}
             statement = connection.prepareStatement(query.trim(), Statement.RETURN_GENERATED_KEYS);
             queryParams.addAll(scopeParams);
             for (int i = 0; i < queryParams.size(); i++) {
                 setGeneric(i + 1, queryParams.get(i));
             }
             LOGGER.info(statement.toString());
-            return statement.toString();
         } catch (SQLException e) {
-            LOGGER.error("Telescope database connection error: ", e);
-            closeConnection(true);
-            return null;
+            LOGGER.error("Database connection error: ", e);
+            closeStatement();
         }
     }
     
@@ -197,17 +230,14 @@ public class Eloquent {
             String column;
             for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                 column = resultMetaData.getColumnLabel(i);
-                if (all) {row.put(column, resultSet.getObject(i));}
-                else {
-                    if (!(column.equals("password") || column.equals("token") || column.equals("salt"))) {
-                        row.put(column, resultSet.getObject(i));
-                    }
-                }
+                if (!all && properties != null && properties.getProperty("ignored") != null &&
+                    properties.getProperty("ignored").contains(column)) {continue;} 
+                row.put(column, resultSet.getObject(i));
             }
         } catch (SQLException e) {
-            LOGGER.error("Telescope execute query error: ", e);
+            LOGGER.error("Execute query error: ", e);
+            closeStatement();
         }
-        closeConnection(false);
         if (row.isEmpty()) {return null;}
         return row;
     }
@@ -220,20 +250,19 @@ public class Eloquent {
             if(!resultSet.next()) {return null;}
             Map<String, Object> row;
             String column;
-            do {
-                row = new LinkedHashMap<>();
+            do {row = new LinkedHashMap<>();
                 for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                     column = resultMetaData.getColumnLabel(i);
-                    if (!(column.equals("password") || column.equals("token") || column.equals("salt"))) {
-                        row.put(column, resultSet.getObject(i));
-                    }
+                    if (properties != null && properties.getProperty("ignored") != null &&
+                        properties.getProperty("ignored").contains(column)) {continue;} 
+                    row.put(column, resultSet.getObject(i));
                 }
                 rows.add(row);
             } while (resultSet.next());
         } catch (SQLException e) {
-            LOGGER.error("Telescope execute query error: ", e);
+            LOGGER.error("Execute query error: ", e);
+            closeStatement();
         }
-        closeConnection(false);
         if (rows.isEmpty()) {return null;}
         return rows;
     }
@@ -250,19 +279,19 @@ public class Eloquent {
             String column;
             for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                 column = resultMetaData.getColumnLabel(i);
-                if (!(column.equals("password") || column.equals("token") || column.equals("salt"))) {
-                    row.put(column, resultSet.getObject(i));
-                }
+                if (properties != null && properties.getProperty("ignored") != null &&
+                    properties.getProperty("ignored").contains(column)) {continue;} 
+                row.put(column, resultSet.getObject(i));
             }
         } catch (SQLException e) {
-            LOGGER.error("Telescope execute update error: ", e);
+            LOGGER.error("Execute update error: ", e);
+            closeStatement();
         }
-        closeConnection(false);
         if (row.isEmpty()) {return null;}
         return row;
     }
     
-    private List<Map<String, Object>> executeUpdateAndGetResults() {
+    private List<Map<String, Object>> executeUpdateAndGetResults(Connection connection) {
         List<Map<String, Object>> rows = new LinkedList<>();
         try {
             if(statement.executeUpdate() == 0) {return null;}
@@ -279,29 +308,28 @@ public class Eloquent {
                 row = new LinkedHashMap<>();
                 for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                     column = resultMetaData.getColumnLabel(i);
-                    if (!(column.equals("password") || column.equals("token") || column.equals("salt"))) {
-                        row.put(column, resultSet.getObject(i));
-                    }
+                    if (properties != null && properties.getProperty("ignored") != null &&
+                        properties.getProperty("ignored").contains(column)) {continue;} 
+                    row.put(column, resultSet.getObject(i));
                 }
                 rows.add(row);
             }
         } catch (SQLException e) {
-            LOGGER.error("Telescope execute update error: ", e);
+            LOGGER.error("Execute update error: ", e);
+            closeStatement();
         }
-        closeConnection(false);
         if (rows.isEmpty()) {return null;}
         return rows;
     }
     
     private boolean executeUpdate() {
         try {
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0) {return true;}
         } catch (SQLException e) {
-            LOGGER.error("Telescope execute update error: ", e);
-            return false;
+            LOGGER.error("Execute update error: ", e);
+            closeStatement();
         }
-        closeConnection(false);
-        return true;
+        return false;
     }
     
     //==========================================================================
@@ -314,17 +342,16 @@ public class Eloquent {
                 statement.setObject(i, value);
             }
         } catch (SQLException e) {
-            LOGGER.error("Telescope prepare statement error: ", e);
-            closeConnection(false);
+            LOGGER.error("Assign values error: ", e);
+            closeStatement();
         }
     }
     
-    private void closeConnection(boolean withoutConnection) {
+    private void closeStatement() {
         try {
-            if (withoutConnection) {statement.close();}
-            else {statement.close(); connection.close();}
+            statement.close(); 
         } catch (SQLException e) {
-            LOGGER.error("Telescope close conection error: ", e);
+            LOGGER.error("Close conection error: ", e);
         }
     }
 }

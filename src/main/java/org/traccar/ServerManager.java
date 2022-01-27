@@ -73,7 +73,8 @@ public class ServerManager {
         for (String name : names) {
             Class<?> protocolClass = Class.forName(packageName + '.' + name);
             if (BaseProtocol.class.isAssignableFrom(protocolClass) && Context.getConfig().hasKey(
-                    Keys.PROTOCOL_PORT.withPrefix(BaseProtocol.nameFromClass(protocolClass)))) {
+                    Keys.PROTOCOL_PORT.withPrefix(BaseProtocol.nameFromClass(protocolClass)))
+               ) {
                 BaseProtocol protocol = (BaseProtocol) protocolClass.getDeclaredConstructor().newInstance();
                 serverList.addAll(protocol.getServerList());
                 protocolList.put(protocol.getName(), protocol);

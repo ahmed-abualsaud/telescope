@@ -606,7 +606,7 @@ public final class Keys {
     public static final ConfigKey<Long> WEB_TIMEOUT = new ConfigKey<>(
             "web.timeout",
             Collections.singletonList(KeyType.GLOBAL),
-            60000L);
+            180000L);
 
     /**
      * Authentication sessions timeout in seconds. By default no timeout.
@@ -1339,5 +1339,12 @@ public final class Keys {
      */
     public static final ConfigKey<String> JWT_SECRET_KEY = new ConfigKey<>(
             "jwt.secret.key",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * App files directory.
+     */
+    public static final ConfigKey<String> APP_DIRECTORY = new ConfigKey<>(
+            "app.directory",
             Collections.singletonList(KeyType.GLOBAL));
 }

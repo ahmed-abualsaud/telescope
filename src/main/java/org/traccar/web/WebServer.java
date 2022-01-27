@@ -43,9 +43,8 @@ import org.slf4j.LoggerFactory;
 import org.traccar.Context;
 import org.traccar.api.DateParameterConverterProvider;
 import org.traccar.config.Config;
-import org.traccar.api.AsyncSocketServlet;
-import org.traccar.api.TripEventSocketServlet;
-import org.traccar.qruzcab.websocket.QruzCabSocketServlet;
+import org.traccar.websocket.device.DeviceSocketServlet;
+import org.traccar.websocket.WebsocketServlet;
 import org.traccar.api.CorsResponseFilter;
 import org.traccar.api.MediaFilter;
 import org.traccar.api.ObjectMapperProvider;
@@ -158,11 +157,11 @@ public class WebServer {
     }
 
     private void initApi(Config config, ServletContextHandler servletHandler) {
-        servletHandler.addServlet(new ServletHolder(new AsyncSocketServlet()), "/api/socket");
-        servletHandler.addServlet(new ServletHolder(new QruzCabSocketServlet()), "/qruz/cab");
-        servletHandler.addServlet(new ServletHolder(new TripEventSocketServlet()), "/trip/event");
+    
+        servletHandler.addServlet(new ServletHolder(new DeviceSocketServlet()), "/device");
+        servletHandler.addServlet(new ServletHolder(new WebsocketServlet()), "/websockets");
+        
         JettyWebSocketServletContainerInitializer.configure(servletHandler, null);
-
         String mediaPath = config.getString(Keys.MEDIA_PATH);
         if (mediaPath != null) {
             ServletHolder servletHolder = new ServletHolder(DefaultServlet.class);

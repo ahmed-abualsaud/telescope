@@ -154,15 +154,15 @@ public class PermissionsManager {
     }
 
     public void refreshServer() {
-        try {
+        /*try {
             server = dataManager.getServer();
         } catch (SQLException error) {
             LOGGER.warn("Refresh server config error", error);
-        }
+        }*/
     }
 
     public final void refreshDeviceAndGroupPermissions() {
-        writeLock();
+        /*writeLock();
         try {
             groupPermissions.clear();
             devicePermissions.clear();
@@ -205,7 +205,7 @@ public class PermissionsManager {
             }
         } finally {
             writeUnlock();
-        }
+        }*/
     }
 
     public boolean getUserAdmin(long userId) {

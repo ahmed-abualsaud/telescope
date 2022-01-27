@@ -93,7 +93,7 @@ public abstract class ExtendedObjectManager<T extends BaseModel> extends SimpleO
     }
 
     public void refreshExtendedPermissions() {
-        if (getDataManager() != null) {
+        /*if (getDataManager() != null) {
             try {
                 Collection<Permission> databaseGroupPermissions =
                         getDataManager().getPermissions(Group.class, getBaseClass());
@@ -138,6 +138,6 @@ public abstract class ExtendedObjectManager<T extends BaseModel> extends SimpleO
             } finally {
                 writeUnlock();
             }
-        }
+        }*/
     }
 }
