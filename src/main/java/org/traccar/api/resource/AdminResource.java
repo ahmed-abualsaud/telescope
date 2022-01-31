@@ -438,7 +438,7 @@ public class AdminResource extends AuthResource {
         validationString.put("user_id", "exists:users.id");
         validationString.put("email", "unique:drivers");
         validationString.put("phone", "unique:drivers");
-        
+
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
             List<Map<String, Object>> drivers = DB.table("drivers").where("id", driver_id).update(request);

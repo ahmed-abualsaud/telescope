@@ -399,8 +399,8 @@ org/traccar/protocol/LacakProtocol.java
  org.traccar.protocol.LacakProtocol$1
 org/traccar/api/auth/UserPrincipal.java
  org.traccar.api.auth.UserPrincipal
-org/traccar/api/resource/DriverResource.java
- org.traccar.api.resource.DriverResource
+org/traccar/protocol/Gl200BinaryProtocolDecoder.java
+ org.traccar.protocol.Gl200BinaryProtocolDecoder
 org/traccar/geocoder/PositionStackGeocoder.java
  org.traccar.geocoder.PositionStackGeocoder
 org/traccar/protocol/R12wProtocolDecoder.java
@@ -1077,8 +1077,9 @@ org/traccar/api/validator/Validator.java
 org/traccar/protocol/TrackboxProtocol.java
  org.traccar.protocol.TrackboxProtocol
  org.traccar.protocol.TrackboxProtocol$1
-org/traccar/api/resource/AdminResource.java
- org.traccar.api.resource.AdminResource
+org/traccar/protocol/SuntechProtocol.java
+ org.traccar.protocol.SuntechProtocol
+ org.traccar.protocol.SuntechProtocol$1
 org/traccar/protocol/HunterProProtocolDecoder.java
  org.traccar.protocol.HunterProProtocolDecoder
 org/traccar/protocol/ArnaviProtocol.java
@@ -2113,8 +2114,8 @@ org/traccar/protocol/RuptelaProtocolEncoder.java
  org.traccar.protocol.RuptelaProtocolEncoder
 org/traccar/protocol/Pt215ProtocolDecoder.java
  org.traccar.protocol.Pt215ProtocolDecoder
-org/traccar/api/middleware/Authenticate.java
- org.traccar.api.middleware.Authenticate
+org/traccar/MainModule.java
+ org.traccar.MainModule
 org/traccar/protocol/Ivt401Protocol.java
  org.traccar.protocol.Ivt401Protocol
  org.traccar.protocol.Ivt401Protocol$1
@@ -2189,8 +2190,8 @@ org/traccar/protocol/Gl100Protocol.java
  org.traccar.protocol.Gl100Protocol
  org.traccar.protocol.Gl100Protocol$1
  org.traccar.protocol.Gl100Protocol$2
-org/traccar/api/auth/JWT.java
- org.traccar.api.auth.JWT
+org/traccar/api/route/Guard.java
+ org.traccar.api.route.Guard
 org/traccar/protocol/SupermateProtocolDecoder.java
  org.traccar.protocol.SupermateProtocolDecoder
 org/traccar/reports/model/SummaryReport.java
@@ -2458,14 +2459,13 @@ org/traccar/protocol/ArnaviProtocolDecoder.java
 org/traccar/StringProtocolEncoder.java
  org.traccar.StringProtocolEncoder
  org.traccar.StringProtocolEncoder$ValueFormatter
-org/traccar/protocol/SuntechProtocol.java
- org.traccar.protocol.SuntechProtocol
- org.traccar.protocol.SuntechProtocol$1
-org/traccar/protocol/Gl200BinaryProtocolDecoder.java
- org.traccar.protocol.Gl200BinaryProtocolDecoder
-org/traccar/api/route/Guard.java
- org.traccar.api.route.Guard
-org/traccar/MainModule.java
- org.traccar.MainModule
+org/traccar/api/resource/DriverResource.java
+ org.traccar.api.resource.DriverResource
+org/traccar/api/middleware/Authenticate.java
+ org.traccar.api.middleware.Authenticate
+org/traccar/api/auth/JWT.java
+ org.traccar.api.auth.JWT
 org/traccar/api/resource/UserResource.java
  org.traccar.api.resource.UserResource
+org/traccar/api/resource/AdminResource.java
+ org.traccar.api.resource.AdminResource

@@ -44,7 +44,7 @@ public class JWT {
         if (claims == null) {return null;}
         String table = claims.getSubject();
         if (table == null) {table = getTable(claims.getIssuer());}
-        Map<String, Object> user = DB.table(table).find(claims.getId());
+        Map<String, Object> user = DB.table(table).where("id", claims.getId()).where("token", token).first();
         if (user != null) {
             if (user.containsKey("disabled") && user.get("disabled").toString().equals("true")) {return null;}
             user.put("guard", claims.getIssuer());
