@@ -37,7 +37,7 @@ public class Websocket extends WebSocketAdapter implements WebsocketManager.Webs
     }
     
     @Override
-    public void onBroadCast(String message) {
+    public void onBroadCast(Object message) {
         if (!producer) {
             sendMessage(message);
         }
@@ -50,7 +50,7 @@ public class Websocket extends WebSocketAdapter implements WebsocketManager.Webs
         Context.getWebsocketManager().removeListener(channel, event, this);
     }
     
-    private void sendMessage(String message) {
-        getRemote().sendString(message, null);
+    private void sendMessage(Object message) {
+        getRemote().sendString(message.toString(), null);
     }
 }

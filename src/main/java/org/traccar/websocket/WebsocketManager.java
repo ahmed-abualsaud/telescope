@@ -14,10 +14,10 @@ public class WebsocketManager {
     }
     
     public interface WebsocketListener {
-        void onBroadCast(String message);
+        void onBroadCast(Object message);
     }
     
-    public synchronized void broadcast(String channel, String event, String message) {
+    public synchronized void broadcast(String channel, String event, Object message) {
         String key = getListenerKey(channel, event);
         if (listeners.containsKey(key)) {
             for (WebsocketListener listener : listeners.get(key)) {

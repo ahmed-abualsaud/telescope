@@ -29,6 +29,7 @@ import org.traccar.config.Keys;
 import org.traccar.BaseProtocol;
 import org.traccar.api.auth.AuthResource;
 
+import org.traccar.database.DB;
 @Path("test")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -42,7 +43,7 @@ public class TestResource extends AuthResource {
         //name=tk03_10&uniqueid=tk03_1023456789&
         //new org.traccar.api.modelconf.ModelConf().getModelConf();
         
-        Map<String, BaseProtocol> protocolList = new LinkedHashMap<>();
+        /*Map<String, BaseProtocol> protocolList = new LinkedHashMap<>();
         String packageName = "org.traccar.protocol";
         List<String> names = new LinkedList<>();
         String packagePath = packageName.replace('.', '/');
@@ -70,7 +71,19 @@ public class TestResource extends AuthResource {
                 protocolList.put(protocol.getName(), protocol);
             }
         }
-        return response(OK).entity(protocolList).build();
+        return response(OK).entity(protocolList).build();*/
+        
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> position = DB.table("positions")
+            .select("position_id","user_id", "device_id", "unique_id", "protocol", 
+                    "latitude", "longitude", "altitude", "address", "valid", "speed", "course",
+                    "accuracy", "positions.attributes", "servertime", "devicetime", "fixtime")
+            .join("devices", "positions.id", "=", "devices.position_id")
+            .where("unique_id", "123456789")
+            .first();
+        response.put("success", true);
+        response.put("data", position);
+        return response(OK).entity(response).build();
     }
 
 }

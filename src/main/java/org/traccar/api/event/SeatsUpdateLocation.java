@@ -5,7 +5,7 @@ import org.traccar.Context;
 public class SeatsUpdateLocation implements EventManager.Event {
     
     @Override
-    public void handle(String channel, String message) {
+    public void handle(String channel, Object message) {
         Context.getWebsocketManager().broadcast(channel, eventName(), message);
     }
     

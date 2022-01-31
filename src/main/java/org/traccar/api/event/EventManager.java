@@ -24,7 +24,7 @@ public class EventManager {
             String fileName, clazz;
             Event event;
         
-            for (int i = 0; i < files.length; i++){
+            for (int i = 0; i < files.length; i++) {
                 fileName = files[i].getName();
                 if (files[i].isFile() && fileName.contains(".java") && !fileName.equals("EventManager.java")) {
                     clazz = pack + "." + fileName.substring(0, fileName.length() - 5);
@@ -39,10 +39,10 @@ public class EventManager {
     
     public interface Event {
         String eventName();
-        void handle(String channel, String message);
+        void handle(String channel, Object message);
     }
     
-    public void handle(String channel, String event, String message) {
+    public void handle(String channel, String event, Object message) {
         if (events.containsKey(event)) {
             events.get(event).handle(channel, message);
         }

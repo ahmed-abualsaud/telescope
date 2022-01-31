@@ -414,4 +414,42 @@ public class UserResource extends AuthResource {
         .getUserId()).where("id", driver_id).delete());
         return response(OK).entity(response).build();
     }
+    
+//================================================================================================================================================
+    
+    @Path("get/last/position/{unique_id}")
+    @GET
+    public Response getLastPosition(@PathParam("unique_id") String unique_id) {
+        Map<String, Object> response = new LinkedHashMap<>();
+        Map<String, Object> validationValues = new LinkedHashMap<>();
+        Map<String, String> validationString = new LinkedHashMap<>();
+
+        validationValues.put("unique_id", unique_id);
+        validationString.put("unique_id", "exists:devices");
+        
+        Validator validator = validate(validationValues, validationString);
+        if (validator.validated()) {
+            Map<String, Object> position = DB.table("positions")
+            .select("position_id","user_id", "device_id", "unique_id", "protocol", 
+                    "latitude", "longitude", "altitude", "address", "valid", "speed", "course",
+                    "accuracy", "positions.attributes", "servertime", "devicetime", "fixtime")
+            .join("devices", "positions.id", "=", "devices.position_id")
+            .where("user_id", auth().getUserId())
+            .where("unique_id", unique_id)
+            .first();
+            
+            if (position == null) {
+                response.put("success", false);
+                response.put("errors", new String[] {"You have no access to device with Unique ID: " + unique_id});
+                return response(BAD_REQUEST).entity(response).build();
+            }
+            response.put("success", true);
+            response.put("data", position);
+            return response(OK).entity(response).build();
+        } else {
+            response.put("success", false);
+            response.put("errors", validator.getErrors());
+            return response(BAD_REQUEST).entity(response).build();
+        }
+    }
 }

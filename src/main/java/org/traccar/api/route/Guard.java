@@ -46,7 +46,9 @@ public class Guard extends MainGuard {
              "GET:/api/admin/driver/id/{driver_id}",
              "DELETE:/api/admin/driver/id/{driver_id}",
              "POST:/api/admin/add/driver/to/user/{user_id}",
-             "PUT:/api/admin/update/driver/{driver_id}"
+             "PUT:/api/admin/update/driver/{driver_id}",
+
+             "GET:/api/admin/get/last/position/{unique_id}"
          ));
          
          guards.put("user", asList(
@@ -71,7 +73,9 @@ public class Guard extends MainGuard {
              
              "GET:/api/user/driver/id/{driver_id}",
              "PUT:/api/user/driver/id/{driver_id}",
-             "DELETE:/api/user/driver/id/{driver_id}"
+             "DELETE:/api/user/driver/id/{driver_id}",
+             
+             "GET:/api/user/get/last/position/{unique_id}"
          ));
          
          guards.put("driver", asList(

@@ -1,18 +1,3 @@
-/*
- * Copyright 2012 - 2020 Anton Tananaev (anton@traccar.org)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.traccar;
 
 import io.netty.channel.Channel;
@@ -22,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
+import org.traccar.database.DB;
 import org.traccar.database.CommandsManager;
 import org.traccar.database.ConnectionManager;
 import org.traccar.database.IdentityManager;
@@ -104,13 +90,13 @@ public abstract class BaseProtocolDecoder extends ExtendedObjectDecoder {
     private long findDeviceId(SocketAddress remoteAddress, String... uniqueIds) {
         if (uniqueIds.length > 0) {
             long deviceId = 0;
-            Device device = null;
+            Map<String, Object> device = null;
             try {
                 for (String uniqueId : uniqueIds) {
                     if (uniqueId != null) {
-                        device = identityManager.getByUniqueId(uniqueId);
+                        device = DB.table("devices").where("unique_id", uniqueId).first();
                         if (device != null) {
-                            deviceId = device.getId();
+                            deviceId = Long.parseLong(device.get("id").toString());
                             break;
                         }
                     }
@@ -121,7 +107,7 @@ public abstract class BaseProtocolDecoder extends ExtendedObjectDecoder {
             if (deviceId == 0 && config.getBoolean(Keys.DATABASE_REGISTER_UNKNOWN)) {
                 return identityManager.addUnknownDevice(uniqueIds[0]);
             }
-            if (device != null && !device.getDisabled()) {
+            if (device != null && !Boolean.parseBoolean(device.get("disabled").toString())) {
                 return deviceId;
             }
             StringBuilder message = new StringBuilder();

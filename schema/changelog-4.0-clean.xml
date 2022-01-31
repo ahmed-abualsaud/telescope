@@ -170,7 +170,7 @@
         <constraints primaryKey="true" />
       </column>
       <column name="protocol" type="VARCHAR(128)" />
-      <column name="deviceid" type="INT">
+      <column name="device_id" type="INT">
         <constraints nullable="false" />
       </column>
       <column name="servertime" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">

@@ -115,7 +115,7 @@ public abstract class BasePipelineFactory extends ChannelInitializer<Channel> {
             pipeline.addLast(handler);
         });
 
-        addHandlers(
+        /*addHandlers(
                 pipeline,
                 TimeHandler.class,
                 GeolocationHandler.class,
@@ -140,7 +140,7 @@ public abstract class BasePipelineFactory extends ChannelInitializer<Channel> {
                 AlertEventHandler.class,
                 IgnitionEventHandler.class,
                 MaintenanceEventHandler.class,
-                DriverEventHandler.class);
+                DriverEventHandler.class);*/
 
         pipeline.addLast(new MainEventHandler());
     }

@@ -85,6 +85,14 @@ public class Eloquent {
         return this;
     }
     
+    public Eloquent join(String secondTable, String firstColumn , String operator, String secondColumn) {
+        if (!query.contains("SELECT")) {
+            query = "SELECT * FROM " + tableName;
+        }
+        query += " INNER JOIN " + secondTable + " ON " + firstColumn + operator + secondColumn;
+        return this;
+    }
+    
     //==========================================================================
 
     public Map<String, Object> find(Object id) {

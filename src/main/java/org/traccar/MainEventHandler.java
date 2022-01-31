@@ -1,18 +1,3 @@
-/*
- * Copyright 2012 - 2020 Anton Tananaev (anton@traccar.org)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.traccar;
 
 import io.netty.channel.Channel;
@@ -24,11 +9,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.config.Keys;
-import org.traccar.database.StatisticsManager;
-import org.traccar.helper.DateUtil;
-import org.traccar.model.Position;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -51,67 +32,9 @@ public class MainEventHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        Context.getEventManager().handle("test", "device.update.state", msg.toString());
-        if (msg instanceof Position) {
-
-            Position position = (Position) msg;
-            /*try {
-                Context.getDeviceManager().updateLatestPosition(position);
-            } catch (SQLException error) {
-                LOGGER.warn("Failed to update device", error);
-            }*/
-
-            String uniqueId = Context.getIdentityManager().getById(position.getDeviceId()).getUniqueId();
-
-            StringBuilder builder = new StringBuilder();
-            builder.append(formatChannel(ctx.channel())).append(" ");
-            builder.append("id: ").append(uniqueId);
-            for (String attribute : logAttributes) {
-                switch (attribute) {
-                    case "time":
-                        builder.append(", time: ").append(DateUtil.formatDate(position.getFixTime(), false));
-                        break;
-                    case "position":
-                        builder.append(", lat: ").append(String.format("%.5f", position.getLatitude()));
-                        builder.append(", lon: ").append(String.format("%.5f", position.getLongitude()));
-                        break;
-                    case "speed":
-                        if (position.getSpeed() > 0) {
-                            builder.append(", speed: ").append(String.format("%.1f", position.getSpeed()));
-                        }
-                        break;
-                    case "course":
-                        builder.append(", course: ").append(String.format("%.1f", position.getCourse()));
-                        break;
-                    case "accuracy":
-                        if (position.getAccuracy() > 0) {
-                            builder.append(", accuracy: ").append(String.format("%.1f", position.getAccuracy()));
-                        }
-                        break;
-                    case "outdated":
-                        if (position.getOutdated()) {
-                            builder.append(", outdated");
-                        }
-                        break;
-                    case "invalid":
-                        if (!position.getValid()) {
-                            builder.append(", invalid");
-                        }
-                        break;
-                    default:
-                        Object value = position.getAttributes().get(attribute);
-                        if (value != null) {
-                            builder.append(", ").append(attribute).append(": ").append(value);
-                        }
-                        break;
-                }
-            }
-            LOGGER.info(builder.toString());
-
-            Main.getInjector().getInstance(StatisticsManager.class)
-                    .registerMessageStored(position.getDeviceId(), position.getProtocol());
-        }
+    public void channelRead(ChannelHandlerContext ctx, Object message) {
+    
+        Context.getEventManager().handle("", "device.update.state", message);
     }
 
     private static String formatChannel(Channel channel) {
