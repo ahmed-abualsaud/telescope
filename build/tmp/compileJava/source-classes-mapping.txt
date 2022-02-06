@@ -977,8 +977,9 @@ org/traccar/WrapperInboundHandler.java
 org/traccar/protocol/UlbotechProtocol.java
  org.traccar.protocol.UlbotechProtocol
  org.traccar.protocol.UlbotechProtocol$1
-org/traccar/api/middleware/Authenticate.java
- org.traccar.api.middleware.Authenticate
+org/traccar/protocol/GnxProtocol.java
+ org.traccar.protocol.GnxProtocol
+ org.traccar.protocol.GnxProtocol$1
 org/traccar/protocol/EnnfuProtocol.java
  org.traccar.protocol.EnnfuProtocol
  org.traccar.protocol.EnnfuProtocol$1
@@ -2043,8 +2044,8 @@ org/traccar/api/resource/PositionResource.java
  org.traccar.api.resource.PositionResource
 org/traccar/protocol/T800xProtocolEncoder.java
  org.traccar.protocol.T800xProtocolEncoder
-org/traccar/MainModule.java
- org.traccar.MainModule
+org/traccar/protocol/Pt502FrameDecoder.java
+ org.traccar.protocol.Pt502FrameDecoder
 org/traccar/protocol/WondexProtocol.java
  org.traccar.protocol.WondexProtocol
  org.traccar.protocol.WondexProtocol$1
@@ -2383,8 +2384,8 @@ org/traccar/protocol/IntellitracProtocol.java
 org/traccar/protocol/OkoProtocol.java
  org.traccar.protocol.OkoProtocol
  org.traccar.protocol.OkoProtocol$1
-org/traccar/api/route/Guard.java
- org.traccar.api.route.Guard
+org/traccar/api/resource/PusherResource.java
+ org.traccar.api.resource.PusherResource
 org/traccar/protocol/NiotProtocol.java
  org.traccar.protocol.NiotProtocol
  org.traccar.protocol.NiotProtocol$1
@@ -2465,10 +2466,9 @@ org/traccar/protocol/SuntechProtocol.java
  org.traccar.protocol.SuntechProtocol$1
 org/traccar/protocol/Gl200BinaryProtocolDecoder.java
  org.traccar.protocol.Gl200BinaryProtocolDecoder
-org/traccar/protocol/GnxProtocol.java
- org.traccar.protocol.GnxProtocol
- org.traccar.protocol.GnxProtocol$1
-org/traccar/protocol/Pt502FrameDecoder.java
- org.traccar.protocol.Pt502FrameDecoder
-org/traccar/api/resource/PusherResource.java
- org.traccar.api.resource.PusherResource
+org/traccar/api/route/Guard.java
+ org.traccar.api.route.Guard
+org/traccar/MainModule.java
+ org.traccar.MainModule
+org/traccar/api/middleware/Authenticate.java
+ org.traccar.api.middleware.Authenticate
