@@ -17,18 +17,17 @@
     
     <!-- 188.166.165.165 mysql -->
     <!-- 138.68.109.198 telescope -->
-    
-    
+
+
     <entry key='config.default'>/home/sicoman/telescope/target/default.xml</entry>
     <entry key='app.directory'>/home/sicoman</entry>
-    
+
     <entry key='event.behavior.accelerationThreshold'>1</entry>
-    
     <entry key='processing.copyAttributes.enable'>true</entry>
     <entry key='processing.copyAttributes'>power,ignition,battery</entry>
 
     <!-- Database Connection Parameters =================================================================================================== -->
-    
+
     <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
     <entry key='database.user'>root</entry>
     <entry key='database.password'>rootroot</entry>
@@ -51,8 +50,15 @@
     <entry key='azure.storageKey'>eUrtEplqMsFjlY0H/X43fo1YL9OONpx68QQ+NJZI9LeOx/x1hdOn6+5s5XjTAKrm4VD+VyajsL9PSwITTjC5dg==</entry>
     <entry key='azure.storageContainer'>uploads</entry>
     <entry key='azure.storageURL'>https://qruz.blob.core.windows.net/uploads</entry>
+
+
+    <!-- Pusher Configurations ============================================================================================================ -->
+
+    <entry key='websocket.driver'>pusher</entry>
+    <entry key='pusher.app.key'>ABCDEFGHIJKLM</entry>
+    <entry key='pusher.app.secret'>NOPQRSTUVWXYZ</entry>
     
-    
+
     <!-- JWT Secret Key =================================================================================================================== -->
 
     <entry key='jwt.secret.key'>oeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI-ZQ19k_o9MI0y3eZN2lp9jow55FfXMiINEdt1XR85VipRLSOkT6kSpzs2x-jbLDiz9iFVzkd81YKxMgPA7VfZeQUm4n-mOmnWMaVX30zGFU4L3oPBctYKkl4dYfqYWqRNfrgPJVi5DGFjywgxx0ASEiJHtV72paI3fDR2XwlSkyhhmY-ICjCRmsJN4fX1pdoL8a18-aQrvyu4j0Os6dVPYIoPvvY0SAZtWYKHfM15g7A3HD4cVREf9cUsprCRK93w</entry>
@@ -69,4 +75,30 @@ SELECT table_schema "Databases",
 FROM information_schema.tables 
 GROUP BY table_schema;
 
+
+
+private static final Logger LOGGER = LoggerFactory.getLogger(EventManager.class);
+    private final Map<String, Event> events = new LinkedHashMap<>();
+
+    public EventManager() {
+        try {
+            String path = Context.getConfig().getString(Keys.APP_DIRECTORY);
+            path += "/telescope/src/main/java/org/traccar/api/event";
+            String pack = "org.traccar.api.event";
+            File[] files = new File(path).listFiles();
+            String fileName, clazz;
+            Event event;
+        
+            for (int i = 0; i < files.length; i++) {
+                fileName = files[i].getName();
+                if (files[i].isFile() && fileName.contains(".java") && !fileName.equals("EventManager.java")) {
+                    clazz = pack + "." + fileName.substring(0, fileName.length() - 5);
+                    event = (Event) Class.forName(clazz).getConstructor().newInstance();
+                    events.put(event.eventName(), event);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Event Manager Error: ", e);
+        }
+    }
 -->

@@ -157,7 +157,7 @@ public class WebServer {
 
     private void initApi(Config config, ServletContextHandler servletHandler) {
 
-        servletHandler.addServlet(new ServletHolder(new WebsocketServlet()), "/websockets");
+        servletHandler.addServlet(new ServletHolder(new WebsocketServlet()), "/app/" + config.getString(Keys.PUSHER_APP_KEY));
         
         JettyWebSocketServletContainerInitializer.configure(servletHandler, null);
         String mediaPath = config.getString(Keys.MEDIA_PATH);

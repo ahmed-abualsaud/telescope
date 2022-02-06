@@ -23,9 +23,13 @@ public class Authenticate implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext request) {
     
+        if (request.getMethod().equals("OPTIONS")) {
+            return;
+        }
+    
         Guard guard = Main.getInjector().getInstance(Guard.class);
         String path = request.getUriInfo().getAbsolutePath().getPath();
-        if(guard.isGranted("all", request.getMethod(), path)) {
+        if(guard.isGranted("public", request.getMethod(), path)) {
             return;
         }
         
@@ -56,7 +60,8 @@ public class Authenticate implements ContainerRequestFilter {
             return;
         }
         
-        if (!guard.isGranted(user.get("guard").toString(), request.getMethod(), path)) {
+        if (!guard.isGranted(user.get("guard").toString(), request.getMethod(), path) &&
+            !guard.isGranted("common", request.getMethod(), path)) {
             data.put("message", "Unauthorized Access");
             response.put("success", false);
             response.put("error", data);

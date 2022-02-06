@@ -62,15 +62,16 @@ org/traccar/protocol/NavtelecomProtocol.java
  org.traccar.protocol.NavtelecomProtocol$1
 org/traccar/protocol/T800xProtocolDecoder.java
  org.traccar.protocol.T800xProtocolDecoder
-org/traccar/api/event/SeatsUpdateLocation.java
- org.traccar.api.event.SeatsUpdateLocation
+org/traccar/protocol/GnxProtocol.java
+ org.traccar.protocol.GnxProtocol
+ org.traccar.protocol.GnxProtocol$1
 org/traccar/protocol/OmnicommFrameDecoder.java
  org.traccar.protocol.OmnicommFrameDecoder
 org/traccar/protocol/Gs100Protocol.java
  org.traccar.protocol.Gs100Protocol
  org.traccar.protocol.Gs100Protocol$1
-org/traccar/MainEventHandler.java
- org.traccar.MainEventHandler
+org/traccar/api/middleware/Authenticate.java
+ org.traccar.api.middleware.Authenticate
 org/traccar/protocol/MilesmateProtocol.java
  org.traccar.protocol.MilesmateProtocol
  org.traccar.protocol.MilesmateProtocol$1
@@ -399,8 +400,8 @@ org/traccar/protocol/LacakProtocol.java
  org.traccar.protocol.LacakProtocol$1
 org/traccar/api/auth/UserPrincipal.java
  org.traccar.api.auth.UserPrincipal
-org/traccar/protocol/Gl200BinaryProtocolDecoder.java
- org.traccar.protocol.Gl200BinaryProtocolDecoder
+org/traccar/api/resource/DriverResource.java
+ org.traccar.api.resource.DriverResource
 org/traccar/geocoder/PositionStackGeocoder.java
  org.traccar.geocoder.PositionStackGeocoder
 org/traccar/protocol/R12wProtocolDecoder.java
@@ -657,6 +658,8 @@ org/traccar/database/MaintenancesManager.java
  org.traccar.database.MaintenancesManager
 org/traccar/protocol/WatchFrameDecoder.java
  org.traccar.protocol.WatchFrameDecoder
+org/traccar/api/event/Event.java
+ org.traccar.api.event.Event
 org/traccar/websocket/WebsocketManager.java
  org.traccar.websocket.WebsocketManager
  org.traccar.websocket.WebsocketManager$WebsocketListener
@@ -975,9 +978,8 @@ org/traccar/WrapperInboundHandler.java
 org/traccar/protocol/UlbotechProtocol.java
  org.traccar.protocol.UlbotechProtocol
  org.traccar.protocol.UlbotechProtocol$1
-org/traccar/protocol/GnxProtocol.java
- org.traccar.protocol.GnxProtocol
- org.traccar.protocol.GnxProtocol$1
+org/traccar/protocol/Gl200BinaryProtocolDecoder.java
+ org.traccar.protocol.Gl200BinaryProtocolDecoder
 org/traccar/protocol/EnnfuProtocol.java
  org.traccar.protocol.EnnfuProtocol
  org.traccar.protocol.EnnfuProtocol$1
@@ -1077,9 +1079,8 @@ org/traccar/api/validator/Validator.java
 org/traccar/protocol/TrackboxProtocol.java
  org.traccar.protocol.TrackboxProtocol
  org.traccar.protocol.TrackboxProtocol$1
-org/traccar/protocol/SuntechProtocol.java
- org.traccar.protocol.SuntechProtocol
- org.traccar.protocol.SuntechProtocol$1
+org/traccar/api/resource/AdminResource.java
+ org.traccar.api.resource.AdminResource
 org/traccar/protocol/HunterProProtocolDecoder.java
  org.traccar.protocol.HunterProProtocolDecoder
 org/traccar/protocol/ArnaviProtocol.java
@@ -1316,10 +1317,14 @@ org/traccar/protocol/BlueProtocolDecoder.java
  org.traccar.protocol.BlueProtocolDecoder
 org/traccar/model/Server.java
  org.traccar.model.Server
+org/traccar/websocket/driver/WebsocketDriver.java
+ org.traccar.websocket.driver.WebsocketDriver
 org/traccar/sms/SmsManager.java
  org.traccar.sms.SmsManager
-org/traccar/api/event/DeviceUpdateState.java
- org.traccar.api.event.DeviceUpdateState
+org/traccar/web/WebServer.java
+ org.traccar.web.WebServer
+ org.traccar.web.WebServer$1
+ org.traccar.web.WebServer$2
 org/traccar/protocol/LaipacProtocolDecoder.java
  org.traccar.protocol.LaipacProtocolDecoder
 org/traccar/geocoder/AddressFormat.java
@@ -1575,10 +1580,9 @@ org/traccar/reports/Stops.java
 org/traccar/protocol/TytanProtocol.java
  org.traccar.protocol.TytanProtocol
  org.traccar.protocol.TytanProtocol$1
-org/traccar/web/WebServer.java
- org.traccar.web.WebServer
- org.traccar.web.WebServer$1
- org.traccar.web.WebServer$2
+org/traccar/protocol/SuntechProtocol.java
+ org.traccar.protocol.SuntechProtocol
+ org.traccar.protocol.SuntechProtocol$1
 org/traccar/database/DeviceManager.java
  org.traccar.database.DeviceManager
 org/traccar/protocol/Gl200TextProtocolDecoder.java
@@ -1850,8 +1854,6 @@ org/traccar/protocol/Tr900Protocol.java
  org.traccar.protocol.Tr900Protocol
  org.traccar.protocol.Tr900Protocol$1
  org.traccar.protocol.Tr900Protocol$2
-org/traccar/api/event/CabUpdateLocation.java
- org.traccar.api.event.CabUpdateLocation
 org/traccar/protocol/UuxProtocolDecoder.java
  org.traccar.protocol.UuxProtocolDecoder
 org/traccar/protocol/Jt600Protocol.java
@@ -2088,6 +2090,8 @@ org/traccar/protocol/PstFrameDecoder.java
  org.traccar.protocol.PstFrameDecoder
 org/traccar/protocol/ItsFrameDecoder.java
  org.traccar.protocol.ItsFrameDecoder
+org/traccar/websocket/driver/Pusher.java
+ org.traccar.websocket.driver.Pusher
 org/traccar/protocol/Stl060Protocol.java
  org.traccar.protocol.Stl060Protocol
  org.traccar.protocol.Stl060Protocol$1
@@ -2114,8 +2118,8 @@ org/traccar/protocol/RuptelaProtocolEncoder.java
  org.traccar.protocol.RuptelaProtocolEncoder
 org/traccar/protocol/Pt215ProtocolDecoder.java
  org.traccar.protocol.Pt215ProtocolDecoder
-org/traccar/MainModule.java
- org.traccar.MainModule
+org/traccar/api/resource/UserResource.java
+ org.traccar.api.resource.UserResource
 org/traccar/protocol/Ivt401Protocol.java
  org.traccar.protocol.Ivt401Protocol
  org.traccar.protocol.Ivt401Protocol$1
@@ -2190,8 +2194,8 @@ org/traccar/protocol/Gl100Protocol.java
  org.traccar.protocol.Gl100Protocol
  org.traccar.protocol.Gl100Protocol$1
  org.traccar.protocol.Gl100Protocol$2
-org/traccar/api/route/Guard.java
- org.traccar.api.route.Guard
+org/traccar/api/auth/JWT.java
+ org.traccar.api.auth.JWT
 org/traccar/protocol/SupermateProtocolDecoder.java
  org.traccar.protocol.SupermateProtocolDecoder
 org/traccar/reports/model/SummaryReport.java
@@ -2309,9 +2313,6 @@ org/traccar/protocol/RstProtocol.java
  org.traccar.protocol.RstProtocol$1
 org/traccar/model/DeviceState.java
  org.traccar.model.DeviceState
-org/traccar/api/event/EventManager.java
- org.traccar.api.event.EventManager
- org.traccar.api.event.EventManager$Event
 org/traccar/protocol/KhdProtocol.java
  org.traccar.protocol.KhdProtocol
  org.traccar.protocol.KhdProtocol$1
@@ -2459,13 +2460,13 @@ org/traccar/protocol/ArnaviProtocolDecoder.java
 org/traccar/StringProtocolEncoder.java
  org.traccar.StringProtocolEncoder
  org.traccar.StringProtocolEncoder$ValueFormatter
-org/traccar/api/resource/DriverResource.java
- org.traccar.api.resource.DriverResource
-org/traccar/api/middleware/Authenticate.java
- org.traccar.api.middleware.Authenticate
-org/traccar/api/auth/JWT.java
- org.traccar.api.auth.JWT
-org/traccar/api/resource/UserResource.java
- org.traccar.api.resource.UserResource
-org/traccar/api/resource/AdminResource.java
- org.traccar.api.resource.AdminResource
+org/traccar/api/route/Guard.java
+ org.traccar.api.route.Guard
+org/traccar/MainModule.java
+ org.traccar.MainModule
+org/traccar/api/resource/BroadcastResource.java
+ org.traccar.api.resource.BroadcastResource
+org/traccar/api/event/DeviceUpdateState.java
+ org.traccar.api.event.DeviceUpdateState
+org/traccar/MainEventHandler.java
+ org.traccar.MainEventHandler

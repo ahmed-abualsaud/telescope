@@ -14,35 +14,28 @@ public class WebsocketManager {
     }
     
     public interface WebsocketListener {
-        void onBroadCast(Object message);
+        void onBroadCast(String message);
     }
     
-    public synchronized void broadcast(String channel, String event, Object message) {
-        String key = getListenerKey(channel, event);
-        if (listeners.containsKey(key)) {
-            for (WebsocketListener listener : listeners.get(key)) {
+    public synchronized void broadcast(String channel, String message) {
+        if (listeners.containsKey(channel)) {
+            for (WebsocketListener listener : listeners.get(channel)) {
                 listener.onBroadCast(message);
             }
         }
     }
     
-    public synchronized void addListener(String channel, String event, WebsocketListener listener) {
-        String key = getListenerKey(channel, event);
-        if (!listeners.containsKey(key)) {
-            listeners.put(key, new HashSet<>());
+    public synchronized void subscribe(String channel, WebsocketListener listener) {
+        if (!listeners.containsKey(channel)) {
+            listeners.put(channel, new HashSet<>());
         }
-        listeners.get(key).add(listener);
+        listeners.get(channel).add(listener);
     }
 
-    public synchronized void removeListener(String channel, String event, WebsocketListener listener) {
-        String key = getListenerKey(channel, event);
-        if (!listeners.containsKey(key)) {
-            listeners.put(key, new HashSet<>());
+    public synchronized void unsubscribe(String channel, WebsocketListener listener) {
+        if (!listeners.containsKey(channel)) {
+            listeners.put(channel, new HashSet<>());
         }
-        listeners.get(key).remove(listener);
-    }
-    
-    private String getListenerKey(String channel, String event) {
-        return channel + "|" + event;
+        listeners.get(channel).remove(listener);
     }
 }

@@ -9,8 +9,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MediaType;
 
 import org.traccar.api.auth.JWT;
 import org.traccar.api.auth.Auth;

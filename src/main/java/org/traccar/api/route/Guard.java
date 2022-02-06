@@ -6,8 +6,8 @@ public class Guard extends MainGuard {
      
      public Guard() {
      
-         guards.put("all", asList(
-             // Routes accessable by all users (admins, drivers, users)
+         guards.put("public", asList(
+             // Public routes that can be accessed by unregistered users.
 
              "GET:/api/test",
 
@@ -21,8 +21,14 @@ public class Guard extends MainGuard {
              "POST:/api/driver/login"
          ));
          
+         guards.put("common", asList(
+             // Common routes that can be accessed by any of the registered users.
+             
+             "POST:/api/broadcasting/auth"
+         ));
+         
          guards.put("admin", asList(
-             // Routes accessable by admins
+             // Routes accessable by admins.
              
              "GET:/api/admin",
              "PUT:/api/admin",
@@ -52,7 +58,7 @@ public class Guard extends MainGuard {
          ));
          
          guards.put("user", asList(
-             // Routes accessable by users
+             // Routes accessable by users.
              
              "GET:/api/user",
              "PUT:/api/user",
@@ -79,7 +85,7 @@ public class Guard extends MainGuard {
          ));
          
          guards.put("driver", asList(
-             // Routes accessable by drivers
+             // Routes accessable by drivers.
 
              "GET:/api/driver",
              "PUT:/api/driver",
@@ -87,19 +93,19 @@ public class Guard extends MainGuard {
          ));
          
          guards.put("admin, user", asList(
-             // Routes accessable by admins and drivers
+             // Routes accessable by admins and drivers.
 
              
          ));
          
          guards.put("admin, driver", asList(
-             // Routes accessable by admins and users
+             // Routes accessable by admins and users.
 
              
          ));
          
          guards.put("user, driver", asList(
-             // Routes accessable by users and drivers
+             // Routes accessable by users and drivers.
 
              
          ));

@@ -1,56 +1,54 @@
 package org.traccar.websocket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.traccar.Context;
+import org.traccar.config.Keys;
+import org.traccar.websocket.driver.*;
+
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 
-import org.traccar.Context;
 
 public class Websocket extends WebSocketAdapter implements WebsocketManager.WebsocketListener{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Websocket.class);
-
-    private final String channel;
-    private final String event;
-    private final boolean producer;
-
-    public Websocket(String channel, String event, boolean producer) {
-        this.channel = channel;
-        this.event = event;
-        this.producer = producer;
+    private String message;
+    private WebsocketDriver driver;
+    
+    public Websocket() {
+        switch (Context.getConfig().getString(Keys.WEBSOCKET_DRIVER)) {
+            case "pusher":
+                this.driver = new Pusher(this);
+            break;
+            default:
+                this.driver = null;
+        }
     }
 
     @Override
     public void onWebSocketConnect(Session session) {
         super.onWebSocketConnect(session);
-        sendMessage("MESSAGE: Connected Successfully");
-        LOGGER.info("MESSAGE: Connected Successfully");
-        Context.getWebsocketManager().addListener(channel, event, this);
+        sendMessage(driver.connect());
     }
     
     @Override
-    public void onWebSocketText(String message) {
-        super.onWebSocketText(message);
-        LOGGER.info(message);
-        Context.getEventManager().handle(channel, event, message);
+    public void onWebSocketText(String msg) {
+        super.onWebSocketText(msg);
+        message = driver.handle(msg);
+        if (message != null) {sendMessage(message);} 
     }
     
     @Override
-    public void onBroadCast(Object message) {
-        if (!producer) {
-            sendMessage(message);
-        }
+    public void onBroadCast(String message) {
+        if(driver.isProducer()) {driver.beConsumer();}
+        else {sendMessage(message);}
     }
 
     @Override
     public void onWebSocketClose(int statusCode, String reason) {
         super.onWebSocketClose(statusCode, reason);
-        LOGGER.info(reason);
-        Context.getWebsocketManager().removeListener(channel, event, this);
+        driver.close(reason);
     }
-    
-    private void sendMessage(Object message) {
-        getRemote().sendString(message.toString(), null);
+
+    private void sendMessage(String message) {
+        getRemote().sendString(message, null);
     }
 }

@@ -6,9 +6,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.timeout.IdleStateEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.traccar.config.Keys;
+import org.traccar.api.event.DeviceUpdateState;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -33,8 +36,8 @@ public class MainEventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) {
-    
-        Context.getEventManager().handle("", "device.update.state", message);
+
+        Context.event(new DeviceUpdateState(message));
     }
 
     private static String formatChannel(Channel channel) {

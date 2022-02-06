@@ -16,8 +16,12 @@
 package org.traccar;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr353.JSR353Module;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.eclipse.jetty.util.URIUtil;
 import org.traccar.config.Config;
@@ -57,7 +61,6 @@ import org.traccar.model.Maintenance;
 import org.traccar.model.Notification;
 import org.traccar.model.Order;
 import org.traccar.model.User;
-import org.traccar.model.Event;
 import org.traccar.model.Position;
 import org.traccar.notification.EventForwarder;
 import org.traccar.notification.NotificatorManager;
@@ -67,8 +70,10 @@ import org.traccar.sms.HttpSmsClient;
 import org.traccar.sms.SmsManager;
 import org.traccar.sms.SnsSmsClient;
 import org.traccar.web.WebServer;
+import org.traccar.websocket.driver.*;
 import org.traccar.websocket.WebsocketManager;
-import org.traccar.api.event.EventManager;
+import org.traccar.service.storage.AzureStorage;
+import org.traccar.api.event.Event;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -76,10 +81,8 @@ import javax.ws.rs.ext.ContextResolver;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
-
+import java.util.Map;
 import java.time.LocalDateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
@@ -89,7 +92,6 @@ import java.security.CodeSource;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import org.traccar.service.storage.AzureStorage;
 import java.util.Date;
 import java.time.temporal.ChronoUnit;
 
@@ -164,12 +166,6 @@ public final class Context {
 
     public static ConnectionManager getConnectionManager() {
         return connectionManager;
-    }
-    
-    private static EventManager eventManager;
-    
-    public static EventManager getEventManager() {
-        return eventManager;
     }
     
     private static WebsocketManager websocketManager;
@@ -289,6 +285,12 @@ public final class Context {
     public static TripsConfig getTripsConfig() {
         return tripsConfig;
     }
+    
+    private static WebsocketDriver websocketDriver;
+
+    public static WebsocketDriver getWebsocketDriver() {
+        return websocketDriver;
+    }
 
     public static TripsConfig initTripsConfig() {
         return new TripsConfig(
@@ -357,8 +359,6 @@ public final class Context {
 
         connectionManager = new ConnectionManager();
         
-        eventManager = new EventManager();
-        
         websocketManager = new WebsocketManager();
 
         tripsConfig = initTripsConfig();
@@ -385,6 +385,14 @@ public final class Context {
         commandsManager = new CommandsManager(dataManager, config.getBoolean(Keys.COMMANDS_QUEUEING));
 
         orderManager = new OrderManager(dataManager);
+        
+        switch (getConfig().getString(Keys.WEBSOCKET_DRIVER)) {
+            case "pusher":
+                websocketDriver = new Pusher();
+            break;
+            default:
+                websocketDriver = null;
+        }
 
     }
 
@@ -452,6 +460,36 @@ public final class Context {
         return null;
     }
     
+    public static Map<String, Object> jsonDecode(Object message) {
+        return getObjectMapper().convertValue(message, Map.class);
+    }
+    
+    public static Map<String, Object> jsonDecode(String message) {
+        Map<String, Object> data = null;
+        try {
+            data = getObjectMapper().readValue(message, Map.class);
+        } catch (JsonProcessingException e) {
+            LOGGER.warn("Socket JSON decoding error", e);
+        }
+        return data;
+    }
+    
+    public static String jsonEncode(Map<String, Object> data) {
+        String json = null;
+        try {
+            json = getObjectMapper().writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            LOGGER.warn("Socket JSON encoding error", e);
+        }
+        return json;
+    }
+    
+    public static void event(Event event) {
+        String data = getWebsocketDriver().buildMessage(event.channel(), event.event(), event.data());
+        LOGGER.info("Broadcast Message: " + data);
+        Context.getWebsocketManager().broadcast(event.channel(), data);
+    }
+    
     public static void takeDatabaseBackup() {
         try {
             CodeSource codeSource = Context.class.getProtectionDomain().getCodeSource();
@@ -503,7 +541,7 @@ public final class Context {
     
     private static void refineDatabase() {
         String positionTable = DataManager.getObjectsTableName(Position.class);
-        String eventTable = DataManager.getObjectsTableName(Event.class);
+        String eventTable = DataManager.getObjectsTableName(org.traccar.model.Event.class);
         long millisec = new Date().toInstant().minus(30, ChronoUnit.DAYS).toEpochMilli();
         Timestamp sinceMonths = new Timestamp(millisec);
         try {

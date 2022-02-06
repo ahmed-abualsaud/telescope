@@ -1347,4 +1347,25 @@ public final class Keys {
     public static final ConfigKey<String> APP_DIRECTORY = new ConfigKey<>(
             "app.directory",
             Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Pusher app public key.
+     */
+    public static final ConfigKey<String> PUSHER_APP_KEY = new ConfigKey<>(
+            "pusher.app.key",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+    /**
+     * Pusher app secret key.
+     */
+    public static final ConfigKey<String> PUSHER_APP_SECRET = new ConfigKey<>(
+            "pusher.app.secret",
+            Collections.singletonList(KeyType.GLOBAL));
+            
+     /**
+     * Braadcast Driver.
+     */
+    public static final ConfigKey<String> WEBSOCKET_DRIVER = new ConfigKey<>(
+            "websocket.driver",
+            Collections.singletonList(KeyType.GLOBAL));
 }
