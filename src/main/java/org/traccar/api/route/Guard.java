@@ -18,9 +18,7 @@ public class Guard extends MainGuard {
              "POST:/api/user/login",
 
              "POST:/api/driver/register",
-             "POST:/api/driver/login",
-             
-             "POST:/api/app/ABCDEFGHIJKLM/{val1}/{val2}/{val3}"
+             "POST:/api/driver/login"
          ));
          
          guards.put("common", asList(

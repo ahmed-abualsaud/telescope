@@ -1,0 +1,103 @@
+2022-02-06 18:51:45  WARN: /app/ABCDEFGHIJKLM - org.traccar.websocket.Websocket - ClassNotFoundException (... < WebsocketServlet:15 < ...)
+2022-02-06 18:51:57  WARN: /app/ABCDEFGHIJKLM - org/traccar/websocket/Websocket - NoClassDefFoundError (WebsocketServlet:15 < ...)
+2022-02-06 18:52:27  WARN: /app/ABCDEFGHIJKLM - org/traccar/websocket/Websocket - NoClassDefFoundError (WebsocketServlet:15 < ...)
+2022-02-06 18:52:52  INFO: HikariPool-1 - Starting...
+2022-02-06 18:52:54  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@769a1df5
+2022-02-06 18:52:54  INFO: HikariPool-1 - Start completed.
+2022-02-06 18:52:55  INFO: Clearing database change log checksums
+2022-02-06 18:52:56  INFO: Successfully acquired change log lock
+2022-02-06 18:52:57  INFO: Successfully released change log lock
+2022-02-06 18:52:57  INFO: Successfully acquired change log lock
+2022-02-06 18:52:57  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2022-02-06 18:52:58  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2022-02-06 18:52:59  INFO: Reading from telescope.DATABASECHANGELOG
+2022-02-06 18:52:59  INFO: Reading from telescope.DATABASECHANGELOG
+2022-02-06 18:52:59  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2022-02-06 18:52:59  INFO: Successfully released change log lock
+2022-02-06 18:53:02  INFO: HikariPool-2 - Starting...
+2022-02-06 18:53:02  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@40c2ce52
+2022-02-06 18:53:02  INFO: HikariPool-2 - Start completed.
+2022-02-06 18:53:03  INFO: Operating system name: Linux version: 5.13.0-28-generic architecture: amd64
+2022-02-06 18:53:03  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.13+8-Ubuntu-0ubuntu1.20.04
+2022-02-06 18:53:03  INFO: Memory limit heap: 962mb non-heap: 0mb
+2022-02-06 18:53:03  INFO: Character encoding: UTF-8 charset: UTF-8
+2022-02-06 18:53:03  INFO: Version: 4.14
+2022-02-06 18:53:03  INFO: Starting server...
+2022-02-06 18:53:04  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.13+8-Ubuntu-0ubuntu1.20.04
+2022-02-06 18:53:07  INFO: Started o.t.w.@42c12b3e{/,null,AVAILABLE}
+2022-02-06 18:53:07  INFO: Session workerName=node0
+2022-02-06 18:53:09  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2022-02-06 18:53:10  WARN: The following warnings have been detected: WARNING: A resource, Resource{"devices", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "devices" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
+WARNING: A resource, Resource{"positions", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "positions" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
+
+2022-02-06 18:53:10  INFO: Started o.e.j.s.ServletContextHandler@4f20b022{/,null,AVAILABLE}
+2022-02-06 18:53:10  INFO: Started ServerConnector@451f87af{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2022-02-06 18:53:10  INFO: Started Server@126f8f24{STARTING}[10.0.6,sto=0] @21278ms
+2022-02-06 18:53:27  INFO: Connected Successfully with socket id: 556799823.536176117
+2022-02-06 18:53:27  INFO: Sending Message: {"event":"pusher:connection_established","data":{"socket_id":"556799823.536176117","activity_timeout":30}}
+2022-02-06 18:53:28  INFO: HikariProxyPreparedStatement@1726806693 wrapping com.mysql.cj.jdbc.ClientPreparedStatement: SELECT * FROM users WHERE id = '2' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyIiwiaWF0IjoxNjQzMDM4MzkwLCJpc3MiOiJ1c2VyIn0.bLJmEEdvbGFjrgaHus10JrZvKsODKGZ-Vugzwzw_uMQ';
+2022-02-06 18:53:28  INFO: Received Message: {"event":"pusher:subscribe","data":{"auth":"ABCDEFGHIJKLM:b01397a66ff568477d4508e07da271a8c005e2471b9e0ecc8e0934ca44e52f9a","channel":"private-user.2.devices"}}
+2022-02-06 18:53:28  INFO: Socket with id: 556799823.536176117 subscribed to channel: private-user.2.devices
+2022-02-06 18:53:28  INFO: Sending Message: {"event":"pusher_internal:subscription_succeeded","channel":"private-user.2.devices"}
+2022-02-06 18:53:44  INFO: Disconnect socket with id: 556799823.536176117 because of: null
+2022-02-06 18:53:44  INFO: Connected Successfully with socket id: 678120826.548876336
+2022-02-06 18:53:44  INFO: Sending Message: {"event":"pusher:connection_established","data":{"socket_id":"678120826.548876336","activity_timeout":30}}
+2022-02-06 18:53:44  INFO: HikariProxyPreparedStatement@1561181924 wrapping com.mysql.cj.jdbc.ClientPreparedStatement: SELECT * FROM users WHERE id = '2' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyIiwiaWF0IjoxNjQzMDM4MzkwLCJpc3MiOiJ1c2VyIn0.bLJmEEdvbGFjrgaHus10JrZvKsODKGZ-Vugzwzw_uMQ';
+2022-02-06 18:53:44  INFO: Received Message: {"event":"pusher:subscribe","data":{"auth":"ABCDEFGHIJKLM:eb21f95e9c1c8e387c5c3c2ef4d3e8df87c8e5ed776ff68ab7097dc5cab91595","channel":"private-user.2.devices"}}
+2022-02-06 18:53:44  INFO: Socket with id: 678120826.548876336 subscribed to channel: private-user.2.devices
+2022-02-06 18:53:44  INFO: Sending Message: {"event":"pusher_internal:subscription_succeeded","channel":"private-user.2.devices"}
+2022-02-06 18:54:14  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:54:14  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:54:44  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:54:44  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:55:14  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:55:14  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:55:45  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:55:45  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:56:16  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:56:16  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:56:47  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:56:47  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:57:18  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:57:18  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:57:49  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:57:49  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:58:20  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:58:20  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:58:51  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:58:51  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:59:22  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:59:22  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 18:59:53  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 18:59:53  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:00:24  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:00:24  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:00:55  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:00:55  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:01:26  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:01:26  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:01:57  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:01:57  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:02:28  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:02:28  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:02:59  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:02:59  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:03:30  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:03:30  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:04:01  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:04:01  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:04:32  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:04:32  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:05:03  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:05:03  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:05:34  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:05:34  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:06:05  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:06:05  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:06:36  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:06:36  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:07:07  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:07:07  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:07:38  INFO: Received Message: {"event":"pusher:ping","data":{}}
+2022-02-06 19:07:38  INFO: Sending Message: {"event":"pusher:pong"}
+2022-02-06 19:08:07  INFO: Disconnect socket with id: 678120826.548876336 because of: null
