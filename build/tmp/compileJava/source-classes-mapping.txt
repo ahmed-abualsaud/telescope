@@ -2384,8 +2384,8 @@ org/traccar/protocol/IntellitracProtocol.java
 org/traccar/protocol/OkoProtocol.java
  org.traccar.protocol.OkoProtocol
  org.traccar.protocol.OkoProtocol$1
-org/traccar/api/resource/PusherResource.java
- org.traccar.api.resource.PusherResource
+org/traccar/protocol/Gl200BinaryProtocolDecoder.java
+ org.traccar.protocol.Gl200BinaryProtocolDecoder
 org/traccar/protocol/NiotProtocol.java
  org.traccar.protocol.NiotProtocol
  org.traccar.protocol.NiotProtocol$1
@@ -2464,8 +2464,6 @@ org/traccar/StringProtocolEncoder.java
 org/traccar/protocol/SuntechProtocol.java
  org.traccar.protocol.SuntechProtocol
  org.traccar.protocol.SuntechProtocol$1
-org/traccar/protocol/Gl200BinaryProtocolDecoder.java
- org.traccar.protocol.Gl200BinaryProtocolDecoder
 org/traccar/api/route/Guard.java
  org.traccar.api.route.Guard
 org/traccar/MainModule.java
