@@ -70,8 +70,8 @@ org/traccar/protocol/OmnicommFrameDecoder.java
 org/traccar/protocol/Gs100Protocol.java
  org.traccar.protocol.Gs100Protocol
  org.traccar.protocol.Gs100Protocol$1
-org/traccar/api/middleware/Authenticate.java
- org.traccar.api.middleware.Authenticate
+org/traccar/MainEventHandler.java
+ org.traccar.MainEventHandler
 org/traccar/protocol/MilesmateProtocol.java
  org.traccar.protocol.MilesmateProtocol
  org.traccar.protocol.MilesmateProtocol$1
@@ -1321,10 +1321,8 @@ org/traccar/websocket/driver/WebsocketDriver.java
  org.traccar.websocket.driver.WebsocketDriver
 org/traccar/sms/SmsManager.java
  org.traccar.sms.SmsManager
-org/traccar/web/WebServer.java
- org.traccar.web.WebServer
- org.traccar.web.WebServer$1
- org.traccar.web.WebServer$2
+org/traccar/api/event/DeviceUpdateState.java
+ org.traccar.api.event.DeviceUpdateState
 org/traccar/protocol/LaipacProtocolDecoder.java
  org.traccar.protocol.LaipacProtocolDecoder
 org/traccar/geocoder/AddressFormat.java
@@ -2466,7 +2464,9 @@ org/traccar/MainModule.java
  org.traccar.MainModule
 org/traccar/api/resource/BroadcastResource.java
  org.traccar.api.resource.BroadcastResource
-org/traccar/api/event/DeviceUpdateState.java
- org.traccar.api.event.DeviceUpdateState
-org/traccar/MainEventHandler.java
- org.traccar.MainEventHandler
+org/traccar/api/middleware/Authenticate.java
+ org.traccar.api.middleware.Authenticate
+org/traccar/web/WebServer.java
+ org.traccar.web.WebServer
+ org.traccar.web.WebServer$1
+ org.traccar.web.WebServer$2
