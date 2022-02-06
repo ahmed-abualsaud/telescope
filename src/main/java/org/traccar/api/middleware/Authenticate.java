@@ -29,7 +29,7 @@ public class Authenticate implements ContainerRequestFilter {
     
         Guard guard = Main.getInjector().getInstance(Guard.class);
         String path = request.getUriInfo().getAbsolutePath().getPath();
-        if(path.contains("pusher") || guard.isGranted("public", request.getMethod(), path)) {
+        if(guard.isGranted("public", request.getMethod(), path)) {
             return;
         }
         
