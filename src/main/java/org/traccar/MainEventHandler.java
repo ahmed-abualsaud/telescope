@@ -36,8 +36,7 @@ public class MainEventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) {
-
-        Context.event(new DeviceUpdateState(message));
+        fireUpdateDeviceStateEvent(message);
     }
 
     private static String formatChannel(Channel channel) {
@@ -85,4 +84,7 @@ public class MainEventHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    private synchronized void fireUpdateDeviceStateEvent(Object message) {
+        Context.event(new DeviceUpdateState(message));
+    }
 }

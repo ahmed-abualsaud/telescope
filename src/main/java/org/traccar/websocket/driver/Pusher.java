@@ -7,16 +7,16 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 
 import org.traccar.Context;
+import org.traccar.helper.JSON;
 import org.traccar.websocket.Websocket;
 
-public class Pusher implements WebsocketDriver {
+public class Pusher extends WebsocketDriver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Pusher.class);
 
     private String channel;
     private String message;
     private String socketId;
-    private boolean producer;
     private Websocket websocket;
 
     public Pusher() {}
@@ -29,21 +29,6 @@ public class Pusher implements WebsocketDriver {
     }
 
     @Override
-    public boolean isProducer() {
-        return producer;
-    }
-
-    @Override
-    public void beConsumer() {
-        this.producer = false;
-    }
-
-    @Override
-    public void beProducer() {
-        this.producer = true;
-    }
-
-    @Override
     public String connect() {
         Map<String, Object> data = new LinkedHashMap<>();
         Map<String, Object> event = new LinkedHashMap<>();
@@ -52,7 +37,7 @@ public class Pusher implements WebsocketDriver {
         event.put("event", "pusher:connection_established");
         event.put("data", data);
         LOGGER.info("Connected Successfully with socket id: " + socketId);
-        this.message = Context.jsonEncode(event);
+        this.message = JSON.encode(event);
         LOGGER.info("Sending Message: " + message);
         return message;
     }
@@ -64,17 +49,17 @@ public class Pusher implements WebsocketDriver {
     }
 
     @Override
-    public String buildMessage(String channel, String event, String data) {
+    public String buildMessage(String channel, String event, Object data) {
         Map<String, Object> message = new LinkedHashMap<>();
         message.put("data", data);
         message.put("event", event);
         message.put("channel", channel);
-        return Context.jsonEncode(message);
+        return JSON.encode(message);
     }
 
     @Override
     public String handle(String message) {
-        Map<String, Object> event = Context.jsonDecode(message);
+        Map<String, Object> event = JSON.decode(message);
         LOGGER.info("Received Message: " + message);
         if (event.get("event").toString().equals("pusher:ping")) {
             return pong();
@@ -90,18 +75,18 @@ public class Pusher implements WebsocketDriver {
     private String pong() {
         Map<String, Object> event = new LinkedHashMap<>();
         event.put("event", "pusher:pong");
-        this.message = Context.jsonEncode(event);
+        this.message = JSON.encode(event);
         LOGGER.info("Sending Message: " + message);
         return message;
     }
 
     private String subscribe(Map<String, Object> event) {
-        this.channel = Context.jsonDecode(event.get("data")).get("channel").toString();
+        this.channel = JSON.decode(event.get("data")).get("channel").toString();
         Context.getWebsocketManager().subscribe(channel, websocket);
         Map<String, Object> msg = new LinkedHashMap<>();
         msg.put("event", "pusher_internal:subscription_succeeded");
         msg.put("channel", channel);
-        this.message = Context.jsonEncode(msg);
+        this.message = JSON.encode(msg);
         LOGGER.info("Socket with id: " + socketId + " subscribed to channel: " + channel);
         LOGGER.info("Sending Message: " + message);
         return message;

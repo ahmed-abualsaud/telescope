@@ -28,13 +28,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @ChannelHandler.Sharable
 public class TimeHandler extends ChannelInboundHandlerAdapter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TimeHandler.class);
     
     private final boolean useServerTime;
     private final Set<String> protocols;
@@ -51,7 +46,6 @@ public class TimeHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        LOGGER.info("hello there");
         if (msg instanceof Position && (protocols == null
                 || protocols.contains(ctx.pipeline().get(BaseProtocolDecoder.class).getProtocolName()))) {
 

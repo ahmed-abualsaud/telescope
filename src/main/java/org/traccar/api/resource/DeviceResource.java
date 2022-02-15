@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,12 +31,12 @@ import java.util.LinkedHashMap;
 public class DeviceResource extends AuthResource {
 
     
-    /*@Path("user/device/{uniqueid}")
+    @Path("user/device/{uniqueid}")
     @GET
-    public Response get(@PathParam("partnerId") long partnerId, 
+    public void get(@PathParam("partnerId") long partnerId, 
     		@QueryParam("uniqueId") List<String> uniqueIds) throws SQLException {
     		
-        Map<String, Object> request = new LinkedHashMap<>();
+        /*Map<String, Object> request = new LinkedHashMap<>();
         request.put("partnerId", partnerId);
         request.put("uniqueId", uniqueIds);
         
@@ -67,14 +68,14 @@ public class DeviceResource extends AuthResource {
             response.put("success", false);
             response.put("error", validator.getErrors());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
-        }
-    }*/
+        }*/
+    }
     
-    /*@Path("partner/{partnerId}")
+    @Path("partner/{partnerId}")
     @PUT
-    public Response update(Device entity, @PathParam("partnerId") long partnerId) throws SQLException {
+    public void update(Map<String, Object> entity, @PathParam("partnerId") long partnerId) throws SQLException {
     
-        Map<String, Object> request = new LinkedHashMap<>();
+        /*Map<String, Object> request = new LinkedHashMap<>();
         request.put("partnerId", partnerId);
         request.put("uniqueId", entity.getUniqueId());
         
@@ -103,15 +104,15 @@ public class DeviceResource extends AuthResource {
             response.put("success", false);
             response.put("error", validator.getErrors());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
-        }
+        }*/
     }
     
     @Path("partner/{partnerId}")
     @DELETE
-    public Response remove(@PathParam("partnerId") long partnerId, 
+    public void remove(@PathParam("partnerId") long partnerId, 
     		@QueryParam("uniqueId") List<String> uniqueIds) throws SQLException {
     		
-        Map<String, Object> request = new LinkedHashMap<>();
+       /* Map<String, Object> request = new LinkedHashMap<>();
         request.put("partnerId", partnerId);
         request.put("uniqueId", uniqueIds);
         
@@ -143,6 +144,6 @@ public class DeviceResource extends AuthResource {
             response.put("success", false);
             response.put("error", validator.getErrors());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
-        }
-    }*/
+        }*/
+    }
 }

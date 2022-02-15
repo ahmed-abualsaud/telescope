@@ -16,5 +16,5 @@ public abstract class Event {
 
     public abstract String channel();
     public abstract String event();
-    public abstract String data(); 
+    public abstract Object data(); 
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
 import org.traccar.Context;
+import org.traccar.helper.JSON;
 import org.traccar.config.Keys;
 import org.traccar.api.auth.AuthResource;
 
@@ -39,6 +40,6 @@ public class BroadcastResource extends AuthResource {
         hash = PUSHER_KEY + ":" + hash;
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("auth", hash);
-        return response(OK).entity(Context.jsonEncode(response)).build();
+        return response(OK).entity(JSON.encode(response)).build();
     }
 }

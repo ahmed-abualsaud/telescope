@@ -126,7 +126,7 @@ public class DriverResource extends AuthResource {
     @GET
     public Response get() {
         Map<String, Object> response = new LinkedHashMap<>();
-        Map<String, Object> driver = DB.table("drivers").where("id", auth().getUserId()).first();
+        Map<String, Object> driver = DB.table("drivers").find(auth().getUserId());
         response.put("success", true);
         response.put("data", driver);
         return response(OK).entity(response).build();

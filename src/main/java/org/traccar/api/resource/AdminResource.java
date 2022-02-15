@@ -121,7 +121,7 @@ public class AdminResource extends AuthResource {
     @GET
     public Response get() {
         Map<String, Object> response = new LinkedHashMap<>();
-        Map<String, Object> admin = DB.table("admins").where("id", auth().getUserId()).first();
+        Map<String, Object> admin = DB.table("admins").find(auth().getUserId());
         response.put("success", true);
         response.put("data", admin);
         return response(OK).entity(response).build();
@@ -183,7 +183,7 @@ public class AdminResource extends AuthResource {
     
     @Path("device/unique/id/{unique_id}")
     @GET
-    public Response getDeviceByUniqueId(@PathParam("unique_id") long unique_id) {
+    public Response getDeviceByUniqueId(@PathParam("unique_id") String unique_id) {
         Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> device = DB.table("devices").where("unique_id", unique_id).first();
         if (device == null) {
@@ -252,7 +252,6 @@ public class AdminResource extends AuthResource {
         
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
-        
             request.put("user_id", user_id);
             response.put("success", true);
             response.put("data", DB.table("devices").create(request));
@@ -311,14 +310,14 @@ public class AdminResource extends AuthResource {
     
     @Path("device/unique/id/{unique_id}")
     @DELETE
-    public Response destroyDeviceByUniqueId(@PathParam("unique_id") long unique_id) {
+    public Response destroyDeviceByUniqueId(@PathParam("unique_id") String unique_id) {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("success", DB.table("devices").where("unique_id", unique_id).delete());
         return response(OK).entity(response).build();
     }
-    
+
 //================================================================================================================================================
-    
+
     @Path("driver/id/{driver_id}")
     @GET
     public Response getDriverById(@PathParam("driver_id") long driver_id) {

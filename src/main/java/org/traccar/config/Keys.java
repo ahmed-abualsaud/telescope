@@ -249,7 +249,7 @@ public final class Keys {
     /**
      * If the speed is above specified value, the object is considered to be in motion. Default value is 0.01 knots.
      */
-    public static final ConfigKey<Double> EVENT_MOTION_SPEED_THRESHOLD = new ConfigKey<>(
+    public static final ConfigKey<Double> MOTION_SPEED_THRESHOLD = new ConfigKey<>(
             "event.motion.speedThreshold",
             Collections.singletonList(KeyType.GLOBAL),
             0.01);

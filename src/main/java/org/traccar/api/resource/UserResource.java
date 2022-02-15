@@ -40,9 +40,13 @@ public class UserResource extends AuthResource {
         }
         Map<String, Object> validationValues = new LinkedHashMap<>();
         Map<String, String> validationString = new LinkedHashMap<>();
+
+        validationValues.put("partner_id", request.get("partner_id"));        
         validationValues.put("name", request.get("name"));
         validationValues.put("email", request.get("email"));
         validationValues.put("phone", request.get("phone"));
+
+        validationString.put("partner_id", "exists:partners.id|required");        
         validationString.put("name", "required");
         validationString.put("email", "unique:users|required");
         validationString.put("phone", "unique:users|required");
@@ -117,7 +121,7 @@ public class UserResource extends AuthResource {
     @GET
     public Response get() {
         Map<String, Object> response = new LinkedHashMap<>();
-        Map<String, Object> user = DB.table("users").where("id", auth().getUserId()).first();
+        Map<String, Object> user = DB.table("users").find(auth().getUserId());
         response.put("success", true);
         response.put("data", user);
         return response(OK).entity(response).build();
@@ -178,7 +182,7 @@ public class UserResource extends AuthResource {
     
     @Path("device/unique/id/{unique_id}")
     @GET
-    public Response getDeviceByUniqueId(@PathParam("unique_id") long unique_id) {
+    public Response getDeviceByUniqueId(@PathParam("unique_id") String unique_id) {
         Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> device = DB.table("devices")
         .where("user_id", auth().getUserId()).where("unique_id", unique_id).first();
@@ -289,7 +293,7 @@ public class UserResource extends AuthResource {
     
     @Path("device/unique/id/{unique_id}")
     @DELETE
-    public Response destroyDeviceByUniqueId(@PathParam("unique_id") long unique_id) {
+    public Response destroyDeviceByUniqueId(@PathParam("unique_id") String unique_id) {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("success", DB.table("devices").where("user_id", auth()
         .getUserId()).where("unique_id", unique_id).delete());
@@ -325,7 +329,7 @@ public class UserResource extends AuthResource {
     
     @Path("driver")
     @POST
-    public Response addDriver(@PathParam("user_id") long user_id, Map<String, Object> request) {
+    public Response addDriver(Map<String, Object> request) {
         Map<String, Object> response = new LinkedHashMap<>();
         if (request == null) {
             response.put("success", false);
@@ -389,6 +393,12 @@ public class UserResource extends AuthResource {
         
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
+            if (request.containsKey("password") && request.get("password") != null) {
+                String password = request.get("password").toString();
+                Hashing.HashingResult hashingResult = Hashing.createHash(password);
+                request.put("password", hashingResult.getHash());
+                request.put("salt", hashingResult.getSalt());
+            }
             List<Map<String, Object>> drivers = DB.table("drivers").where("user_id", auth().getUserId())
             .where("id", driver_id).update(request);
             if (drivers == null) {

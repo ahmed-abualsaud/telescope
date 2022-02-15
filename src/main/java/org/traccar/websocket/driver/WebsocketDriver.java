@@ -1,15 +1,24 @@
 package org.traccar.websocket.driver;
 
-public interface WebsocketDriver {
+public abstract class WebsocketDriver {
 
-    boolean isProducer();
+    protected boolean producer;
     
-    void beConsumer();
-    void beProducer();
+    public boolean isProducer() {
+        return producer;
+    }
 
-    String connect();
-    void close(String reason);
+    public void beConsumer() {
+        this.producer = false;
+    }
 
-    String handle(String message);
-    String buildMessage(String channel, String event, String data);
+    public void beProducer() {
+        this.producer = true;
+    }
+
+    public abstract String connect();
+    public abstract void close(String reason);
+
+    public abstract String handle(String message);
+    public abstract String buildMessage(String channel, String event, Object data);
 }

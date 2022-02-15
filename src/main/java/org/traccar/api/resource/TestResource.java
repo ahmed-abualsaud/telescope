@@ -71,9 +71,9 @@ public class TestResource extends AuthResource {
                 protocolList.put(protocol.getName(), protocol);
             }
         }
-        return response(OK).entity(protocolList).build();*/
+        return response(OK).entity(packageUrl.toString()).build();*/
         
-        Map<String, Object> response = new LinkedHashMap<>();
+        /*Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> position = DB.table("positions")
             .select("position_id","user_id", "device_id", "unique_id", "protocol", 
                     "latitude", "longitude", "altitude", "address", "valid", "speed", "course",
@@ -83,7 +83,8 @@ public class TestResource extends AuthResource {
             .first();
         response.put("success", true);
         response.put("data", position);
-        return response(OK).entity(response).build();
+        return response(OK).entity(response).build();*/
+        return response(OK).entity(Context.getModelManager().getAllProperties()).build();
     }
 
 }

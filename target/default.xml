@@ -38,7 +38,7 @@
 
     <entry key='database.ignoreUnknown'>true</entry>
     <entry key='database.generateQueries'>true</entry>
-    <entry key='database.changelog'>/home/sicoman/telescope/schema/changelog-master.xml</entry>
+    <entry key='database.changelog'>/home/sicoman/telescope/schema/master.xml</entry>
     <!--
     <entry key='database.loginUser'>
         SELECT * FROM tc_users

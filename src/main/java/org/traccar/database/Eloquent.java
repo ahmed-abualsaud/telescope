@@ -1,7 +1,7 @@
 package org.traccar.database;
 
-import org.traccar.Main;
-import org.traccar.api.modelconf.ModelConf;
+import org.traccar.Context;
+import org.traccar.helper.JSON;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +20,13 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Properties;
 import java.util.LinkedHashMap;
 
 public class Eloquent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Eloquent.class);
     private final Map<String, List<Integer>> indexMap = new HashMap<>();
-    private final Map<String, Properties> modelConf = Main.getInjector().getInstance(ModelConf.class).getModelConf();
-    private Properties properties = null;
+    private final Map<String, Map<String, Object>> allProperties = Context.getModelManager().getAllProperties();
     
     private String query;
     private String scope;
@@ -37,7 +35,8 @@ public class Eloquent {
     private List<Object> scopeParams;
     private final DataSource dataSource;
     private PreparedStatement statement;
-    
+    private Map<String, Object> properties = null;
+
     public Eloquent(String tableName, DataSource dataSource) {
         this.query = "";
         this.scope = "";
@@ -45,10 +44,13 @@ public class Eloquent {
         this.dataSource = dataSource;
         this.queryParams = new ArrayList<>();
         this.scopeParams = new ArrayList<>();
-        for (Map.Entry<String, Properties> entry : modelConf.entrySet()) {
-            if (entry.getKey().equals(tableName.substring(0, tableName.length() - 1).toLowerCase())) {
-                this.properties = entry.getValue();
-            }
+        for (Map.Entry<String, Map<String, Object>> entry : allProperties.entrySet()) {
+            if (entry.getValue().get("table") != null && 
+                entry.getValue().get("table").toString().equals(tableName)) {
+                this.properties = entry.getValue(); break;
+            } else if (entry.getKey().equals(tableName.substring(0, tableName.length() - 1).toLowerCase())) {
+                this.properties = entry.getValue(); break;
+            } else {continue;}
         }
     }
     
@@ -96,6 +98,7 @@ public class Eloquent {
     //==========================================================================
 
     public Map<String, Object> find(Object id) {
+        if (id == null) {return null;}
         if (!query.contains("SELECT")) {
             query = "SELECT * FROM " + tableName;
         }
@@ -104,7 +107,8 @@ public class Eloquent {
         Map<String, Object> ret = new LinkedHashMap<>();
         try{try (Connection connection = dataSource.getConnection()) {
             statement = connection.prepareStatement(query);
-            LOGGER.info(statement.toString());
+            LOGGER.info(statement.toString().substring(statement.toString().indexOf(":"), 
+                                                       statement.toString().length()));
             ret = executeQueryAndGetResult(false);
             closeStatement();
         }} catch (SQLException e) {}
@@ -157,12 +161,17 @@ public class Eloquent {
     }
     
     public Map<String, Object> create(Map<String, Object> data) {
+        if (data == null ) {return null;}
+        if (data.isEmpty()) {return data;}
         query = "INSERT INTO " + tableName + "(";
         String values = "VALUES(";
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             query += entry.getKey() + ", ";
             values += "?, ";
-            queryParams.add(entry.getValue());
+            if (properties != null && properties.get("json") != null && entry.getValue() != null &&
+                properties.get("json").toString().contains(entry.getKey())) {
+                queryParams.add(JSON.encode((Map<String, Object>) entry.getValue()));
+            } else {queryParams.add(entry.getValue());}
         }
         query = query.substring(0, query.length() - 2);
         values = values.substring(0, values.length() - 2);
@@ -178,17 +187,21 @@ public class Eloquent {
     }
     
     public List<Map<String, Object>> update(Map<String, Object> data) {
-        String updated = "";
-        for (Map.Entry<String, Properties> entry : modelConf.entrySet()) {
-            if (entry.getKey().equals(tableName.substring(0, tableName.length() - 1).toLowerCase()) &&
-                entry.getValue().getProperty("timestamps") != null && 
-                entry.getValue().getProperty("timestamps").equals("true")
-            ) {updated = "updated_at=CURRENT_TIMESTAMP, ";}
+        if (data == null) {return null;}
+        if (data.isEmpty()) {
+            List<Map<String, Object>> ret = new ArrayList<>(); 
+            ret.add(new HashMap<>()); return ret;
         }
+        String updated = "";
+        if (properties != null && (Boolean) properties.get("timestamps"))
+        {updated = "updated_at=CURRENT_TIMESTAMP, ";}
         query = "UPDATE " + tableName + " SET " + updated;
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             query += entry.getKey() + "= ? " + ", ";
-            queryParams.add(entry.getValue());
+            if (properties != null && properties.get("json") != null && entry.getValue() != null &&
+                properties.get("json").toString().contains(entry.getKey())) {
+                queryParams.add(JSON.encode((Map<String, Object>) entry.getValue()));
+            } else {queryParams.add(entry.getValue());}
         }
         query = query.substring(0, query.length() - 2);
         query += " " + scope;
@@ -222,7 +235,8 @@ public class Eloquent {
             for (int i = 0; i < queryParams.size(); i++) {
                 setGeneric(i + 1, queryParams.get(i));
             }
-            LOGGER.info(statement.toString());
+            LOGGER.info(statement.toString().substring(statement.toString().indexOf(":"), 
+                                                       statement.toString().length()));
         } catch (SQLException e) {
             LOGGER.error("Database connection error: ", e);
             closeStatement();
@@ -238,8 +252,8 @@ public class Eloquent {
             String column;
             for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                 column = resultMetaData.getColumnLabel(i);
-                if (!all && properties != null && properties.getProperty("ignored") != null &&
-                    properties.getProperty("ignored").contains(column)) {continue;} 
+                if (!all && properties != null && properties.get("ignored") != null &&
+                    properties.get("ignored").toString().contains(column)) {continue;} 
                 row.put(column, resultSet.getObject(i));
             }
         } catch (SQLException e) {
@@ -261,8 +275,8 @@ public class Eloquent {
             do {row = new LinkedHashMap<>();
                 for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                     column = resultMetaData.getColumnLabel(i);
-                    if (properties != null && properties.getProperty("ignored") != null &&
-                        properties.getProperty("ignored").contains(column)) {continue;} 
+                    if (properties != null && properties.get("ignored") != null &&
+                        properties.get("ignored").toString().contains(column)) {continue;} 
                     row.put(column, resultSet.getObject(i));
                 }
                 rows.add(row);
@@ -287,8 +301,8 @@ public class Eloquent {
             String column;
             for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                 column = resultMetaData.getColumnLabel(i);
-                if (properties != null && properties.getProperty("ignored") != null &&
-                    properties.getProperty("ignored").contains(column)) {continue;} 
+                if (properties != null && properties.get("ignored") != null &&
+                    properties.get("ignored").toString().contains(column)) {continue;} 
                 row.put(column, resultSet.getObject(i));
             }
         } catch (SQLException e) {
@@ -316,8 +330,8 @@ public class Eloquent {
                 row = new LinkedHashMap<>();
                 for (int i = 1; i <= resultMetaData.getColumnCount(); i++) {
                     column = resultMetaData.getColumnLabel(i);
-                    if (properties != null && properties.getProperty("ignored") != null &&
-                        properties.getProperty("ignored").contains(column)) {continue;} 
+                    if (properties != null && properties.get("ignored") != null &&
+                        properties.get("ignored").toString().contains(column)) {continue;} 
                     row.put(column, resultSet.getObject(i));
                 }
                 rows.add(row);

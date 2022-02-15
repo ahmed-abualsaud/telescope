@@ -14,6 +14,9 @@ public class Guard extends MainGuard {
              "POST:/api/admin/register",
              "POST:/api/admin/login",
 
+             "POST:/api/partner/register",
+             "POST:/api/partner/login",
+
              "POST:/api/user/register",
              "POST:/api/user/login",
 
@@ -55,6 +58,51 @@ public class Guard extends MainGuard {
              "PUT:/api/admin/update/driver/{driver_id}",
 
              "GET:/api/admin/get/last/position/{unique_id}"
+         ));
+         
+         guards.put("partner", asList(
+             // Routes accessable by partners.
+             
+             "GET:/api/partner",
+             "PUT:/api/partner",
+             "DELETE:/api/partner",
+
+             "GET:/api/partner/users",
+             "POST:/api/partner/user",
+
+             "GET:/api/partner/user/id/{user_id}",
+             "PUT:/api/partner/user/id/{user_id}",
+             "DELETE:/api/partner/user/id/{user_id}",
+
+             "GET:/api/partner/user/public/id/{public_id}",
+             "PUT:/api/partner/user/public/id/{public_id}",
+             "DELETE:/api/partner/user/public/id/{public_id}",
+
+             "GET:/api/partner/devices",
+             "GET:/api/partner/user/{user_id}/devices",
+             "GET:/api/partner/public/user/{public_id}/devices",
+             
+             "GET:/api/partner/device/id/{device_id}",
+             "PUT:/api/partner/device/id/{device_id}",
+             "DELETE:/api/partner/device/id/{device_id}",
+             
+             "GET:/api/partner/device/unique/id/{device_id}",
+             "PUT:/api/partner/device/unique/id/{device_id}",
+             "DELETE:/api/partner/device/unique/id/{device_id}",
+
+             "POST:/api/partner/add/device/to/user/{user_id}",
+             "POST:/api/partner/add/device/to/public/user/{public_id}",
+
+             "GET:/api/partner/drivers",
+             "GET:/api/partner/user/{user_id}/drivers",
+             "GET:/api/partner/public/user/{public_id}/drivers",
+
+             "GET:/api/partner/driver/id/{driver_id}",
+             "PUT:/api/partner/driver/id/{driver_id}",
+             "DELETE:/api/partner/driver/id/{driver_id}",
+
+             "POST:/api/partner/add/driver/to/user/{user_id}",
+             "POST:/api/partner/add/driver/to/public/user/{public_id}"
          ));
          
          guards.put("user", asList(

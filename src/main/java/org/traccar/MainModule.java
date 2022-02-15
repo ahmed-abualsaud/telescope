@@ -61,7 +61,6 @@ import org.traccar.handler.events.MaintenanceEventHandler;
 import org.traccar.handler.events.MotionEventHandler;
 import org.traccar.handler.events.OverspeedEventHandler;
 import org.traccar.reports.model.TripsConfig;
-import org.traccar.api.modelconf.ModelConf;
 import org.traccar.api.route.Guard;
 
 import javax.annotation.Nullable;
@@ -131,12 +130,6 @@ public class MainModule extends AbstractModule {
     @Provides
     public static Guard provideGuard() {
         return new Guard();
-    }
-    
-    @Singleton
-    @Provides
-    public static ModelConf provideModelConf() {
-        return new ModelConf();
     }
 
     @Singleton
