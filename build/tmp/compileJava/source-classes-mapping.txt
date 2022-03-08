@@ -80,8 +80,8 @@ org/telescope/protocol/XexunFrameDecoder.java
  org.telescope.protocol.XexunFrameDecoder
 org/telescope/protocol/At2000ProtocolDecoder.java
  org.telescope.protocol.At2000ProtocolDecoder
-org/telescope/protocol/MotorProtocolDecoder.java
- org.telescope.protocol.MotorProtocolDecoder
+org/telescope/app/resource/PartnerResource.java
+ org.telescope.app.resource.PartnerResource
 org/telescope/protocol/Xt013ProtocolDecoder.java
  org.telescope.protocol.Xt013ProtocolDecoder
 org/telescope/protocol/Jt600ProtocolDecoder.java
@@ -444,8 +444,8 @@ org/telescope/protocol/Tt8850ProtocolDecoder.java
  org.telescope.protocol.Tt8850ProtocolDecoder
 org/telescope/protocol/MiniFinderProtocolEncoder.java
  org.telescope.protocol.MiniFinderProtocolEncoder
-org/telescope/protocol/AppelloProtocolDecoder.java
- org.telescope.protocol.AppelloProtocolDecoder
+org/telescope/server/MainModule.java
+ org.telescope.server.MainModule
 org/telescope/protocol/OrionFrameDecoder.java
  org.telescope.protocol.OrionFrameDecoder
 org/telescope/protocol/OmnicommProtocol.java
@@ -2204,8 +2204,8 @@ org/telescope/protocol/MeiligaoProtocol.java
  org.telescope.protocol.MeiligaoProtocol$2
 org/telescope/protocol/PathAwayProtocolDecoder.java
  org.telescope.protocol.PathAwayProtocolDecoder
-org/telescope/model/Typed.java
- org.telescope.model.Typed
+org/telescope/app/model/Maintenance.java
+ org.telescope.app.model.Maintenance
 org/telescope/protocol/Pt215ProtocolDecoder.java
  org.telescope.protocol.Pt215ProtocolDecoder
 org/telescope/javel/framework/helper/Checksum.java
@@ -2320,8 +2320,8 @@ org/telescope/protocol/M2mProtocol.java
  org.telescope.protocol.M2mProtocol$1
 org/telescope/protocol/UlbotechFrameDecoder.java
  org.telescope.protocol.UlbotechFrameDecoder
-org/telescope/javel/framework/service/geocoder/MapTilerGeocoder.java
- org.telescope.javel.framework.service.geocoder.MapTilerGeocoder
+org/telescope/app/route/Guard.java
+ org.telescope.app.route.Guard
 org/telescope/protocol/EnforaProtocolDecoder.java
  org.telescope.protocol.EnforaProtocolDecoder
 org/telescope/javel/framework/service/geolocation/GoogleGeolocationProvider.java
@@ -2505,15 +2505,15 @@ org/telescope/javel/framework/service/notificator/NotificatorTraccar.java
  org.telescope.javel.framework.service.notificator.NotificatorTraccar
 org/telescope/protocol/OkoProtocolDecoder.java
  org.telescope.protocol.OkoProtocolDecoder
-org/telescope/protocol/RitiProtocolDecoder.java
- org.telescope.protocol.RitiProtocolDecoder
-org/telescope/server/MainModule.java
- org.telescope.server.MainModule
 org/telescope/app/middleware/Authenticate.java
  org.telescope.app.middleware.Authenticate
-org/telescope/app/route/Guard.java
- org.telescope.app.route.Guard
-org/telescope/app/resource/PartnerResource.java
- org.telescope.app.resource.PartnerResource
-org/telescope/app/model/Maintenance.java
- org.telescope.app.model.Maintenance
+org/telescope/model/Typed.java
+ org.telescope.model.Typed
+org/telescope/javel/framework/service/geocoder/MapTilerGeocoder.java
+ org.telescope.javel.framework.service.geocoder.MapTilerGeocoder
+org/telescope/protocol/MotorProtocolDecoder.java
+ org.telescope.protocol.MotorProtocolDecoder
+org/telescope/protocol/RitiProtocolDecoder.java
+ org.telescope.protocol.RitiProtocolDecoder
+org/telescope/protocol/AppelloProtocolDecoder.java
+ org.telescope.protocol.AppelloProtocolDecoder

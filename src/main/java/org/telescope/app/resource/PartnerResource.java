@@ -1300,9 +1300,9 @@ public class PartnerResource extends Resource {
         
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
-           Eloquent eloquent = DB.table("devices")
-            .select("positions.id as position_id","user_id", "device_id", "unique_id", 
-                    "alarm", "latitude", "longitude", "altitude", "valid", "motion", 
+            Eloquent eloquent = DB.table("devices")
+            .select("position_id","user_id", "device_id", "unique_id", "alarm", 
+                    "latitude", "longitude", "altitude", "valid", "motion->val as motion",
                     "address", "speed->val as speed", "acceleration->val as acceleration", 
                     "engine->status as engine_status", "engine->fuel_level as fuel_level",
                     "engine->fuel_drop_rate as fuel_consumption_rate", 
@@ -1322,6 +1322,9 @@ public class PartnerResource extends Resource {
             }
             List<Map<String, Object>> positions = eloquent.where("positions.created_at", ">=", from)
             .where("positions.created_at", "<=", to).get();
+            for (Map<String, Object> position : positions) {
+                position.put("battery", Position.getBatteryValue((Map<String, Object>) position.get("battery")));
+            }
             response.put("success", true);
             response.put("data", positions);
             return response(OK).entity(response).build();
@@ -1349,8 +1352,8 @@ public class PartnerResource extends Resource {
         Validator validator = validate(validationValues, validationString);
         if (validator.validated()) {
             Eloquent eloquent = DB.table("devices")
-            .select("positions.id as position_id","user_id", "device_id", "unique_id", 
-                    "alarm", "latitude", "longitude", "altitude", "valid", "motion", 
+            .select("position_id","user_id", "device_id", "unique_id", "alarm", 
+                    "latitude", "longitude", "altitude", "valid", "motion->val as motion",
                     "address", "speed->val as speed", "acceleration->val as acceleration", 
                     "engine->status as engine_status", "engine->fuel_level as fuel_level",
                     "engine->fuel_drop_rate as fuel_consumption_rate", 
@@ -1370,6 +1373,9 @@ public class PartnerResource extends Resource {
             }
             List<Map<String, Object>> positions = eloquent.where("positions.created_at", ">=", from)
             .where("positions.created_at", "<=", to).get();
+            for (Map<String, Object> position : positions) {
+                position.put("battery", Position.getBatteryValue((Map<String, Object>) position.get("battery")));
+            }
             response.put("success", true);
             response.put("data", positions);
             return response(OK).entity(response).build();

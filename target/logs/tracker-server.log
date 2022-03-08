@@ -1,30 +1,30 @@
-2022-03-08 19:11:59  INFO: Shutting down server...
-2022-03-08 19:12:18  INFO: HikariPool-1 - Starting...
-2022-03-08 19:12:20  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6cc4cdb9
-2022-03-08 19:12:20  INFO: HikariPool-1 - Start completed.
-2022-03-08 19:12:22  INFO: Clearing database change log checksums
-2022-03-08 19:12:23  INFO: Successfully acquired change log lock
-2022-03-08 19:12:24  INFO: Successfully released change log lock
-2022-03-08 19:12:25  INFO: Successfully acquired change log lock
-2022-03-08 19:12:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
-2022-03-08 19:12:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
-2022-03-08 19:12:27  INFO: Reading from telescope.DATABASECHANGELOG
-2022-03-08 19:12:30  INFO: Reading from telescope.DATABASECHANGELOG
-2022-03-08 19:12:30  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
-2022-03-08 19:12:30  INFO: Successfully released change log lock
-2022-03-08 19:12:33  INFO: HikariPool-2 - Starting...
-2022-03-08 19:12:33  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1e79d43
-2022-03-08 19:12:33  INFO: HikariPool-2 - Start completed.
-2022-03-08 19:12:36  INFO: Operating system name: Linux version: 5.13.0-30-generic architecture: amd64
-2022-03-08 19:12:36  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.14+9-Ubuntu-0ubuntu2.20.04
-2022-03-08 19:12:36  INFO: Memory limit heap: 962mb non-heap: 0mb
-2022-03-08 19:12:36  INFO: Character encoding: UTF-8 charset: UTF-8
-2022-03-08 19:12:36  INFO: Version: 4.14
-2022-03-08 19:12:36  INFO: Starting server...
-2022-03-08 19:12:38  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.14+9-Ubuntu-0ubuntu2.20.04
-2022-03-08 19:12:40  INFO: Started o.t.w.@6459f4ea{/,null,AVAILABLE}
-2022-03-08 19:12:40  INFO: Session workerName=node0
-2022-03-08 19:12:42  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
-2022-03-08 19:12:42  INFO: Started o.e.j.s.ServletContextHandler@1c8e8fed{/,null,AVAILABLE}
-2022-03-08 19:12:42  INFO: Started ServerConnector@1d25c1c{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
-2022-03-08 19:12:42  INFO: Started Server@e91af20{STARTING}[10.0.6,sto=0] @29123ms
+2022-03-08 20:40:47  INFO: Shutting down server...
+2022-03-08 20:40:52  INFO: HikariPool-1 - Starting...
+2022-03-08 20:40:53  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6cc4cdb9
+2022-03-08 20:40:53  INFO: HikariPool-1 - Start completed.
+2022-03-08 20:40:54  INFO: Clearing database change log checksums
+2022-03-08 20:40:55  INFO: Successfully acquired change log lock
+2022-03-08 20:40:56  INFO: Successfully released change log lock
+2022-03-08 20:40:57  INFO: Successfully acquired change log lock
+2022-03-08 20:40:57  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2022-03-08 20:40:57  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2022-03-08 20:40:58  INFO: Reading from telescope.DATABASECHANGELOG
+2022-03-08 20:41:00  INFO: Reading from telescope.DATABASECHANGELOG
+2022-03-08 20:41:00  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2022-03-08 20:41:01  INFO: Successfully released change log lock
+2022-03-08 20:41:02  INFO: HikariPool-2 - Starting...
+2022-03-08 20:41:02  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1e79d43
+2022-03-08 20:41:02  INFO: HikariPool-2 - Start completed.
+2022-03-08 20:41:04  INFO: Operating system name: Linux version: 5.13.0-30-generic architecture: amd64
+2022-03-08 20:41:04  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.14+9-Ubuntu-0ubuntu2.20.04
+2022-03-08 20:41:04  INFO: Memory limit heap: 962mb non-heap: 0mb
+2022-03-08 20:41:04  INFO: Character encoding: UTF-8 charset: UTF-8
+2022-03-08 20:41:04  INFO: Version: 4.14
+2022-03-08 20:41:04  INFO: Starting server...
+2022-03-08 20:41:05  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.14+9-Ubuntu-0ubuntu2.20.04
+2022-03-08 20:41:06  INFO: Started o.t.w.@79df80a4{/,null,AVAILABLE}
+2022-03-08 20:41:06  INFO: Session workerName=node0
+2022-03-08 20:41:07  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2022-03-08 20:41:08  INFO: Started o.e.j.s.ServletContextHandler@839755f{/,null,AVAILABLE}
+2022-03-08 20:41:08  INFO: Started ServerConnector@1d25c1c{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2022-03-08 20:41:08  INFO: Started Server@e91af20{STARTING}[10.0.6,sto=0] @18403ms

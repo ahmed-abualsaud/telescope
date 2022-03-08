@@ -16,7 +16,7 @@
         <constraints nullable="false" />
       </column>
       <column name="alarm" type="VARCHAR(128)">
-        <constraints nullable="false" />
+        <constraints nullable="true" />
       </column>
       <column name="device_time" type="VARCHAR(128)">
         <constraints nullable="false" />
