@@ -15,6 +15,9 @@
       <column name="device_id" type="INT">
         <constraints nullable="false" />
       </column>
+      <column name="alarm" type="VARCHAR(128)">
+        <constraints nullable="false" />
+      </column>
       <column name="device_time" type="VARCHAR(128)">
         <constraints nullable="false" />
       </column>
@@ -22,9 +25,6 @@
         <constraints nullable="false" />
       </column>
       <column name="valid" type="BOOLEAN">
-        <constraints nullable="false" />
-      </column>
-      <column name="motion" type="BOOLEAN">
         <constraints nullable="false" />
       </column>
       <column name="latitude" type="DOUBLE">
@@ -36,31 +36,34 @@
       <column name="altitude" type="DOUBLE">
         <constraints nullable="false" />
       </column>
-      <column name="speed" type="DOUBLE">
+      <column name="motion" type="JSON">
         <constraints nullable="false" />
       </column>
-      <column name="acceleration" type="DOUBLE">
+      <column name="speed" type="JSON">
         <constraints nullable="false" />
       </column>
-      <column name="distance" type="DOUBLE">
+      <column name="acceleration" type="JSON">
         <constraints nullable="false" />
       </column>
-      <column name="duration" type="DOUBLE">
+      <column name="distance" type="JSON">
         <constraints nullable="false" />
       </column>
-      <column name="total_distance" type="DOUBLE">
-        <constraints nullable="false" />
-      </column>
-      <column name="total_duration" type="DOUBLE">
+      <column name="duration" type="JSON">
         <constraints nullable="false" />
       </column>
       <column name="engine" type="JSON">
+        <constraints nullable="false" />
+      </column>
+       <column name="battery" type="JSON">
         <constraints nullable="false" />
       </column>
       <column name="course" type="FLOAT">
         <constraints nullable="false" />
       </column>
       <column name="accuracy" type="DOUBLE" defaultValueNumeric="0">
+        <constraints nullable="false" />
+      </column>
+      <column name="count" type="FLOAT" defaultValueNumeric="0">
         <constraints nullable="false" />
       </column>
       <column name="address" type="VARCHAR(512)" />

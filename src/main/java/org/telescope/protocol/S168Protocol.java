@@ -1,0 +1,26 @@
+
+package org.telescope.protocol;
+
+import org.telescope.server.BaseProtocol;
+import org.telescope.server.CharacterDelimiterFrameDecoder;
+import org.telescope.server.PipelineBuilder;
+import org.telescope.server.TrackerServer;
+
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+
+public class S168Protocol extends BaseProtocol {
+
+    public S168Protocol() {
+        addServer(new TrackerServer(false, getName()) {
+            @Override
+            protected void addProtocolHandlers(PipelineBuilder pipeline) {
+                pipeline.addLast(new CharacterDelimiterFrameDecoder(1024, '$'));
+                pipeline.addLast(new StringEncoder());
+                pipeline.addLast(new StringDecoder());
+                pipeline.addLast(new S168ProtocolDecoder(S168Protocol.this));
+            }
+        });
+    }
+
+}

@@ -1,4 +1,4 @@
-package org.traccar.web;
+package org.telescope.web;
 
 import org.junit.Test;
 

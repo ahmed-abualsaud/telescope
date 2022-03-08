@@ -1,9 +1,9 @@
-package org.traccar.handler;
+package org.telescope.handler;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.traccar.model.Position;
+import org.telescope.model.Position;
 
 public class MotionHandlerTest {
 

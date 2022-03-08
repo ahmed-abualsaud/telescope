@@ -1,8 +1,8 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
-import org.traccar.ProtocolTest;
+import org.telescope.ProtocolTest;
 
 import static org.junit.Assert.assertEquals;
 

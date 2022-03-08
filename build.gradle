@@ -97,7 +97,7 @@ assemble.dependsOn(copyDependencies)
 jar {
     manifest {
         attributes(
-                "Main-Class": "org.traccar.Main",
+                "Main-Class": "org.telescope.server.Main",
                 "Implementation-Version": "4.14",
                 "Class-Path": configurations.runtimeClasspath.files.collect { "lib/$it.name" }.join(" "))
     }

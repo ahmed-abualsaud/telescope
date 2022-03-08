@@ -1,7 +1,7 @@
-package org.traccar;
+package org.telescope;
 
 import io.netty.buffer.ByteBuf;
-import org.traccar.database.MediaManager;
+import org.telescope.database.MediaManager;
 
 import java.util.HashMap;
 import java.util.Map;

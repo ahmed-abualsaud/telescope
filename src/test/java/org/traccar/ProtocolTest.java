@@ -1,4 +1,4 @@
-package org.traccar;
+package org.telescope;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -8,10 +8,11 @@ import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpVersion;
-import org.traccar.helper.DataConverter;
-import org.traccar.model.CellTower;
-import org.traccar.model.Command;
-import org.traccar.model.Position;
+
+import org.telescope.javel.framework.helper.DataConverter;
+import org.telescope.model.CellTower;
+import org.telescope.model.Command;
+import org.telescope.model.Position;
 
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;

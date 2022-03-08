@@ -1,4 +1,4 @@
-package org.traccar.helper;
+package org.telescope.helper;
 
 import org.apache.struts.mock.MockHttpServletRequest;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.traccar.reports;
+package org.telescope.reports;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,12 +16,12 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.TestIdentityManager;
-import org.traccar.model.Position;
-import org.traccar.reports.model.StopReport;
-import org.traccar.reports.model.TripReport;
-import org.traccar.reports.model.TripsConfig;
+import org.telescope.BaseTest;
+import org.telescope.TestIdentityManager;
+import org.telescope.model.Position;
+import org.telescope.reports.model.StopReport;
+import org.telescope.reports.model.TripReport;
+import org.telescope.reports.model.TripsConfig;
 
 public class ReportUtilsTest extends BaseTest {
 

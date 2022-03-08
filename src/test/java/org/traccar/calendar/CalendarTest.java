@@ -1,4 +1,4 @@
-package org.traccar.calendar;
+package org.telescope.calendar;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
-import org.traccar.model.Calendar;
+import org.telescope.model.Calendar;
 
 import net.fortuna.ical4j.data.ParserException;
 

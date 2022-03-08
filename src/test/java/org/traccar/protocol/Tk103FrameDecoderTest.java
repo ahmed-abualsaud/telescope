@@ -1,8 +1,8 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import io.netty.buffer.ByteBuf;
 import org.junit.Test;
-import org.traccar.ProtocolTest;
+import org.telescope.ProtocolTest;
 
 public class Tk103FrameDecoderTest extends ProtocolTest {
 

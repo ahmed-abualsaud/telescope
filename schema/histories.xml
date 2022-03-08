@@ -1,0 +1,53 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+  <changeSet author="telescope" id="histories">
+
+    <createTable tableName="histories">
+      <column name="id" type="INT" autoIncrement="true">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="device_id" type="INT">
+        <constraints nullable="false" />
+      </column>
+      <column name="unique_id" type="VARCHAR(128)">
+        <constraints nullable="false" />
+      </column>
+      <column name="type" type="ENUM(
+        'FUEL', 
+        'SPEED',
+        'ALARM',
+        'MOTION',
+        'BATTERY', 
+        'DISTANCE', 
+        'DURATION',
+        'IGNITION', 
+        'ACCELERATION'
+      )">
+        <constraints nullable="false" />
+      </column>
+      <column name="name" type="VARCHAR(128)">
+        <constraints nullable="false" />
+      </column>
+      <column name="info" type="VARCHAR(128)">
+        <constraints nullable="true" />
+      </column>
+      <column name="description" type="VARCHAR(4096)">
+        <constraints nullable="true" />
+      </column>
+      <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+
+
+    <addForeignKeyConstraint baseTableName="histories" baseColumnNames="device_id" constraintName="fk_histories_device_id" onDelete="CASCADE"
+                             referencedColumnNames="id" referencedTableName="devices" />
+
+  </changeSet>
+
+</databaseChangeLog>

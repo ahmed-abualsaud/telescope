@@ -1,4 +1,4 @@
-package org.traccar.handler.events;
+package org.telescope.handler.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,11 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Map;
 
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.TestIdentityManager;
-import org.traccar.config.Config;
-import org.traccar.model.Event;
-import org.traccar.model.Position;
+import org.telescope.BaseTest;
+import org.telescope.TestIdentityManager;
+import org.telescope.config.Config;
+import org.telescope.model.Event;
+import org.telescope.model.Position;
 
 public class AlertEventHandlerTest extends BaseTest {
 

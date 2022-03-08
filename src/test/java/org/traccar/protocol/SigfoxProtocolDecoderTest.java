@@ -1,9 +1,9 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import io.netty.handler.codec.http.HttpMethod;
 import org.junit.Test;
-import org.traccar.ProtocolTest;
-import org.traccar.model.Position;
+import org.telescope.ProtocolTest;
+import org.telescope.model.Position;
 
 public class SigfoxProtocolDecoderTest extends ProtocolTest {
 

@@ -1,26 +1,26 @@
 #!/bin/sh
 
 PRESERVECONFIG=0
-if [ -f /opt/traccar/conf/traccar.xml ]
+if [ -f /opt/telescope/conf/telescope.xml ]
 then
-    cp /opt/traccar/conf/traccar.xml /opt/traccar/conf/traccar.xml.saved
+    cp /opt/telescope/conf/telescope.xml /opt/telescope/conf/telescope.xml.saved
     PRESERVECONFIG=1
 fi
 
-mkdir -p /opt/traccar
-cp -r * /opt/traccar
-chmod -R go+rX /opt/traccar
+mkdir -p /opt/telescope
+cp -r * /opt/telescope
+chmod -R go+rX /opt/telescope
 
-if [ ${PRESERVECONFIG} -eq 1 ] && [ -f /opt/traccar/conf/traccar.xml.saved ]
+if [ ${PRESERVECONFIG} -eq 1 ] && [ -f /opt/telescope/conf/telescope.xml.saved ]
 then
-    mv -f /opt/traccar/conf/traccar.xml.saved /opt/traccar/conf/traccar.xml
+    mv -f /opt/telescope/conf/telescope.xml.saved /opt/telescope/conf/telescope.xml
 fi
 
-mv /opt/traccar/traccar.service /etc/systemd/system
-chmod 664 /etc/systemd/system/traccar.service
+mv /opt/telescope/telescope.service /etc/systemd/system
+chmod 664 /etc/systemd/system/telescope.service
 
 systemctl daemon-reload
-systemctl enable traccar.service
+systemctl enable telescope.service
 
-rm /opt/traccar/setup.sh
+rm /opt/telescope/setup.sh
 rm -r ../out

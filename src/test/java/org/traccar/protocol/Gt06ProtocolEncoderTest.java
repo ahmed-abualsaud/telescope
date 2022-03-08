@@ -1,8 +1,8 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import org.junit.Test;
-import org.traccar.ProtocolTest;
-import org.traccar.model.Command;
+import org.telescope.ProtocolTest;
+import org.telescope.model.Command;
 
 public class Gt06ProtocolEncoderTest extends ProtocolTest {
 

@@ -1,4 +1,4 @@
-package org.traccar.geofence;
+package org.telescope.geofence;
 
 import java.text.ParseException;
 

@@ -14,7 +14,7 @@
     with upgrading to a new version. Parameters in the main config file override values in the default file. Do not
     remove "config.default" parameter from this file unless you know what you are doing.
 
-    For list of available parameters see following page: https://www.traccar.org/configuration-file/
+    For list of available parameters see following page: https://www.telescope.org/configuration-file/
 
     -->
 

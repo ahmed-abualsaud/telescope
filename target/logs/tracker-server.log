@@ -1,110 +1,30 @@
-2022-02-15 17:20:17  INFO: Shutting down server...
-2022-02-15 17:20:22  INFO: HikariPool-1 - Starting...
-2022-02-15 17:20:23  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7975d1d8
-2022-02-15 17:20:23  INFO: HikariPool-1 - Start completed.
-2022-02-15 17:20:24  INFO: Clearing database change log checksums
-2022-02-15 17:20:24  INFO: Successfully acquired change log lock
-2022-02-15 17:20:25  INFO: Successfully released change log lock
-2022-02-15 17:20:25  INFO: Successfully acquired change log lock
-2022-02-15 17:20:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
-2022-02-15 17:20:26  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
-2022-02-15 17:20:27  INFO: Reading from telescope.DATABASECHANGELOG
-2022-02-15 17:20:29  INFO: Reading from telescope.DATABASECHANGELOG
-2022-02-15 17:20:29  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
-2022-02-15 17:20:29  INFO: Successfully released change log lock
-2022-02-15 17:20:31  INFO: HikariPool-2 - Starting...
-2022-02-15 17:20:31  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2539cd1c
-2022-02-15 17:20:31  INFO: HikariPool-2 - Start completed.
-2022-02-15 17:20:33  INFO: Operating system name: Linux version: 5.13.0-28-generic architecture: amd64
-2022-02-15 17:20:33  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.13+8-Ubuntu-0ubuntu1.20.04
-2022-02-15 17:20:33  INFO: Memory limit heap: 962mb non-heap: 0mb
-2022-02-15 17:20:33  INFO: Character encoding: UTF-8 charset: UTF-8
-2022-02-15 17:20:33  INFO: Version: 4.14
-2022-02-15 17:20:33  INFO: Starting server...
-2022-02-15 17:20:33  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.13+8-Ubuntu-0ubuntu1.20.04
-2022-02-15 17:20:34  INFO: Started o.t.w.@53314f76{/,null,AVAILABLE}
-2022-02-15 17:20:34  INFO: Session workerName=node0
-2022-02-15 17:20:35  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
-2022-02-15 17:20:36  INFO: Started o.e.j.s.ServletContextHandler@78b9155e{/,null,AVAILABLE}
-2022-02-15 17:20:36  INFO: Started ServerConnector@1be59f28{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
-2022-02-15 17:20:36  INFO: Started Server@5aa781f2{STARTING}[10.0.6,sto=0] @16878ms
-2022-02-15 17:20:59  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:20:59  INFO: : SELECT id FROM users WHERE id = 1;
-2022-02-15 17:20:59  INFO: : SELECT id FROM drivers WHERE email = 'ahmed@gmail.com';
-2022-02-15 17:20:59  INFO: : SELECT id FROM drivers WHERE phone = '01126999840';
-2022-02-15 17:20:59  INFO: : SELECT * FROM users WHERE partner_id = 1 AND id = 1;
-2022-02-15 17:20:59  INFO: : INSERT INTO drivers(name, email, phone, password, salt, user_id) VALUES('ahmed', 'ahmed@gmail.com', '01126999840', 'c807ef63f7bd7c92efc05f25fe5857e6be22103de541a65f', '3766692f359e1d77ee666deceda012e3478fad13eaf70946', 1);
-2022-02-15 17:21:00  INFO: : UPDATE drivers SET updated_at=CURRENT_TIMESTAMP, token= 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0OTM4NDYwLCJpc3MiOiJkcml2ZXIifQ.fs76MqmsixSZiRO0m0jV4NjgfIEqtpbBoU4wruUbeb4'  WHERE id = '1'
-2022-02-15 17:21:17  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:21:17  INFO: : SELECT id FROM users WHERE public_id = 2;
-2022-02-15 17:21:17  INFO: : SELECT id FROM drivers WHERE email = 'medany@gmail.com';
-2022-02-15 17:21:17  INFO: : SELECT id FROM drivers WHERE phone = '01126999841';
-2022-02-15 17:21:17  INFO: : SELECT * FROM users WHERE partner_id = 1 AND public_id = 2;
-2022-02-15 17:21:17  INFO: : INSERT INTO drivers(name, email, phone, password, salt, user_id) VALUES('medany', 'medany@gmail.com', '01126999841', '834081bc918fd6710fa2669cfbabcfabfea6fb763626872f', '4fc08dfe1736e417d225ff96dbbc98b364dff266cd0e46e9', 2);
-2022-02-15 17:21:17  INFO: : UPDATE drivers SET updated_at=CURRENT_TIMESTAMP, token= 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyIiwiaWF0IjoxNjQ0OTM4NDc3LCJpc3MiOiJkcml2ZXIifQ.CBXZvS7xINfusnnJ4ZLlDz1MU-HZ86U5AcjImlmfMsU'  WHERE id = '2'
-2022-02-15 17:23:52  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:23:52  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1;
-2022-02-15 17:29:55  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:29:55  INFO: : SELECT id FROM drivers WHERE id = '4';
-2022-02-15 17:30:02  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:30:02  INFO: : SELECT id FROM drivers WHERE id = '2';
-2022-02-15 17:30:02  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = '2';
-2022-02-15 17:30:07  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:30:07  INFO: : SELECT id FROM drivers WHERE id = '3';
-2022-02-15 17:30:12  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:30:12  INFO: : SELECT id FROM drivers WHERE id = '1';
-2022-02-15 17:30:12  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = '1';
-2022-02-15 17:31:44  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:31:44  INFO: : SELECT id FROM drivers WHERE id = '3';
-2022-02-15 17:31:44  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = '3';
-2022-02-15 17:31:50  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:31:50  INFO: : SELECT id FROM drivers WHERE id = '1';
-2022-02-15 17:31:50  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = '1';
-2022-02-15 17:33:16  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:33:16  INFO: : SELECT id FROM users WHERE id = 1;
-2022-02-15 17:33:16  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND user_id = 1;
-2022-02-15 17:33:36  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:33:36  INFO: : SELECT id FROM users WHERE id = 2;
-2022-02-15 17:33:36  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND user_id = 2;
-2022-02-15 17:34:40  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:34:40  INFO: : SELECT id FROM users WHERE id = 3;
-2022-02-15 17:34:40  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND user_id = 3;
-2022-02-15 17:34:45  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:34:45  INFO: : SELECT id FROM users WHERE id = 30;
-2022-02-15 17:37:08  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:37:08  INFO: : SELECT id FROM users WHERE public_id = 2;
-2022-02-15 17:37:08  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND public_id = 2;
-2022-02-15 17:37:14  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:37:14  INFO: : SELECT id FROM users WHERE public_id = 1;
-2022-02-15 17:37:14  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND public_id = 1;
-2022-02-15 17:37:21  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:37:21  INFO: : SELECT id FROM users WHERE public_id = 3;
-2022-02-15 17:37:21  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND public_id = 3;
-2022-02-15 17:37:26  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:37:26  INFO: : SELECT id FROM users WHERE public_id = 1;
-2022-02-15 17:37:26  INFO: : SELECT drivers.id as driver_id, drivers.name as driver_name, drivers.email as driver_email, drivers.phone as driver_phone, drivers.avatar as driver_avatar, user_id, users.name as user_name, users.email as user_email, users.phone as user_phone, users.avatar as user_avatar, users.public_id, drivers.disabled, drivers.updated_at, drivers.created_at FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND public_id = 1;
-2022-02-15 17:39:43  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:41:12  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:41:12  INFO: : SELECT id FROM drivers WHERE id = 2;
-2022-02-15 17:41:12  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 2;
-2022-02-15 17:41:12  INFO: : UPDATE drivers SET updated_at=CURRENT_TIMESTAMP, name= 'medany'  WHERE id = 2
-2022-02-15 17:41:35  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:41:35  INFO: : SELECT id FROM drivers WHERE id = 2;
-2022-02-15 17:41:35  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 2;
-2022-02-15 17:41:35  INFO: : UPDATE drivers SET updated_at=CURRENT_TIMESTAMP, name= 'medany' , password= 'cf107727cfe357931257ecc8a80c1566b9deb6912bd5ddb0' , salt= 'd451a8a2ed722f71537458106edcacd238cac14294a7e7f7'  WHERE id = 2
-2022-02-15 17:42:02  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:42:02  INFO: : SELECT id FROM drivers WHERE id = 3;
-2022-02-15 17:42:02  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 3;
-2022-02-15 17:42:15  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:42:15  INFO: : SELECT id FROM drivers WHERE id = 2;
-2022-02-15 17:42:15  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 2;
-2022-02-15 17:42:15  INFO: : UPDATE drivers SET updated_at=CURRENT_TIMESTAMP, name= 'medany' , password= '6fa99241d59fbb2ec924f9df3e89e1895134fcd6c0396dfc' , salt= '55ca22b1aced4e3a23ae99cb22912605328aaf238fb1a663'  WHERE id = 2
-2022-02-15 17:44:25  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:44:25  INFO: : SELECT id FROM drivers WHERE id = 5;
-2022-02-15 17:44:30  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:44:30  INFO: : SELECT id FROM drivers WHERE id = 3;
-2022-02-15 17:44:30  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 3;
-2022-02-15 17:44:38  INFO: : SELECT * FROM partners WHERE id = '1' AND token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNjQ0NjgwNTY0LCJpc3MiOiJwYXJ0bmVyIn0.lqHwGzTwMA3QJuZ0v7GaC8MLo_SORWPeKuaLc1UYxWU';
-2022-02-15 17:44:38  INFO: : SELECT id FROM drivers WHERE id = 2;
-2022-02-15 17:44:38  INFO: : SELECT * FROM drivers INNER JOIN users ON users.id=drivers.user_id WHERE partner_id = 1 AND drivers.id = 2;
-2022-02-15 17:44:38  INFO: : DELETE FROM drivers WHERE id = 2;
+2022-03-08 19:11:59  INFO: Shutting down server...
+2022-03-08 19:12:18  INFO: HikariPool-1 - Starting...
+2022-03-08 19:12:20  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6cc4cdb9
+2022-03-08 19:12:20  INFO: HikariPool-1 - Start completed.
+2022-03-08 19:12:22  INFO: Clearing database change log checksums
+2022-03-08 19:12:23  INFO: Successfully acquired change log lock
+2022-03-08 19:12:24  INFO: Successfully released change log lock
+2022-03-08 19:12:25  INFO: Successfully acquired change log lock
+2022-03-08 19:12:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.json.JsonChangeLogParser Unable to get public no-arg constructor
+2022-03-08 19:12:25  INFO: Cannot load service: liquibase.parser.ChangeLogParser: liquibase.parser.core.yaml.YamlChangeLogParser Unable to get public no-arg constructor
+2022-03-08 19:12:27  INFO: Reading from telescope.DATABASECHANGELOG
+2022-03-08 19:12:30  INFO: Reading from telescope.DATABASECHANGELOG
+2022-03-08 19:12:30  INFO: Cannot load service: liquibase.hub.HubService: Provider liquibase.hub.core.StandardHubService could not be instantiated
+2022-03-08 19:12:30  INFO: Successfully released change log lock
+2022-03-08 19:12:33  INFO: HikariPool-2 - Starting...
+2022-03-08 19:12:33  INFO: HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1e79d43
+2022-03-08 19:12:33  INFO: HikariPool-2 - Start completed.
+2022-03-08 19:12:36  INFO: Operating system name: Linux version: 5.13.0-30-generic architecture: amd64
+2022-03-08 19:12:36  INFO: Java runtime name: OpenJDK 64-Bit Server VM vendor: Ubuntu version: 11.0.14+9-Ubuntu-0ubuntu2.20.04
+2022-03-08 19:12:36  INFO: Memory limit heap: 962mb non-heap: 0mb
+2022-03-08 19:12:36  INFO: Character encoding: UTF-8 charset: UTF-8
+2022-03-08 19:12:36  INFO: Version: 4.14
+2022-03-08 19:12:36  INFO: Starting server...
+2022-03-08 19:12:38  INFO: jetty-10.0.6; built: 2021-06-29T15:28:56.259Z; git: 37e7731b4b142a882d73974ff3bec78d621bd674; jvm 11.0.14+9-Ubuntu-0ubuntu2.20.04
+2022-03-08 19:12:40  INFO: Started o.t.w.@6459f4ea{/,null,AVAILABLE}
+2022-03-08 19:12:40  INFO: Session workerName=node0
+2022-03-08 19:12:42  WARN: JAXBContext implementation could not be found. WADL feature is disabled.
+2022-03-08 19:12:42  INFO: Started o.e.j.s.ServletContextHandler@1c8e8fed{/,null,AVAILABLE}
+2022-03-08 19:12:42  INFO: Started ServerConnector@1d25c1c{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2022-03-08 19:12:42  INFO: Started Server@e91af20{STARTING}[10.0.6,sto=0] @29123ms

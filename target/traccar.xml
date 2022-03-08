@@ -11,7 +11,7 @@
     with upgrading to a new version. Parameters in the main config file override values in the default file. Do not
     remove "config.default" parameter from this file unless you know what you are doing.
 
-    For list of available parameters see following page: https://www.traccar.org/configuration-file/
+    For list of available parameters see following page: https://www.telescope.org/configuration-file/
 
     -->
     
@@ -46,6 +46,17 @@
     <entry key='azure.storageKey'>eUrtEplqMsFjlY0H/X43fo1YL9OONpx68QQ+NJZI9LeOx/x1hdOn6+5s5XjTAKrm4VD+VyajsL9PSwITTjC5dg==</entry>
     <entry key='azure.storageContainer'>uploads</entry>
     <entry key='azure.storageURL'>https://qruz.blob.core.windows.net/uploads</entry>
+
+
+    <!-- Geocoder Parameters ============================================================================================================== -->
+
+    <entry key='geocoder.enable'>true</entry>
+    <entry key='geocoder.type'>here</entry>
+    <entry key='geocoder.url'>https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json</entry>
+    <entry key='geocoder.id'>bk6M4BiB8XeZT4Iszz8D</entry>
+    <entry key='geocoder.key'>r3ktj_mEjXFSDe6YFC0ZXIbeXu2bU-j-rlfAYIhGCNg</entry>
+    <entry key='geocoder.format'>%h %r, %t, %s, %d, %c, %p, %f</entry>
+    <entry key='geocoder.cacheSize'>20000</entry>
 
 
     <!-- Pusher Configurations ============================================================================================================ -->

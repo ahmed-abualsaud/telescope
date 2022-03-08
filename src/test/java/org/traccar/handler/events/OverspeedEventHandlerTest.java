@@ -1,4 +1,4 @@
-package org.traccar.handler.events;
+package org.telescope.handler.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,12 +13,12 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.config.Config;
-import org.traccar.config.Keys;
-import org.traccar.model.DeviceState;
-import org.traccar.model.Event;
-import org.traccar.model.Position;
+import org.telescope.BaseTest;
+import org.telescope.config.Config;
+import org.telescope.config.Keys;
+import org.telescope.model.DeviceState;
+import org.telescope.model.Event;
+import org.telescope.model.Position;
 
 public class OverspeedEventHandlerTest  extends BaseTest {
 

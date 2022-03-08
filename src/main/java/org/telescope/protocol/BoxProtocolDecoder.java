@@ -1,0 +1,106 @@
+
+package org.telescope.protocol;
+
+import io.netty.channel.Channel;
+
+import org.telescope.javel.framework.helper.BitUtil;
+import org.telescope.javel.framework.helper.Parser;
+import org.telescope.javel.framework.helper.PatternBuilder;
+import org.telescope.javel.framework.helper.UnitsConverter;
+import org.telescope.model.Position;
+import org.telescope.server.BaseProtocolDecoder;
+import org.telescope.server.DeviceSession;
+import org.telescope.server.NetworkMessage;
+import org.telescope.server.Protocol;
+
+import java.net.SocketAddress;
+import java.util.regex.Pattern;
+
+public class BoxProtocolDecoder extends BaseProtocolDecoder {
+
+    public BoxProtocolDecoder(Protocol protocol) {
+        super(protocol);
+    }
+
+    private static final Pattern PATTERN = new PatternBuilder()
+            .text("L,")
+            .number("(dd)(dd)(dd)")              // date (yymmdd)
+            .number("(dd)(dd)(dd),")             // time (hhmmss)
+            .text("G,")
+            .number("(-?d+.d+),")                // latitude
+            .number("(-?d+.d+),")                // longitude
+            .number("(d+.?d*),")                 // speed
+            .number("(d+.?d*),")                 // course
+            .number("(d+.?d*),")                 // distance
+            .number("(d+),")                     // event
+            .number("(d+)")                      // status
+            .groupBegin()
+            .text(";")
+            .expression("(.+)")
+            .groupEnd("?")
+            .compile();
+
+    @Override
+    protected Object decode(
+            Channel channel, SocketAddress remoteAddress, Object msg) throws Exception {
+
+        String sentence = (String) msg;
+
+        if (sentence.startsWith("H,")) {
+
+            int index = sentence.indexOf(',', 2) + 1;
+            String id = sentence.substring(index, sentence.indexOf(',', index));
+            getDeviceSession(channel, remoteAddress, id);
+
+        } else if (sentence.startsWith("E,")) {
+
+            if (channel != null) {
+                channel.writeAndFlush(new NetworkMessage("A," + sentence.substring(2) + "\r", remoteAddress));
+            }
+
+        } else if (sentence.startsWith("L,")) {
+
+            DeviceSession deviceSession = getDeviceSession(channel, remoteAddress);
+            if (deviceSession == null) {
+                return null;
+            }
+
+            Parser parser = new Parser(PATTERN, sentence);
+            if (!parser.matches()) {
+                return null;
+            }
+
+            Position position = new Position(getProtocolName());
+            position.setDeviceId(deviceSession.getDeviceId());
+
+            position.setTime(parser.nextDateTime());
+
+            position.setLatitude(parser.nextDouble());
+            position.setLongitude(parser.nextDouble());
+            position.setSpeed(UnitsConverter.knotsFromKph(parser.nextDouble()));
+            position.setCourse(parser.nextDouble());
+
+            position.set(Position.KEY_ODOMETER_TRIP, parser.nextDouble() * 1000);
+            position.set(Position.KEY_EVENT, parser.next());
+
+            int status = parser.nextInt();
+            position.set(Position.KEY_IGNITION, BitUtil.check(status, 0));
+            position.set(Position.KEY_MOTION, BitUtil.check(status, 1));
+            position.setValid(!BitUtil.check(status, 2));
+            position.set(Position.KEY_STATUS, status);
+
+            if (parser.hasNext()) {
+                String[] data = parser.next().split(";");
+                for (String item : data) {
+                    int valueIndex = item.indexOf(',');
+                    position.set(item.substring(0, valueIndex).toLowerCase(), item.substring(valueIndex + 1));
+                }
+            }
+
+            return position;
+        }
+
+        return null;
+    }
+
+}

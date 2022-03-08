@@ -1,8 +1,8 @@
-package org.traccar.handler;
+package org.telescope.handler;
 
 import org.junit.Test;
-import org.traccar.config.Config;
-import org.traccar.model.Position;
+import org.telescope.config.Config;
+import org.telescope.model.Position;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,14 +1,14 @@
-package org.traccar.database;
+package org.telescope.database;
 
 import org.junit.Test;
-import org.traccar.model.Attribute;
-import org.traccar.model.Device;
-import org.traccar.model.Driver;
-import org.traccar.model.Geofence;
-import org.traccar.model.Group;
-import org.traccar.model.ManagedUser;
-import org.traccar.model.Position;
-import org.traccar.model.User;
+import org.telescope.model.Attribute;
+import org.telescope.model.Device;
+import org.telescope.model.Driver;
+import org.telescope.model.Geofence;
+import org.telescope.model.Group;
+import org.telescope.model.ManagedUser;
+import org.telescope.model.Position;
+import org.telescope.model.User;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

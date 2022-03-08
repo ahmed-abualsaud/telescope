@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: org.traccar.Main
+Main-Class: org.telescope.server.Main
 Implementation-Version: 4.14
 Class-Path: lib/ical4j-3.0.29.jar lib/jxls-poi-1.0.16.jar lib/poi-ooxml-
  4.0.0.jar lib/poi-4.0.0.jar lib/aws-java-sdk-sns-1.12.47.jar lib/aws-ja

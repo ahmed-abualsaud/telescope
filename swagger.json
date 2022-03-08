@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Traccar",
+    "title": "telescope",
     "version": "4.14",
-    "description": "Traccar GPS tracking server API documentation. To use the API you need to have a server instance. For testing purposes you can use one of free [demo servers](https://www.traccar.org/demo-server/). For production use you can install your own server or get a [subscription service](https://www.traccar.org/product/tracking-server/).",
+    "description": "telescope GPS tracking server API documentation. To use the API you need to have a server instance. For testing purposes you can use one of free [demo servers](https://www.telescope.org/demo-server/). For production use you can install your own server or get a [subscription service](https://www.telescope.org/product/tracking-server/).",
     "contact": {
-      "name": "Traccar Support",
-      "url": "https://www.traccar.org/",
-      "email": "support@traccar.org"
+      "name": "telescope Support",
+      "url": "https://www.telescope.org/",
+      "email": "support@telescope.org"
     },
     "license": {
       "name": "Apache 2.0",
@@ -16,19 +16,19 @@
   },
   "servers": [
     {
-      "url": "https://demo.traccar.org/api",
+      "url": "https://demo.telescope.org/api",
       "description": "Demo Server 1"
     },
     {
-      "url": "https://demo2.traccar.org/api",
+      "url": "https://demo2.telescope.org/api",
       "description": "Demo Server 2"
     },
     {
-      "url": "https://demo3.traccar.org/api",
+      "url": "https://demo3.telescope.org/api",
       "description": "Demo Server 3"
     },
     {
-      "url": "https://server.traccar.org/api",
+      "url": "https://server.telescope.org/api",
       "description": "Subscription Server"
     },
     {
@@ -804,7 +804,7 @@
     "/positions": {
       "get": {
         "summary": "Fetches a list of Positions",
-        "description": "We strongly recommend using [Traccar WebSocket API](https://www.traccar.org/traccar-api/) instead of periodically polling positions endpoint. Without any params, it returns a list of last known positions for all the user's Devices. _from_ and _to_ fields are not required with _id_.",
+        "description": "We strongly recommend using [telescope WebSocket API](https://www.telescope.org/telescope-api/) instead of periodically polling positions endpoint. Without any params, it returns a list of last known positions for all the user's Devices. _from_ and _to_ fields are not required with _id_.",
         "tags": [
           "Positions"
         ],

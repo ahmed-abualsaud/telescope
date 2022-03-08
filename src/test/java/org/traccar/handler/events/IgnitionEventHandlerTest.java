@@ -1,14 +1,14 @@
-package org.traccar.handler.events;
+package org.telescope.handler.events;
 
 import static org.junit.Assert.assertNull;
 
 import java.util.Map;
 
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.TestIdentityManager;
-import org.traccar.model.Event;
-import org.traccar.model.Position;
+import org.telescope.BaseTest;
+import org.telescope.TestIdentityManager;
+import org.telescope.model.Event;
+import org.telescope.model.Position;
 
 public class IgnitionEventHandlerTest extends BaseTest {
     

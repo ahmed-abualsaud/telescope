@@ -1,10 +1,10 @@
-package org.traccar.geolocation;
+package org.telescope.geolocation;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.model.CellTower;
-import org.traccar.model.Network;
+import org.telescope.BaseTest;
+import org.telescope.model.CellTower;
+import org.telescope.model.Network;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

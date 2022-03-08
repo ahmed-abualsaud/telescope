@@ -1,4 +1,4 @@
-package org.traccar.notification;
+package org.telescope.notification;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,8 +12,8 @@ import java.util.Properties;
 
 public class NotificiationMailTest {
 
-    private static final String FROM = "notification@traccar.org";
-    private static final String TO = "anton@traccar.org";
+    private static final String FROM = "notification@telescope.org";
+    private static final String TO = "anton@telescope.org";
 
     private static final String BODY = "Test email body.";
     private static final String SUBJECT = "Test";

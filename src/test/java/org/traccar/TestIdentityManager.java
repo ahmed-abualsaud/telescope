@@ -1,8 +1,8 @@
-package org.traccar;
+package org.telescope;
 
-import org.traccar.database.IdentityManager;
-import org.traccar.model.Device;
-import org.traccar.model.Position;
+import org.telescope.database.IdentityManager;
+import org.telescope.model.Device;
+import org.telescope.model.Position;
 
 public final class TestIdentityManager implements IdentityManager {
 

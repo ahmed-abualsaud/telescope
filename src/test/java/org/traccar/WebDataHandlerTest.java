@@ -1,9 +1,9 @@
-package org.traccar;
+package org.telescope;
 
 import org.junit.Test;
-import org.traccar.config.Config;
-import org.traccar.config.Keys;
-import org.traccar.model.Position;
+import org.telescope.config.Config;
+import org.telescope.config.Keys;
+import org.telescope.model.Position;
 
 import static org.junit.Assert.assertEquals;
 

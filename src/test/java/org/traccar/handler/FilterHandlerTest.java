@@ -1,11 +1,11 @@
-package org.traccar.handler;
+package org.telescope.handler;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.traccar.BaseTest;
-import org.traccar.config.Config;
-import org.traccar.config.Keys;
-import org.traccar.model.Position;
+import org.telescope.BaseTest;
+import org.telescope.config.Config;
+import org.telescope.config.Keys;
+import org.telescope.model.Position;
 
 import java.util.Date;
 

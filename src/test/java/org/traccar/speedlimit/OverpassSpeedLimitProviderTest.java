@@ -1,4 +1,4 @@
-package org.traccar.speedlimit;
+package org.telescope.speedlimit;
 
 import org.junit.Ignore;
 import org.junit.Test;

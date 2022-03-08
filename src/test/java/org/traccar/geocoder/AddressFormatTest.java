@@ -1,4 +1,4 @@
-package org.traccar.geocoder;
+package org.telescope.geocoder;
 
 import org.junit.Test;
 

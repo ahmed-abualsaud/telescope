@@ -1,9 +1,9 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
-import org.traccar.ProtocolTest;
+import org.telescope.ProtocolTest;
 
 public class PstFrameEncoderTest extends ProtocolTest {
 

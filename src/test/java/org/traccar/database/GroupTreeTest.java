@@ -1,8 +1,8 @@
-package org.traccar.database;
+package org.telescope.database;
 
 import org.junit.Test;
-import org.traccar.model.Device;
-import org.traccar.model.Group;
+import org.telescope.model.Device;
+import org.telescope.model.Group;
 
 import java.util.ArrayList;
 import java.util.Collection;

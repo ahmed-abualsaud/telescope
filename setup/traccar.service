@@ -1,12 +1,12 @@
 [Unit]
-Description=traccar
+Description=telescope
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/traccar
-ExecStart=/opt/traccar/jre/bin/java -jar tracker-server.jar conf/traccar.xml
-SyslogIdentifier=traccar
+WorkingDirectory=/opt/telescope
+ExecStart=/opt/telescope/jre/bin/java -jar tracker-server.jar conf/telescope.xml
+SyslogIdentifier=telescope
 SuccessExitStatus=143
 WatchdogSec=600
 Restart=on-failure

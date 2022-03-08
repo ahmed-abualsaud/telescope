@@ -6,7 +6,7 @@
 
     <!--
 
-    DO NOT MODIFY THIS FILE. Use traccar.xml instead.
+    DO NOT MODIFY THIS FILE. Use telescope.xml instead.
 
     -->
 
@@ -32,7 +32,7 @@
 
     <entry key='notificator.types'>web,mail</entry>
 
-    <entry key='server.statistics'>https://www.traccar.org/analytics/</entry>
+    <entry key='server.statistics'>https://www.telescope.org/analytics/</entry>
 
     <entry key='commands.queueing'>true</entry>
 

@@ -1,8 +1,8 @@
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.traccar.ProtocolTest;
+import org.telescope.ProtocolTest;
 
 public class TeltonikaProtocolDecoderTest extends ProtocolTest {
 

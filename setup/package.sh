@@ -8,7 +8,7 @@ cd $(dirname $0)
 
 usage () {
   echo "Usage: $0 VERSION [PLATFORM]"
-  echo "Build Traccar installers."
+  echo "Build telescope installers."
   echo
   echo "Without PLATFORM provided, builds installers for all platforms."
   echo
@@ -52,7 +52,7 @@ check_requirement () {
 }
 
 info "Checking build requirements for platform: "$PLATFORM
-check_requirement "Traccar server archive" "ls ../target/tracker-server.jar" "Missing traccar archive"
+check_requirement "telescope server archive" "ls ../target/tracker-server.jar" "Missing telescope archive"
 check_requirement "Zip" "which zip" "Missing zip binary"
 check_requirement "Unzip" "which unzip" "Missing unzip binary"
 if [ $PLATFORM != "other" ]; then
@@ -87,9 +87,9 @@ prepare () {
   cp ../target/lib/* out/lib
   cp ../schema/* out/schema
   cp -r ../templates/* out/templates
-  cp -r ../traccar-web/web/* out/web
+  cp -r ../telescope-web/web/* out/web
   cp default.xml out/conf
-  cp traccar.xml out/conf
+  cp telescope.xml out/conf
 
   if [ $PLATFORM = "all" -o $PLATFORM = "windows-64" ]; then
 	innoextract i*setup-*.exe >/dev/null
@@ -110,7 +110,7 @@ package_other () {
   info "Building Zip archive"
   cp README.txt out
   cd out
-  zip -q -r ../traccar-other-$VERSION.zip *
+  zip -q -r ../telescope-other-$VERSION.zip *
   cd ..
   rm out/README.txt
   ok "Created Zip archive"
@@ -121,28 +121,28 @@ package_windows () {
   unzip -q -o java-*.windows.ojdkbuild.x86_64.zip
   jlink --module-path java-*.windows.ojdkbuild.x86_64/jmods --add-modules java.se,jdk.charsets,jdk.crypto.ec --output out/jre
   rm -rf java-*.windows.ojdkbuild.x86_64
-  wine app/ISCC.exe traccar.iss >/dev/null
+  wine app/ISCC.exe telescope.iss >/dev/null
   rm -rf out/jre
-  zip -q -j traccar-windows-64-$VERSION.zip Output/traccar-setup.exe README.txt
+  zip -q -j telescope-windows-64-$VERSION.zip Output/telescope-setup.exe README.txt
   rm -r Output
   ok "Created Windows 64 installer"
 }
 
 package_linux () {
   cp setup.sh out
-  cp traccar.service out
+  cp telescope.service out
 
   unzip -q -o jdk-*-linux-$1.zip
   jlink --module-path jdk-*-linux-$1/jmods --add-modules java.se,jdk.charsets,jdk.crypto.ec --output out/jre
   rm -rf jdk-*-linux-$1
-  makeself --needroot --quiet --notemp out traccar.run "traccar" ./setup.sh
+  makeself --needroot --quiet --notemp out telescope.run "telescope" ./setup.sh
   rm -rf out/jre
 
-  zip -q -j traccar-linux-$2-$VERSION.zip traccar.run README.txt
+  zip -q -j telescope-linux-$2-$VERSION.zip telescope.run README.txt
 
-  rm traccar.run
+  rm telescope.run
   rm out/setup.sh
-  rm out/traccar.service
+  rm out/telescope.service
 }
 
 package_linux_64 () {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 - 2019 Anton Tananaev (anton@traccar.org)
+ * Copyright 2017 - 2019 Anton Tananaev (anton@telescope.org)
  * Copyright 2017 Anatoliy Golubev (darth.naihil@gmail.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.traccar.protocol;
+package org.telescope.protocol;
 
 import org.junit.Test;
-import org.traccar.ProtocolTest;
-import org.traccar.model.Command;
+import org.telescope.ProtocolTest;
+import org.telescope.model.Command;
 
 import static org.junit.Assert.assertEquals;
 

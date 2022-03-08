@@ -11,5 +11,7 @@
   <include file="drivers.xml" relativeToChangelogFile="true" />
   <include file="devices.xml" relativeToChangelogFile="true" />
   <include file="positions.xml" relativeToChangelogFile="true" />
-  
+  <include file="histories.xml" relativeToChangelogFile="true" />
+  <include file="maintenances.xml" relativeToChangelogFile="true" />
+
 </databaseChangeLog>

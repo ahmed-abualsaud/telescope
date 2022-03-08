@@ -1,4 +1,4 @@
-package org.traccar.helper;
+package org.telescope.helper;
 
 import org.junit.Ignore;
 import org.junit.Test;

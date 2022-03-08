@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+  <changeSet author="telescope" id="maintenances">
+
+    <createTable tableName="maintenances">
+      <column name="id" type="INT" autoIncrement="true">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="device_id" type="INT">
+        <constraints nullable="false" />
+      </column>
+      <column name="unique_id" type="VARCHAR(128)">
+        <constraints nullable="false" />
+      </column>
+      <column name="name" type="VARCHAR(128)">
+        <constraints nullable="true" />
+      </column>
+      <column name="type" type="ENUM(
+        'ALARM',
+        'FUEL_LEVEL', 
+        'FUEL_CONSUMPTION', 
+        'FUEL_USED_LITERS', 
+        'SPEED_METERS',
+        'MOTION_STATUS', 
+        'BATTERY_LEVEL', 
+        'BATTERY_CHARGING', 
+        'DISTANCE_METERS', 
+        'DURATION_SECONDS',
+        'IGNITION_STATUS', 
+        'ACCELERATION_METERS'
+      )">
+        <constraints nullable="false" />
+      </column>
+      <column name="attribute_value" type="VARCHAR(128)">
+        <constraints nullable="false" />
+      </column>
+      <column name="attribute_start" type="VARCHAR(128)">
+        <constraints nullable="true" />
+      </column>
+      <column name="maintain" type="BOOLEAN" defaultValueBoolean="false">
+        <constraints nullable="false" />
+      </column>
+      <column name="maintained" type="BOOLEAN" defaultValueBoolean="false">
+        <constraints nullable="false" />
+      </column>
+      <column name="periodically" type="BOOLEAN" defaultValueBoolean="false">
+        <constraints nullable="false" />
+      </column>
+      <column name="maintain_count" type="INT" defaultValueNumeric="0">
+        <constraints nullable="false" />
+      </column>
+      <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false" />
+      </column>
+      <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+
+
+    <addForeignKeyConstraint baseTableName="maintenances" baseColumnNames="device_id" constraintName="fk_maintenances_device_id" onDelete="CASCADE"
+                             referencedColumnNames="id" referencedTableName="devices" />
+
+  </changeSet>
+
+</databaseChangeLog>
